@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.carlos.wumpusproject.MainActivity">
+    tools:context="com.example.carlos.wumpusproject.GameModeActivity">
 
     <LinearLayout
         android:layout_width="0dp"
@@ -13,48 +13,52 @@
         tools:layout_constraintTop_creator="1"
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintBottom_creator="1"
+        android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="8dp"
         app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp"
         tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp">
 
         <ImageView
-            android:id="@+id/wumpusIMG1"
-            android:layout_width="fill_parent"
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/wumpus_large" />
+            app:srcCompat="@drawable/wumpus_large"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="0dp" />
 
         <TextView
-            android:id="@+id/introMessage"
-            android:layout_width="fill_parent"
-            android:layout_height="60dp"
-            android:fontFamily="sans-serif-condensed"
-            android:textSize="25dp"
+            android:id="@+id/gameModeText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:textColor="#FF000000"
-            android:text="Bienvenido al juego The Wumpus!\nPor favor escoja la forma del laberinto en el que desea jugar."
-            />
+            android:textSize="30dp"
+            android:text="Por favor seleccione la modalidad del juego:" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp">
+            android:orientation="horizontal">
 
             <Button
-                android:id="@+id/PoliRegButton"
+                android:id="@+id/individualMode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Poliedro Regular" />
+                android:text="Individual" />
 
             <Button
-                android:id="@+id/LabIrregButton"
+                android:id="@+id/socialMode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Laberinto Irregular" />
+                android:text="Social" />
         </LinearLayout>
 
     </LinearLayout>
