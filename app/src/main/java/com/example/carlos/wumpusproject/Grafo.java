@@ -34,7 +34,7 @@ public class Grafo {
     }
 
     /**
-     * Se borra un camino entre loa nodos especificados.
+     * Se borra un camino entre los nodos especificados.
      */
     public void deleteArista(int nodoX, int nodoY) {
         if (matriz[nodoX][nodoY] == true) {
