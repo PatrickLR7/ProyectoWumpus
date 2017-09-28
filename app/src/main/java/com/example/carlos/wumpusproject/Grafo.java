@@ -21,6 +21,7 @@ public class Grafo {
                 matriz[x][y] = false;
             }
         }
+
     }
 
     /**
@@ -39,18 +40,21 @@ public class Grafo {
         if (matriz[nodoX][nodoY] == true) {
             matriz[nodoX][nodoY] = false;
         }
+
     }
 
     /**
      * Se obtienen los nodos adyacentes al nodo especificado por parametro.
      */
     public List<Integer> obtenerVecinos(int Nodo) {
+
         List<Integer> lista = new LinkedList<>();
         for (int x = 0; x < totalCuevas; x++) {
             if (matriz[Nodo][x] == true) {
                 lista.add(x);
             }
         }
+
         return lista;
     }
 }
