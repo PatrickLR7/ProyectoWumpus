@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">WumpusProject</string>
+    <string name="labyrinthText">Dibuje el laberinto, para ello debe unir los puntos.</string>
+    <string name="title_activity_labirynth_draw">LabirynthDraw</string>
 </resources>

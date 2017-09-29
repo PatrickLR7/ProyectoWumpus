@@ -28,7 +28,7 @@ public class Grafo {
      * Se agrega un camino entre los nodos especificados.
      */
     public void addArista(int nodoX, int nodoY) {
-        if (matriz[nodoX][nodoY] == false) {
+        if (!matriz[nodoX][nodoY]) {
             matriz[nodoX][nodoY] = true;
         }
     }
@@ -37,7 +37,7 @@ public class Grafo {
      * Se borra un camino entre loa nodos especificados.
      */
     public void deleteArista(int nodoX, int nodoY) {
-        if (matriz[nodoX][nodoY] == true) {
+        if (matriz[nodoX][nodoY]) {
             matriz[nodoX][nodoY] = false;
         }
 
@@ -50,7 +50,7 @@ public class Grafo {
 
         List<Integer> lista = new LinkedList<>();
         for (int x = 0; x < totalCuevas; x++) {
-            if (matriz[Nodo][x] == true) {
+            if (matriz[Nodo][x]) {
                 lista.add(x);
             }
         }
