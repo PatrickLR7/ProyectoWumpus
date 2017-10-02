@@ -1,5 +1,6 @@
 package com.example.carlos.wumpusproject;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,13 +25,18 @@ public class GameModeActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View view) {
+        Intent i = new Intent(getApplicationContext(), MainActivity.class);
         switch (view.getId()) {
             case R.id.individualMode:
                 Toast.makeText(this, "Ha escogido el modo individual", Toast.LENGTH_LONG).show();
+                //finishActivity(R.layout.activity_game_mode);
+                startActivity(i);
                 break;
 
             case R.id.socialMode:
                 Toast.makeText(this, "Ha escogido el modo social", Toast.LENGTH_LONG).show();
+                //finishActivity(R.layout.activity_game_mode);
+                startActivity(i);
                 break;
         }
     }
