@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".GameModeActivity" />
-        <activity android:name=".GraphDraw"></activity>
+        <activity android:name=".GraphDraw" />
+        <activity android:name=".GrafosRegulares" />
     </application>
 
 </manifest>
