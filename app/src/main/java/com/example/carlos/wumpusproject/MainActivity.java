@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -15,12 +14,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game_mode);
+        setContentView(R.layout.activity_main);
 
         poliedro = (Button) findViewById(R.id.PoliRegButton);
-        poliedro.setOnClickListener((View.OnClickListener) this);
+        poliedro.setOnClickListener(this);
         laberinto = (Button) findViewById(R.id.LabIrregButton);
-        laberinto.setOnClickListener((View.OnClickListener) this);
+        laberinto.setOnClickListener(this);
     }
 
     @Override

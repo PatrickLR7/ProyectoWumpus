@@ -7,21 +7,18 @@ import android.widget.ImageButton;
 
 import java.util.ArrayList;
 
-public class GraphDraw extends AppCompatActivity{
-
+public class GraphDraw extends AppCompatActivity implements View.OnClickListener {
 
     private ArrayList<ImageButton> listaBotones = new ArrayList<ImageButton>();
-    private String nombreBoton = " ";
+    private String nombreBoton = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph_draw);
-
     }
 
-    public void inicializarBotones(View v){
-
+    public void inicializarBotones(View v) {
         for(int i = 0; i < 10; i++){
             for(int j = 0; j < 10; j++){
                 nombreBoton = "imageButton";
@@ -33,9 +30,9 @@ public class GraphDraw extends AppCompatActivity{
         }
     }
 
-    public void clickBoton (View v){
+    @Override
+    public void onClick(View view) {
 
     }
-
 }
 
