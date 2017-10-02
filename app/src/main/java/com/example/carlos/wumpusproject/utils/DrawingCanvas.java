@@ -61,13 +61,13 @@ public class DrawingCanvas extends View {
         float touchX = event.getX();
         float touchY = event.getY();
 
-        switch (event.getAction()) {
+/*        switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 drawPath.moveTo(touchX, touchY);
                 break;
-            case MotionEvent.ACTION_MOVE:
+            case MotionEvent.ACTION_MOVE:*/
                 drawPath.lineTo(touchX, touchY);
-                break;
+/*                break;
             case MotionEvent.ACTION_UP:
                 drawPath.lineTo(touchX, touchY);
                 canvas.drawPath(drawPath, drawPaint);
@@ -75,7 +75,7 @@ public class DrawingCanvas extends View {
                 break;
             default:
                 return false;
-        }
+        }*/
 
         // Repaint
         invalidate();
