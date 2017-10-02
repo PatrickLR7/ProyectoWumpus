@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">WumpusProject</string>
-    <string name="labyrinthText">Dibuje el laberinto, para ello debe unir los puntos.</string>
+    <string name="labyrinthText">Dibuje el laberinto, para ello debe unir los puntos.\nToque dos puntos distintos para unirlos.
+     \nToque dos puntos ya unidos para separar su union.\nSi toca un boton por error, vuelvalo a tocar para evitar unirlo
+    a otro. Buena suerte!!!</string>
     <string name="title_activity_labirynth_draw">LabirynthDraw</string>
 </resources>

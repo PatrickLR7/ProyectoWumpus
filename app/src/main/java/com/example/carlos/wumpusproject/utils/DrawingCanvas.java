@@ -55,13 +55,6 @@ public class DrawingCanvas extends View {
         canvas = new Canvas(canvasBitmap);
     }
 
-    // Paints the view. It is called by the OnTouchEvent function
-    @Override
-    protected void onDraw(Canvas canvas) {
-        canvas.drawBitmap(canvasBitmap, 0, 0, canvasPaint);
-        canvas.drawPath(drawPath, drawPaint);
-    }
-
     // Registers users finger touch actions
     @Override
     public boolean onTouchEvent(MotionEvent event) {

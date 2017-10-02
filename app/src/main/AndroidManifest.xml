@@ -17,10 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".GameModeActivity" />
-        <activity
-            android:name=".LabirynthDraw"
-            android:label="@string/title_activity_labirynth_draw"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".GraphDraw"></activity>
     </application>
 
 </manifest>
