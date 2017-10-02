@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +40,7 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
         List<Integer> tipos;
         switch(v.getId()){
             case R.id.Tetrahedro:
+                Toast.makeText(this, "Su laberinto tiene 4 cuevas", Toast.LENGTH_LONG).show();
                 laberinto = new Grafo(4);
                 tipos = llenarCueva(4);
                 laberinto.addArista(0,1);
@@ -53,7 +56,9 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
                 laberinto.addArista(3,1);
                 laberinto.addArista(3,2);
                 break;
+
             case R.id.Octahedro:
+                Toast.makeText(this, "Su laberinto tiene 6 cuevas", Toast.LENGTH_LONG).show();
                 laberinto = new Grafo(6);
                 tipos = llenarCueva(6);
                 laberinto.addArista(0,1);
@@ -81,7 +86,9 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
                 laberinto.addArista(5,3);
                 laberinto.addArista(5,4);
                 break;
+
             case R.id.Cubo:
+                Toast.makeText(this, "Su laberinto tiene 8 cuevas", Toast.LENGTH_LONG).show();
                 laberinto = new Grafo(8);
                 tipos = llenarCueva(8);
                 laberinto.addArista(0,1);
@@ -109,10 +116,11 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
                 laberinto.addArista(7,4);
                 laberinto.addArista(7,6);
                 break;
+
             case R.id.Icosahedro:
+                Toast.makeText(this, "Su laberinto tiene 12 cuevas", Toast.LENGTH_LONG).show();
                 laberinto = new Grafo(12);
                 tipos = llenarCueva(12);
-
                 laberinto.addArista(0,1);
                 laberinto.addArista(0,5);
                 laberinto.addArista(0,6);
@@ -173,9 +181,10 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
                 laberinto.addArista(11,5);
                 laberinto.addArista(11,7);
                 laberinto.addArista(11,9);
-
                 break;
+
             case R.id.Dodecahedro:
+                Toast.makeText(this, "Su laberinto tiene 20 cuevas", Toast.LENGTH_LONG).show();
                 laberinto = new Grafo(20);
                 tipos = llenarCueva(20);
                 laberinto.addArista(0,1);

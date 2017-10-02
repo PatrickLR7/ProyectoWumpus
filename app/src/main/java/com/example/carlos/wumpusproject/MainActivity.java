@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_game_mode);
 
         poliedro = (Button) findViewById(R.id.PoliRegButton);
         poliedro.setOnClickListener((View.OnClickListener) this);
@@ -25,12 +25,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        Intent intent;
         switch (view.getId()) {
             case R.id.PoliRegButton:
-                Intent i1 = new Intent(getApplicationContext(), GrafosRegulares.class);
-                startActivity(i1);
+                intent = new Intent(getApplicationContext(), GrafosRegulares.class);
+                startActivity(intent);
                 break;
             case R.id.LabIrregButton:
+                intent = new Intent(getApplicationContext(), GraphDraw.class);
+                startActivity(intent);
                 break;
         }
     }
