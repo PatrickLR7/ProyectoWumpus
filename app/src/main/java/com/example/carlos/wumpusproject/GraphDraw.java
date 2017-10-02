@@ -7,11 +7,11 @@ import android.widget.ImageButton;
 
 import java.util.ArrayList;
 
-public class GraphDraw extends AppCompatActivity {
+public class GraphDraw extends AppCompatActivity{
 
 
     private ArrayList<ImageButton> listaBotones = new ArrayList<ImageButton>();
-    private String nombreBoton = "";
+    private String nombreBoton = " ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
