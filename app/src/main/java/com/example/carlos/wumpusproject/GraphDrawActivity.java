@@ -1,5 +1,7 @@
 package com.example.carlos.wumpusproject;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class GraphDrawActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -44,7 +47,13 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View view) {
+        int btnId = getResources().getIdentifier(nombreBoton, "id", getPackageName());
 
+        for (int i = 0; i < listaBotones.size(); i++){
+           if(listaBotones.get(i).getId() == view.getId()) {
+              //  listaBotones.get(i).setBackground(R.mipmap.cueva);
+           }
+        }
     }
 }
 

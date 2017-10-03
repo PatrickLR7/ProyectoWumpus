@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 /**
  * Created by carlos on 8/23/17.
@@ -27,10 +28,15 @@ public class DrawingCanvas extends View {
     private static float dotSize;
     private static boolean erased = false;
 
+    private float inicioX = -1;
+    private float inicioY = -1;
+    private float finalX = -1;
+    private float finalY = -1;
+
 
     public DrawingCanvas(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        this.setupDrawing();
+        setupDrawing();
     }
 
     private void setupDrawing(){
@@ -61,22 +67,31 @@ public class DrawingCanvas extends View {
         float touchX = event.getX();
         float touchY = event.getY();
 
-/*        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                drawPath.moveTo(touchX, touchY);
-                break;
-            case MotionEvent.ACTION_MOVE:*/
-                drawPath.lineTo(touchX, touchY);
-/*                break;
-            case MotionEvent.ACTION_UP:
-                drawPath.lineTo(touchX, touchY);
-                canvas.drawPath(drawPath, drawPaint);
-                drawPath.reset();
-                break;
-            default:
-                return false;
-        }*/
+        if(inicioX == -1 && inicioY == -1){
+            inicioX = touchX;
+            inicioY = touchY;
+        }
+        else{
+            finalX = touchX;
+            finalY = touchY;
+        }
 
+        if(inicioX != -1 && inicioY != -1 && finalX  != -1 && finalY!= -1) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                  //  drawPath.moveTo(inicioX, inicioY);
+                  //  drawPath.lineTo(inicioX, inicioY);
+                  //  drawPath.lineTo(finalX, finalY);
+                    System.out.println("Coordenadas1: " + inicioX + inicioY);
+                    System.out.println("Coordenadas2: " + finalX + finalY);
+                    drawPaint.setColor(Color.BLACK);
+                    canvas.drawLine(inicioX, inicioY, finalX, finalY, drawPaint);
+                    drawPath.reset();
+                    break;
+                default:
+                    return false;
+            }
+        }
         // Repaint
         invalidate();
         return true;
