@@ -1,4 +1,4 @@
-package com.example.carlos.wumpusproject;
+package com.example.carlos.wumpusproject.utils;
 
 import java.util.LinkedList;
 import java.util.List;
