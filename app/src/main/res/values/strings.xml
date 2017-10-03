@@ -4,4 +4,5 @@
      \nToque dos puntos ya unidos para separar su union.\nSi toca un boton por error, vuelvalo a tocar para evitar unirlo
     a otro. Buena suerte!!!</string>
     <string name="title_activity_labirynth_draw">LabirynthDraw</string>
+    <string name="graphDrawFinished">Finalizar</string>
 </resources>

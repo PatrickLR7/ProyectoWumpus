@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.carlos.wumpusproject.GraphDraw">
+    tools:context="com.example.carlos.wumpusproject.GraphDrawActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/buttonMatrix">
 
         <TextView
             android:id="@+id/textView"
@@ -889,6 +890,12 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-
+    <Button
+        android:id="@+id/graphDrawButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/graphDrawFinished"
+        android:layout_alignBottom="@+id/buttonMatrix"
+        android:layout_centerInParent="true" />
 
 </android.widget.RelativeLayout>

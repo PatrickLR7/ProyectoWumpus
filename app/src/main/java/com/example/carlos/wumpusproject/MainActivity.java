@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.LabIrregButton:
-                intent = new Intent(getApplicationContext(), GraphDraw.class);
+                intent = new Intent(getApplicationContext(), GraphDrawActivity.class);
                 startActivity(intent);
                 break;
         }
