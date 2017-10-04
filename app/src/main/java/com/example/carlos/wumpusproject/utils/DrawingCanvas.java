@@ -1,7 +1,9 @@
 package com.example.carlos.wumpusproject.utils;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -12,6 +14,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
+
+import com.example.carlos.wumpusproject.R;
 
 /**
  * Created by carlos on 8/23/17.
@@ -65,6 +69,8 @@ public class DrawingCanvas extends View {
     protected void onDraw (Canvas canvas) {
         canvas.drawBitmap(canvasBitmap, 0, 0, canvasPaint);
         canvas.drawPath(drawPath, drawPaint);
+        Resources res = getResources();
+        Bitmap bitCueva = BitmapFactory.decodeResource(res, R.drawable.cueva1);
     }
 
     // Registers users finger touch actions

@@ -8,12 +8,11 @@
 
     <view
         android:id="@+id/drawingCanvas"
+        class="com.example.carlos.wumpusproject.utils.DrawingCanvas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        class="com.example.carlos.wumpusproject.utils.DrawingCanvas"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,10 +28,11 @@
             android:textColor="@color/red"/>
 
         <LinearLayout
+            android:id="@+id/buttonMatrix"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:id="@+id/buttonMatrix">
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -53,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder"/>
+                    app:srcCompat="@drawable/dotborder" />
 
                 <ImageButton
                     android:id="@+id/imageButton02"
@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder"/>
+                    app:srcCompat="@drawable/dotborder" />
 
                 <ImageButton
                     android:id="@+id/imageButton03"
@@ -69,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder"/>
+                    app:srcCompat="@drawable/dotborder" />
 
                 <ImageButton
                     android:id="@+id/imageButton04"
@@ -77,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder"/>
+                    app:srcCompat="@drawable/dotborder" />
 
                 <ImageButton
                     android:id="@+id/imageButton05"
@@ -85,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder"/>
+                    app:srcCompat="@drawable/dotborder" />
 
                 <ImageButton
                     android:id="@+id/imageButton06"
@@ -93,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder"/>
+                    app:srcCompat="@drawable/dotborder" />
 
                 <ImageButton
                     android:id="@+id/imageButton07"
@@ -101,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder"/>
+                    app:srcCompat="@drawable/dotborder" />
 
                 <ImageButton
                     android:id="@+id/imageButton08"
@@ -109,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder"/>
+                    app:srcCompat="@drawable/dotborder" />
 
                 <ImageButton
                     android:id="@+id/imageButton09"
@@ -117,7 +117,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder"/>
+                    app:srcCompat="@drawable/dotborder" />
             </LinearLayout>
 
             <LinearLayout
@@ -233,7 +233,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder"/>
+                    app:srcCompat="@drawable/dotborder" />
 
                 <ImageButton
                     android:id="@+id/imageButton23"
@@ -241,7 +241,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder"/>
+                    app:srcCompat="@drawable/dotborder" />
 
                 <ImageButton
                     android:id="@+id/imageButton24"
