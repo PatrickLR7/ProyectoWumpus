@@ -71,37 +71,37 @@ public class DrawingCanvas extends View {
         canvas.drawBitmap(canvasBitmap, 0, 0, canvasPaint);
         canvas.drawPath(drawPath, drawPaint);
         Resources res = getResources();
-        Bitmap bitCueva = BitmapFactory.decodeResource(res, R.drawable.cueva1);
+        Bitmap bitPunto = BitmapFactory.decodeResource(res, R.drawable.punto1);
         //fila 1
-        canvas.drawBitmap(bitCueva, 0, 150, drawPaint);
-        canvas.drawBitmap(bitCueva, 250, 150, drawPaint);
-        canvas.drawBitmap(bitCueva, 500, 150, drawPaint);
-        canvas.drawBitmap(bitCueva, 750, 150, drawPaint);
-        canvas.drawBitmap(bitCueva, 1000, 150, drawPaint);
+        canvas.drawBitmap(bitPunto, 0, 150, drawPaint);
+        canvas.drawBitmap(bitPunto, 250, 150, drawPaint);
+        canvas.drawBitmap(bitPunto, 500, 150, drawPaint);
+        canvas.drawBitmap(bitPunto, 750, 150, drawPaint);
+        canvas.drawBitmap(bitPunto, 1000, 150, drawPaint);
         //fila 2
-        canvas.drawBitmap(bitCueva, 0, 450, drawPaint);
-        canvas.drawBitmap(bitCueva, 250, 450, drawPaint);
-        canvas.drawBitmap(bitCueva, 500, 450, drawPaint);
-        canvas.drawBitmap(bitCueva, 750, 450, drawPaint);
-        canvas.drawBitmap(bitCueva, 1000, 450, drawPaint);
+        canvas.drawBitmap(bitPunto, 0, 450, drawPaint);
+        canvas.drawBitmap(bitPunto, 250, 450, drawPaint);
+        canvas.drawBitmap(bitPunto, 500, 450, drawPaint);
+        canvas.drawBitmap(bitPunto, 750, 450, drawPaint);
+        canvas.drawBitmap(bitPunto, 1000, 450, drawPaint);
         //fila 3
-        canvas.drawBitmap(bitCueva, 0, 750, drawPaint);
-        canvas.drawBitmap(bitCueva, 250, 750, drawPaint);
-        canvas.drawBitmap(bitCueva, 500, 750, drawPaint);
-        canvas.drawBitmap(bitCueva, 750, 750, drawPaint);
-        canvas.drawBitmap(bitCueva, 1000, 750, drawPaint);
+        canvas.drawBitmap(bitPunto, 0, 750, drawPaint);
+        canvas.drawBitmap(bitPunto, 250, 750, drawPaint);
+        canvas.drawBitmap(bitPunto, 500, 750, drawPaint);
+        canvas.drawBitmap(bitPunto, 750, 750, drawPaint);
+        canvas.drawBitmap(bitPunto, 1000, 750, drawPaint);
         //fila 4
-        canvas.drawBitmap(bitCueva, 0, 1050, drawPaint);
-        canvas.drawBitmap(bitCueva, 250, 1050, drawPaint);
-        canvas.drawBitmap(bitCueva, 500, 1050, drawPaint);
-        canvas.drawBitmap(bitCueva, 750, 1050, drawPaint);
-        canvas.drawBitmap(bitCueva, 1000, 1050, drawPaint);
+        canvas.drawBitmap(bitPunto, 0, 1050, drawPaint);
+        canvas.drawBitmap(bitPunto, 250, 1050, drawPaint);
+        canvas.drawBitmap(bitPunto, 500, 1050, drawPaint);
+        canvas.drawBitmap(bitPunto, 750, 1050, drawPaint);
+        canvas.drawBitmap(bitPunto, 1000, 1050, drawPaint);
         //fila 5
-        canvas.drawBitmap(bitCueva, 0, 1350, drawPaint);
-        canvas.drawBitmap(bitCueva, 250, 1350, drawPaint);
-        canvas.drawBitmap(bitCueva, 500, 1350, drawPaint);
-        canvas.drawBitmap(bitCueva, 750, 1350, drawPaint);
-        canvas.drawBitmap(bitCueva, 1000, 1350, drawPaint);
+        canvas.drawBitmap(bitPunto, 0, 1350, drawPaint);
+        canvas.drawBitmap(bitPunto, 250, 1350, drawPaint);
+        canvas.drawBitmap(bitPunto, 500, 1350, drawPaint);
+        canvas.drawBitmap(bitPunto, 750, 1350, drawPaint);
+        canvas.drawBitmap(bitPunto, 1000, 1350, drawPaint);
     }
 
     // Registers users finger touch actions
@@ -157,14 +157,19 @@ public class DrawingCanvas extends View {
     
     public boolean verificarCoordenadas(float inicioX, float inicioY, float finalX, float finalY ){
         boolean dibujar = false;
-
+        Resources res = getResources();
+        Bitmap bitCueva = BitmapFactory.decodeResource(res, R.drawable.cueva1);
 
         if(inicioX >= 0 && inicioX <= 50 && inicioY >= 150 && inicioY <= 200){ //1ra fila
 
+              canvas.drawBitmap(bitCueva, 0, 150, drawPaint);
 
              if(finalX >= 250 && finalX <= 300 && finalY >= 150 && finalY <= 200){
 
+
                 //cambiar caquita
+                 dibujar = true;
+                 canvas.drawBitmap(bitCueva, 250, 150, drawPaint);
 
             }else if(finalX >= 500 && finalX <= 550 && finalY >= 150 && finalY <= 200){
 
@@ -260,6 +265,7 @@ public class DrawingCanvas extends View {
 
             }
             //cambiar caquita
+
             
         }else if(inicioX >= 250 && inicioX <= 300 && inicioY >= 150 && inicioY <= 200){
 
@@ -1522,6 +1528,8 @@ public class DrawingCanvas extends View {
             }
             //cambiar caquita
 
+        } else{
+            dibujar = false;
         }
         
         
