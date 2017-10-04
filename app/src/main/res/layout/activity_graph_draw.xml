@@ -13,7 +13,7 @@
         class="com.example.carlos.wumpusproject.utils.DrawingCanvas"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -122,7 +122,7 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dotLayoutHeight"
+                android:layout_height="36dp"
                 android:orientation="horizontal">
 
                 <ImageButton
@@ -208,7 +208,7 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dotLayoutHeight"
+                android:layout_height="36dp"
                 android:orientation="horizontal">
 
                 <ImageButton
@@ -294,7 +294,7 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dotLayoutHeight"
+                android:layout_height="36dp"
                 android:orientation="horizontal">
 
                 <ImageButton
@@ -380,7 +380,7 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dotLayoutHeight"
+                android:layout_height="36dp"
                 android:orientation="horizontal">
 
                 <ImageButton
@@ -466,7 +466,7 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dotLayoutHeight"
+                android:layout_height="36dp"
                 android:orientation="horizontal">
 
                 <ImageButton
@@ -552,7 +552,7 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dotLayoutHeight"
+                android:layout_height="36dp"
                 android:orientation="horizontal">
 
                 <ImageButton
@@ -638,7 +638,7 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dotLayoutHeight"
+                android:layout_height="36dp"
                 android:orientation="horizontal">
 
                 <ImageButton
@@ -724,7 +724,7 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dotLayoutHeight"
+                android:layout_height="36dp"
                 android:orientation="horizontal">
 
                 <ImageButton
@@ -810,7 +810,7 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dotLayoutHeight"
+                android:layout_height="36dp"
                 android:orientation="horizontal">
 
                 <ImageButton
