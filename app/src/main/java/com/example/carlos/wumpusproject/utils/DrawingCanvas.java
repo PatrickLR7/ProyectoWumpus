@@ -61,6 +61,12 @@ public class DrawingCanvas extends View {
         canvas = new Canvas(canvasBitmap);
     }
 
+    @Override
+    protected void onDraw (Canvas canvas) {
+        canvas.drawBitmap(canvasBitmap, 0, 0, canvasPaint);
+        canvas.drawPath(drawPath, drawPaint);
+    }
+
     // Registers users finger touch actions
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -76,22 +82,29 @@ public class DrawingCanvas extends View {
             finalY = touchY;
         }
 
-        if(inicioX != -1 && inicioY != -1 && finalX  != -1 && finalY!= -1) {
+
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                  //  drawPath.moveTo(inicioX, inicioY);
-                  //  drawPath.lineTo(inicioX, inicioY);
-                  //  drawPath.lineTo(finalX, finalY);
-                    System.out.println("Coordenadas1: " + inicioX + inicioY);
-                    System.out.println("Coordenadas2: " + finalX + finalY);
                     drawPaint.setColor(Color.BLACK);
-                    canvas.drawLine(inicioX, inicioY, finalX, finalY, drawPaint);
+                    if(inicioX != -1 && inicioY != -1 && finalX  != -1 && finalY!= -1) {
+                          drawPath.moveTo(inicioX, inicioY);
+                          drawPath.lineTo(finalX, finalY);
+                          canvas.drawPath(drawPath, drawPaint);
+                        // canvas.drawLine(inicioX, inicioY, finalX, finalY, drawPaint);
+                        inicioX = -1;
+                        inicioY = -1;
+                        finalX = -1;
+                        finalY = -1;
+                    }
+                    drawPath.reset();
+                    break;
+                case MotionEvent.ACTION_UP:
                     drawPath.reset();
                     break;
                 default:
                     return false;
             }
-        }
+
         // Repaint
         invalidate();
         return true;

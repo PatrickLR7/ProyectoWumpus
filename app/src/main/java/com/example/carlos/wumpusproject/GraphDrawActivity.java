@@ -1,5 +1,6 @@
 package com.example.carlos.wumpusproject;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -37,6 +38,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
             for (int y = 0; y < 10; y++) {
                 if (matriz[x][y].getId() == v.getId()) {
                     Toast.makeText(this, "imagenbutton" + x + y, Toast.LENGTH_LONG).show();
+                    matriz[x][y].setBackgroundColor(Color.GREEN);
                 }
             }
         }
