@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context="com.example.carlos.wumpusproject.GraphDrawActivity">
 
+    <view
+        android:id="@+id/drawingCanvas"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        class="com.example.carlos.wumpusproject.utils.DrawingCanvas"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,7 +23,7 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/labyrinthText"
             android:textColor="@color/red"/>
@@ -880,15 +889,6 @@
         </LinearLayout>
 
     </LinearLayout>
-
-    <view
-        android:id="@+id/drawingCanvas"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        class="com.example.carlos.wumpusproject.utils.DrawingCanvas"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/graphDrawButton"
