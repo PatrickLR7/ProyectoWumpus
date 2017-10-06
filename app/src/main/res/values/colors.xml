@@ -7,5 +7,5 @@
     <color name="red">#FFFF0000</color>
     <color name="yellow">#FFF0FF0F</color>
     <color name="verde">#FF00FF00</color>
-    <color name="azul">#FF0000FF</color>
+    <color name="azul">#0000ff</color>
 </resources>

@@ -23,20 +23,12 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/labyrinthText"
-            android:textColor="@color/red"
-            android:visibility="gone" />
-
         <LinearLayout
             android:id="@+id/buttonMatrix"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -47,82 +39,81 @@
                     android:id="@+id/imageButton00"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton01"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton02"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton03"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton04"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton05"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton06"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton07"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton08"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton09"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
-            </LinearLayout>
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -135,15 +126,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
+                    app:srcCompat="@drawable/punto1" />
 
                 <ImageButton
                     android:id="@+id/imageButton11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton12"
@@ -151,15 +142,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
+                    app:srcCompat="@drawable/punto1" />
 
                 <ImageButton
                     android:id="@+id/imageButton13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton14"
@@ -167,15 +158,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
+                    app:srcCompat="@drawable/punto1" />
 
                 <ImageButton
                     android:id="@+id/imageButton15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton16"
@@ -183,15 +174,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
+                    app:srcCompat="@drawable/punto1" />
 
                 <ImageButton
                     android:id="@+id/imageButton17"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
+                    android:layout_weight="0"
+                    app:srcCompat="@android:color/transparent"
+                    android:alpha = "0.0" />
 
                 <ImageButton
                     android:id="@+id/imageButton18"
@@ -199,15 +190,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
+                    app:srcCompat="@drawable/punto1" />
 
                 <ImageButton
                     android:id="@+id/imageButton19"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
+                    android:layout_weight="0"
+                    app:srcCompat="@android:color/transparent"
+                    android:alpha = "0.0" />
             </LinearLayout>
 
             <LinearLayout
@@ -219,81 +210,81 @@
                     android:id="@+id/imageButton20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton21"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton22"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton23"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton24"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton25"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton26"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton27"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton28"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton29"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/dotborder" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
             </LinearLayout>
 
             <LinearLayout
@@ -307,15 +298,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    app:srcCompat="@drawable/punto1" />
 
                 <ImageButton
                     android:id="@+id/imageButton31"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton32"
@@ -323,15 +314,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    app:srcCompat="@drawable/punto1"/>
 
                 <ImageButton
                     android:id="@+id/imageButton33"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton34"
@@ -339,15 +330,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    app:srcCompat="@drawable/punto1" />
 
                 <ImageButton
                     android:id="@+id/imageButton35"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton36"
@@ -355,15 +346,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    app:srcCompat="@drawable/punto1" />
 
                 <ImageButton
                     android:id="@+id/imageButton37"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton38"
@@ -371,15 +362,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    app:srcCompat="@drawable/punto1"/>
 
                 <ImageButton
                     android:id="@+id/imageButton39"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
             </LinearLayout>
 
             <LinearLayout
@@ -391,81 +382,81 @@
                     android:id="@+id/imageButton40"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton41"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton42"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton43"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton44"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton45"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton46"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton47"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton48"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton49"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
             </LinearLayout>
 
             <LinearLayout
@@ -479,15 +470,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    app:srcCompat="@drawable/punto1" />
 
                 <ImageButton
                     android:id="@+id/imageButton51"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton52"
@@ -495,15 +486,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    app:srcCompat="@drawable/punto1" />
 
                 <ImageButton
                     android:id="@+id/imageButton53"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton54"
@@ -511,15 +502,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    app:srcCompat="@drawable/punto1" />
 
                 <ImageButton
                     android:id="@+id/imageButton55"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton56"
@@ -527,15 +518,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    app:srcCompat="@drawable/punto1" />
 
                 <ImageButton
                     android:id="@+id/imageButton57"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton58"
@@ -543,15 +534,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    app:srcCompat="@drawable/punto1" />
 
                 <ImageButton
                     android:id="@+id/imageButton59"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
             </LinearLayout>
 
             <LinearLayout
@@ -563,81 +554,81 @@
                     android:id="@+id/imageButton60"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton61"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton62"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton63"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton64"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton65"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton66"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton67"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton68"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton69"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
             </LinearLayout>
 
             <LinearLayout
@@ -651,15 +642,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    app:srcCompat="@drawable/punto1" />
 
                 <ImageButton
                     android:id="@+id/imageButton71"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton72"
@@ -667,15 +658,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    app:srcCompat="@drawable/punto1" />
 
                 <ImageButton
                     android:id="@+id/imageButton73"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton74"
@@ -683,15 +674,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    app:srcCompat="@drawable/punto1" />
 
                 <ImageButton
                     android:id="@+id/imageButton75"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton76"
@@ -699,15 +690,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    app:srcCompat="@drawable/punto1" />
 
                 <ImageButton
                     android:id="@+id/imageButton77"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton78"
@@ -715,15 +706,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    app:srcCompat="@drawable/punto1" />
 
                 <ImageButton
                     android:id="@+id/imageButton79"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
             </LinearLayout>
 
             <LinearLayout
@@ -735,81 +726,81 @@
                     android:id="@+id/imageButton80"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton81"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton82"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton83"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton84"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton85"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton86"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton87"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton88"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton89"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
             </LinearLayout>
 
             <LinearLayout
@@ -823,15 +814,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    app:srcCompat="@drawable/punto1" />
 
                 <ImageButton
                     android:id="@+id/imageButton91"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton92"
@@ -839,15 +830,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    app:srcCompat="@drawable/punto1" />
 
                 <ImageButton
                     android:id="@+id/imageButton93"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton94"
@@ -855,15 +846,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    app:srcCompat="@drawable/punto1"/>
 
                 <ImageButton
                     android:id="@+id/imageButton95"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton96"
@@ -871,15 +862,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    app:srcCompat="@drawable/punto1"/>
 
                 <ImageButton
                     android:id="@+id/imageButton97"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
 
                 <ImageButton
                     android:id="@+id/imageButton98"
@@ -887,17 +878,25 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    app:srcCompat="@drawable/punto1"/>
 
                 <ImageButton
                     android:id="@+id/imageButton99"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBoton"
-                    app:srcCompat="@drawable/littleblackdot" />
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
             </LinearLayout>
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/labyrinthText"
+            android:textColor="@color/azul"
+            android:visibility="visible" />
     </LinearLayout>
 
     <Button

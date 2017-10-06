@@ -1,6 +1,7 @@
 package com.example.carlos.wumpusproject.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -25,15 +26,15 @@ import com.example.carlos.wumpusproject.R;
 public class DrawingCanvas extends View {
 
     private Path drawPath; // Path used to draw lines.
-    private static Paint drawPaint, canvasPaint; // Paint objects to draw and paint the canvas
+    public static Paint drawPaint, canvasPaint; // Paint objects to draw and paint the canvas
     private static int paintColor = 0xFF660000; // Default color
-    private Canvas canvas; // This is the drawing and painting area
+    public Canvas canvas; // This is the drawing and painting area
     private Bitmap canvasBitmap; // Saving canvas
 
     private static float dotSize;
     private static boolean erased = false;
 
-    private float inicioX = -1;
+    public float inicioX = -1;
     private float inicioY = -1;
     private float finalX = -1;
     private float finalY = -1;
@@ -70,8 +71,8 @@ public class DrawingCanvas extends View {
     protected void onDraw (Canvas canvas) {
         canvas.drawBitmap(canvasBitmap, 0, 0, canvasPaint);
         canvas.drawPath(drawPath, drawPaint);
-        Resources res = getResources();
-        Bitmap bitPunto = BitmapFactory.decodeResource(res, R.drawable.punto1);
+   /*     Resources res = getResources();
+        Bitmap bitPunto = BitmapFactory.decodeResource(res, R.drawable.cueva1);
         //fila 1
         canvas.drawBitmap(bitPunto, 0, 150, drawPaint);
         canvas.drawBitmap(bitPunto, 250, 150, drawPaint);
@@ -101,13 +102,13 @@ public class DrawingCanvas extends View {
         canvas.drawBitmap(bitPunto, 250, 1350, drawPaint);
         canvas.drawBitmap(bitPunto, 500, 1350, drawPaint);
         canvas.drawBitmap(bitPunto, 750, 1350, drawPaint);
-        canvas.drawBitmap(bitPunto, 1000, 1350, drawPaint);
+        canvas.drawBitmap(bitPunto, 1000, 1350, drawPaint);*/
     }
 
     // Registers users finger touch actions
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        float touchX = event.getX();
+    /*    float touchX = event.getX();
         float touchY = event.getY();
 
         if(inicioX == -1 && inicioY == -1){
@@ -118,16 +119,16 @@ public class DrawingCanvas extends View {
             finalX = touchX;
             finalY = touchY;
         }
-
+     */
      
         
     
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                drawPaint.setColor(Color.BLACK);
+             /*   drawPaint.setColor(Color.BLACK);
                 if (inicioX != -1 && inicioY != -1 && finalX != -1 && finalY != -1) {
                     
-                    boolean dibujar = verificarCoordenadas(inicioX, inicioY, finalX, finalY); //Verifica si seleccionó 2 cuevas correctamente
+                   boolean dibujar = verificarCoordenadas(inicioX, inicioY, finalX, finalY); //Verifica si seleccionó 2 cuevas correctamente
                     
                     if(dibujar == true) { //Seleccionó 2 cuevas, se cambiaron las imágenes y se puede dibujar la arista
                         drawPath.moveTo(inicioX, inicioY);
@@ -140,22 +141,31 @@ public class DrawingCanvas extends View {
                         finalY = -1;
                     }
                 }
-                drawPath.reset();
+                drawPath.reset(); */
                 break;
             case MotionEvent.ACTION_UP:
-                drawPath.reset();
+                //drawPath.reset();
                 break;
             default:
                 return false;
         }
     
         // Repaint
-        invalidate();
+        //invalidate();
         return true;
-
     }
+
+    public void dibujarLinea(float iX, float iY, float fX, float fY){
+        //canvas.drawLine(iX, iY, fX, fY, drawPaint);
+        drawPath.moveTo(iX, iY);
+        drawPath.lineTo(fX, fY);
+        canvas.drawPath(drawPath, drawPaint);
+        drawPath.reset();
+        invalidate();
+    }
+
     
-    public boolean verificarCoordenadas(float inicioX, float inicioY, float finalX, float finalY ){
+/*    public boolean verificarCoordenadas(float inicioX, float inicioY, float finalX, float finalY ){
         boolean dibujar = false;
         Resources res = getResources();
         Bitmap bitCueva = BitmapFactory.decodeResource(res, R.drawable.cueva1);
@@ -379,7 +389,7 @@ public class DrawingCanvas extends View {
 
         return dibujar;
     }
-    
+ */
 
     //Actualiza color
     public void setColor(String newColor){
@@ -390,12 +400,6 @@ public class DrawingCanvas extends View {
 
     //Poner tamaño del punto
     public static void setDotSize(float nuevoTamanyo){
-
-
-        //float pixel = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-        //        nuevoTamanyo, getResources().getDisplayMetrics());
-
-        //TamanyoPunto=pixel;
         drawPaint.setStrokeWidth(nuevoTamanyo);
     }
 
@@ -404,14 +408,10 @@ public class DrawingCanvas extends View {
     public static void setErasen(boolean estaborrado){
         erased = estaborrado;
         if(erased) {
-
             drawPaint.setColor(Color.WHITE);
-            //drawPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
-
         }
         else {
             drawPaint.setColor(paintColor);
-            //drawPaint.setXfermode(null);
         }
     }
 
@@ -420,4 +420,16 @@ public class DrawingCanvas extends View {
         invalidate();
 
     }
+
+    public void setCoordInicio(float x, float y){
+        inicioX = x;
+        inicioY = y;
+    }
+
+    public void setCoordFinal(float x, float y){
+        finalX = x;
+        finalY = y;
+    }
+
 }
+
