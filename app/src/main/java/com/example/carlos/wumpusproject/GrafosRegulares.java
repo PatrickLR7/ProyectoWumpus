@@ -1,13 +1,11 @@
 package com.example.carlos.wumpusproject;
 
+import com.example.carlos.wumpusproject.utils.Grafo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
-import com.example.carlos.wumpusproject.utils.Grafo;
-
 import java.util.ArrayList;
 import java.util.List;
 
