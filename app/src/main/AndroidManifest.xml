@@ -19,6 +19,8 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".GraphDrawActivity" />
         <activity android:name=".GrafosRegulares" />
+        <uses-permission android:name="android.permission.BLUETOOTH" />
+        <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     </application>
 
 </manifest>
