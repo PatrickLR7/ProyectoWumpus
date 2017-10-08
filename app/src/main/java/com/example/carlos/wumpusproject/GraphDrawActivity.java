@@ -1,5 +1,7 @@
 package com.example.carlos.wumpusproject;
 
+import com.example.carlos.wumpusproject.utils.DBConnection;
+import com.example.carlos.wumpusproject.utils.DBManager;
 import com.example.carlos.wumpusproject.utils.DrawingCanvas;
 import com.example.carlos.wumpusproject.utils.Grafo;
 
@@ -12,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,6 +31,8 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
     private List<Pair<Integer, Integer>> listaAristas;
     private int origen = -1; //Se usa para guardar las aristas
     private int destino = -1; //Se usa para guardar las aristas
+
+    private DBManager dbManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,8 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
         finalizeButton = (Button) findViewById(R.id.graphDrawButton);
         finalizeButton.setOnClickListener(this);
 
+        dbManager = new DBManager(this);
+        dbManager.openDataBase();
         listaAristas = new LinkedList<>();
     }
 
@@ -160,5 +167,17 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                 Toast.makeText(this, "Hubo un error al intentar guardar el laberinto. Por favor intente de nuevo", Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    public Grafo obtenerGrafoDeLibreria(String nombreGrafo){
+        Grafo grafo = new Grafo(5);
+        String consulta = "SELECT * FROM " + DBConnection.Aristas + " WHERE " + DBConnection.GraphName + " = " + nombreGrafo;
+        List<DBManager.AristaGrafo> listaAristas = dbManager.selectQuery(consulta);
+        Iterator<DBManager.AristaGrafo> it = listaAristas.iterator();
+        while (it.hasNext()){
+            DBManager.AristaGrafo aristaGrafo = it.next();
+            grafo.addArista(aristaGrafo.getOrigen(), aristaGrafo.getDestino() );
+        }
+        return grafo;
     }
 }

@@ -10,6 +10,9 @@ import android.database.sqlite.SQLiteException;
 import android.database.Cursor;
 import android.content.Context;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DBManager {
 
     private SQLiteDatabase database;
@@ -64,5 +67,52 @@ public class DBManager {
         database.delete(DBConnection.Aristas, DBConnection.GraphID + " = " + id, null);
     }
 
+    public List<AristaGrafo> selectQuery(String query){
+        Cursor cursor = database.rawQuery(query, null);
+        List<AristaGrafo> aristas = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            while (cursor.moveToNext()) {
+                AristaGrafo temp = new AristaGrafo(
+                        cursor.getInt(1),
+                        cursor.getString(2),
+                        cursor.getInt(3),
+                        cursor.getInt(4) );
+                aristas.add(temp);
+            }
+        }
+        cursor.close();
+        database.close();
+        return aristas;
+    }
 
+    public class AristaGrafo {
+        private String nombre;
+        private int id;
+        private int origen;
+        private int destino;
+
+        public AristaGrafo(int id, String nombre, int origen, int destino){
+            this.destino = destino;
+            this.id = id;
+            this.origen = origen;
+            this.nombre = nombre;
+        }
+
+        public String getNombre() {
+            return nombre;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public int getOrigen() {
+            return origen;
+        }
+
+        public int getDestino() {
+            return destino;
+        }
+    }
 }
+
