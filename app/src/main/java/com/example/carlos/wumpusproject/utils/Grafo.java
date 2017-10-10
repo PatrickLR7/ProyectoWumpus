@@ -23,12 +23,17 @@ public class Grafo {
         }
     }
 
+    public int getTotalCuevas(){
+        return totalCuevas;
+    }
+
     /**
      * Se agrega un camino entre los nodos especificados.
      */
     public void addArista(int nodoX, int nodoY) {
         if (!matriz[nodoX][nodoY]) {
             matriz[nodoX][nodoY] = true;
+            matriz[nodoY][nodoX] = true;
         }
     }
 
@@ -38,7 +43,16 @@ public class Grafo {
     public void deleteArista(int nodoX, int nodoY) {
         if (matriz[nodoX][nodoY]) {
             matriz[nodoX][nodoY] = false;
+            matriz[nodoY][nodoX] = false;
+
         }
+    }
+
+    /**
+     * Metodo para saber si hay una arista entre dos nodos
+     */
+    public boolean hayArista(int nodoX, int nodoY){
+        return matriz[nodoX][nodoY];
     }
 
     /**

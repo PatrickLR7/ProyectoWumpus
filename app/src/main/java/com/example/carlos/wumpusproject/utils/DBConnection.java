@@ -11,7 +11,7 @@ public class DBConnection extends SQLiteOpenHelper {
 
     public static final String DataBase = "grafos";
     public static final String Aristas = "aristas";
-    public static final String GraphID = "id";
+    public static final String AristaID = "id";
     public static final String GraphName = "graphName";
     public static final String Origin = "originDot";
     public static final String Destiny = "destinyDot";
@@ -29,10 +29,11 @@ public class DBConnection extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + Aristas + " (" +
-                GraphID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                AristaID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 GraphName + " TEXT, " +
                 Origin + " INTEGER, " +
                 Destiny + " INTEGER)" );
     }
+
 
 }

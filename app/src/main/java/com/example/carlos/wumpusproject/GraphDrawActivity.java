@@ -129,7 +129,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
             boolean wumpus = false;
             for (int x = 0; x < nodos.size(); x++) {
                 int tipo = (int) (Math.random() * 3);
-                if (tipo == 1 && wumpus == true) {
+                if (tipo == 1 && wumpus) {
                     x--;
                 } else {
                     tipos.add(tipo);
@@ -169,15 +169,5 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
-    public Grafo obtenerGrafoDeLibreria(String nombreGrafo){
-        Grafo grafo = new Grafo(5);
-        String consulta = "SELECT * FROM " + DBConnection.Aristas + " WHERE " + DBConnection.GraphName + " = " + nombreGrafo;
-        List<DBManager.AristaGrafo> listaAristas = dbManager.selectQuery(consulta);
-        Iterator<DBManager.AristaGrafo> it = listaAristas.iterator();
-        while (it.hasNext()){
-            DBManager.AristaGrafo aristaGrafo = it.next();
-            grafo.addArista(aristaGrafo.getOrigen(), aristaGrafo.getDestino() );
-        }
-        return grafo;
-    }
+
 }

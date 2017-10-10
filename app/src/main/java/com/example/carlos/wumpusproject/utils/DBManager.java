@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class DBManager {
@@ -44,7 +45,7 @@ public class DBManager {
 
     public Cursor readData(){
         String[] columns = new String[]{
-                DBConnection.GraphID,
+                DBConnection.AristaID,
                 DBConnection.GraphName,
                 DBConnection.Origin,
                 DBConnection.Destiny
@@ -55,19 +56,19 @@ public class DBManager {
         return cursor;
     }
 
-    public int updateDatabase(String graphID, String name, int origin, int destiny) {
+    public int updateDatabase(String aristaID, String name, int origin, int destiny) {
         ContentValues values = new ContentValues();
         values.put(DBConnection.GraphName, name);
         values.put(DBConnection.Origin, origin);
         values.put(DBConnection.Destiny, destiny);
-        return database.update(DBConnection.Aristas, values, DBConnection.GraphID + " = " + graphID, null);
+        return database.update(DBConnection.Aristas, values, DBConnection.AristaID + " = " + aristaID, null);
     }
 
-    public void eraseData(long id){
-        database.delete(DBConnection.Aristas, DBConnection.GraphID + " = " + id, null);
+    public void eraseData(String name){
+        database.delete(DBConnection.Aristas, DBConnection.GraphName + " = " + name, null);
     }
 
-    public List<AristaGrafo> selectQuery(String query){
+    private List<AristaGrafo> selectQuery(String query){
         Cursor cursor = database.rawQuery(query, null);
         List<AristaGrafo> aristas = new ArrayList<>();
         if (cursor.moveToFirst()) {
@@ -85,7 +86,32 @@ public class DBManager {
         return aristas;
     }
 
-    public class AristaGrafo {
+    public void insertarGrafo(Grafo grafo, String nombre){
+        int n = grafo.getTotalCuevas();
+        int k = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = k; j < n; j++) {
+                if (grafo.hayArista(i, j)){
+                    this.insertData(nombre, i, j);
+                }
+                ++k;
+            }
+        }
+    }
+
+    public Grafo obtenerGrafoDeLibreria(String nombreGrafo){
+        Grafo grafo = new Grafo(5);
+        String consulta = "SELECT * FROM " + DBConnection.Aristas + " WHERE " + DBConnection.GraphName + " = " + nombreGrafo;
+        List<AristaGrafo> listaAristas = this.selectQuery(consulta);
+        Iterator<AristaGrafo> it = listaAristas.iterator();
+        while (it.hasNext()){
+            DBManager.AristaGrafo aristaGrafo = it.next();
+            grafo.addArista(aristaGrafo.origen, aristaGrafo.destino);
+        }
+        return grafo;
+    }
+
+    private class AristaGrafo {
         private String nombre;
         private int id;
         private int origen;
@@ -97,22 +123,7 @@ public class DBManager {
             this.origen = origen;
             this.nombre = nombre;
         }
-
-        public String getNombre() {
-            return nombre;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public int getOrigen() {
-            return origen;
-        }
-
-        public int getDestino() {
-            return destino;
-        }
     }
+
 }
 
