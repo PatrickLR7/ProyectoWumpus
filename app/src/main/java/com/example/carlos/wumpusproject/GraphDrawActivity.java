@@ -3,6 +3,7 @@ package com.example.carlos.wumpusproject;
 import com.example.carlos.wumpusproject.utils.DBManager;
 import com.example.carlos.wumpusproject.utils.DrawingCanvas;
 import com.example.carlos.wumpusproject.utils.Grafo;
+import com.example.carlos.wumpusproject.utils.ListaBiblio;
 
 import android.content.DialogInterface;
 import android.support.v4.util.Pair;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -43,6 +45,10 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
     private String nombreUsuario = "";
     private Boolean repetido = true;
 
+    private List<String> nombresBiblio = new ArrayList<>();
+    private ListaBiblio listaBiblio; //ADAPTADOR entre lista de laberintos y la vista en el layout
+    private ListView listView1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,12 +74,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
         finalizeButton.setOnClickListener(this);
 
         btnBiblio = (Button) findViewById(R.id.elegirBiblio);
-        btnBiblio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+        btnBiblio.setOnClickListener(this);
 
         btnBluetooth = (Button) findViewById(R.id.compartirBluetooth);
         btnBluetooth.setOnClickListener(new View.OnClickListener() {
@@ -255,6 +256,13 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                 Toast.makeText(this, "El nombre utilizado ya se encuentra en la base de datos. Por favor intente de nuevo", Toast.LENGTH_LONG).show();
             }
 
+        }
+
+        if(v.getId() == R.id.elegirBiblio){
+            nombresBiblio = dbManager.obtenerNombresDeGrafos();
+            ArrayList<String> miLista = new ArrayList<String>(nombresBiblio);
+            listaBiblio = new ListaBiblio(this, miLista);
+            listView1.setAdapter(listaBiblio);
         }
     }
 
