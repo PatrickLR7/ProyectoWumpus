@@ -12,10 +12,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -263,17 +265,44 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
             ArrayList<String> miLista = new ArrayList<String>(nombresBiblio);
             listaBiblio = new ListaBiblio(this, miLista);
             listView1.setAdapter(listaBiblio);
+            listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    TextView txt1 = (TextView) view;
+                    grafo = dbManager.obtenerGrafoDeLibreria(txt1.getText().toString());
+                    mostrarMensajeBiblio(txt1.getText().toString());
+                }
+            });
         }
     }
 
+    public void mostrarMensajeBiblio(String n){
+
+        final EditText nombre = new EditText(this);
+
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setTitle("Wumpus")
+                .setMessage("Ha escogido el laberinto: " + n)
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // cargar juego
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //elegir otro laberinto
+                    }
+                }).create();
+        alertDialog.show();
+    }
 
     public void mostrarAlertDialog(){
 
         final EditText nombre = new EditText(this);
 
         AlertDialog alertDialog = new AlertDialog.Builder(this)
-                .setTitle("Nombre del grafo")
-                .setMessage("Ingrese el nombre del grafo:")
+                .setTitle("Nombre del laberinto")
+                .setMessage("Ingrese el nombre del laberinto:")
                 .setView(nombre)
                 .setPositiveButton("Guardar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
