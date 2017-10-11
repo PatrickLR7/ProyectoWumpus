@@ -28,7 +28,6 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
     DrawingCanvas dw;
 
     private List<Pair<Integer, Integer>> listaAristas;
-    private List<Integer> tiposCuevas;
     private int origen = -1; //Se usa para guardar las aristas
     private int destino = -1; //Se usa para guardar las aristas
 
@@ -45,12 +44,15 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
         for (int x = 0; x < numeroPuntos; x++) {
             for (int y = 0; y < numeroPuntos; y++) {
                 String nombreBoton = "imageButton" + x;
-                if (x == 11 && y < 4)    nombreBoton += 0;
+                if (x == 11 && y < 4) {
+                    nombreBoton += 0;
+                }
                 nombreBoton += y;
                 int id = getResources().getIdentifier(nombreBoton, "id", getPackageName());
                 matriz[x][y] = (ImageButton) findViewById(id);
-                if (x % 2 == 1 && y % 2 == 0)
+                if (x % 2 == 1 && y % 2 == 0) {
                     matriz[x][y].setOnClickListener(this);
+                }
             }
         }
         finalizeButton = (Button) findViewById(R.id.finalizeDrawButton);
@@ -100,12 +102,43 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                     } else {
                         if (inicioX != -1 && inicioY != -1 && finalX != -1 && finalY != -1) {
                             if (listaAristas.contains(new Pair<>(origen, destino))) {
-                                // Deshacer linea
-                                dw.borrarLinea(inicioX, inicioY, finalX, finalY);
                                 listaAristas.remove(new Pair<>(origen, destino));
                                 listaAristas.remove(new Pair<>(destino, origen));
-                                Toast.makeText(this, "Arista borrada.", Toast.LENGTH_SHORT).show();
 
+                                boolean encontrado1 = false;
+                                boolean encontrado2 = false;
+                                for (int a = 0; a < listaAristas.size(); a++) {
+                                    if (listaAristas.get(a).first == origen && !encontrado1) {
+                                        encontrado1 = true;
+                                    }
+                                    if (listaAristas.get(a).first == destino && !encontrado2) {
+                                        encontrado2 = true;
+                                    }
+                                }
+
+                                if (!encontrado1) {
+                                    for (int a = 0; a < numeroPuntos; a++) {
+                                        for (int b = 0; b < numeroPuntos; b++) {
+                                            if (matriz[a][b].getId() == origen) {
+                                                matriz[a][b].setImageResource(R.drawable.punto1);
+                                                a = numeroPuntos*2;
+                                                b = numeroPuntos*2;
+                                            }
+                                        }
+                                    }
+                                }
+                                if (!encontrado2) {
+                                    for (int a = 0; a < numeroPuntos; a++) {
+                                        for (int b = 0; b < numeroPuntos; b++) {
+                                            if (matriz[a][b].getId() == destino) {
+                                                matriz[a][b].setImageResource(R.drawable.punto1);
+                                                a = numeroPuntos*2;
+                                                b = numeroPuntos*2;
+                                            }
+                                        }
+                                    }
+                                }
+                                dw.borrarLinea(inicioX, inicioY, finalX, finalY);
                             } else {
                                 dw.dibujarLinea(inicioX, inicioY, finalX, finalY);
                                 listaAristas.add(new Pair<>(origen, destino));
@@ -133,7 +166,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                 }
             }
 
-            tiposCuevas = new ArrayList<>(nodos.size());
+            List<Integer> tiposCuevas = new ArrayList<>(nodos.size());
             //Se crean los tipos de cuevas
             boolean wumpus = false;
             for (int x = 0; x < nodos.size(); x++) {
@@ -176,8 +209,5 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                 Toast.makeText(this, "Hubo un error al intentar guardar el laberinto. Por favor intente de nuevo", Toast.LENGTH_LONG).show();
             }
         }
-
-
     }
-
 }
