@@ -34,7 +34,7 @@ public class DBManager {
         database.close();
     }
 
-    public void insertData(String name, int origin, int destiny)
+    private void insertData(String name, int origin, int destiny)
             throws SQLiteException{
         ContentValues values = new ContentValues();
         values.put(DBConnection.GraphName, name);
@@ -43,7 +43,7 @@ public class DBManager {
         database.insert(DBConnection.Aristas, null, values);
     }
 
-    public Cursor readData(){
+    private Cursor readData(){
         String[] columns = new String[]{
                 DBConnection.AristaID,
                 DBConnection.GraphName,
@@ -56,7 +56,7 @@ public class DBManager {
         return cursor;
     }
 
-    public int updateDatabase(String aristaID, String name, int origin, int destiny) {
+    private int updateDatabase(String aristaID, String name, int origin, int destiny) {
         ContentValues values = new ContentValues();
         values.put(DBConnection.GraphName, name);
         values.put(DBConnection.Origin, origin);
@@ -64,7 +64,7 @@ public class DBManager {
         return database.update(DBConnection.Aristas, values, DBConnection.AristaID + " = " + aristaID, null);
     }
 
-    public void eraseData(String name){
+    private void eraseData(String name){
         database.delete(DBConnection.Aristas, DBConnection.GraphName + " = " + name, null);
     }
 
@@ -109,6 +109,20 @@ public class DBManager {
             grafo.addArista(aristaGrafo.origen, aristaGrafo.destino);
         }
         return grafo;
+    }
+
+    public List<String> obtenerNombresDeGrafos(){
+        List<String> nombres = new ArrayList<>();
+        String consulta = "SELECT DISTINCT " + DBConnection.GraphName + " FROM " + DBConnection.Aristas;
+        Cursor cursor = database.rawQuery(consulta, null);
+        if (cursor.moveToFirst()) {
+            while (cursor.moveToNext()) {
+                nombres.add(cursor.getString(1) );
+            }
+        }
+        cursor.close();
+        database.close();
+        return nombres;
     }
 
     private class AristaGrafo {

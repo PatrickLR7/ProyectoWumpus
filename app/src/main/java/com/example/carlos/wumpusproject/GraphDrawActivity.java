@@ -28,6 +28,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
     DrawingCanvas dw;
 
     private List<Pair<Integer, Integer>> listaAristas;
+    private List<Integer> tiposCuevas;
     private int origen = -1; //Se usa para guardar las aristas
     private int destino = -1; //Se usa para guardar las aristas
 
@@ -99,11 +100,12 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                     } else {
                         if (inicioX != -1 && inicioY != -1 && finalX != -1 && finalY != -1) {
                             if (listaAristas.contains(new Pair<>(origen, destino))) {
-                                Toast.makeText(this, "La arista ya existe", Toast.LENGTH_SHORT).show();
                                 // Deshacer linea
                                 dw.borrarLinea(inicioX, inicioY, finalX, finalY);
                                 listaAristas.remove(new Pair<>(origen, destino));
                                 listaAristas.remove(new Pair<>(destino, origen));
+                                Toast.makeText(this, "Arista borrada.", Toast.LENGTH_SHORT).show();
+
                             } else {
                                 dw.dibujarLinea(inicioX, inicioY, finalX, finalY);
                                 listaAristas.add(new Pair<>(origen, destino));
@@ -131,7 +133,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                 }
             }
 
-            List<Integer> tiposCuevas = new ArrayList<>(nodos.size());
+            tiposCuevas = new ArrayList<>(nodos.size());
             //Se crean los tipos de cuevas
             boolean wumpus = false;
             for (int x = 0; x < nodos.size(); x++) {
