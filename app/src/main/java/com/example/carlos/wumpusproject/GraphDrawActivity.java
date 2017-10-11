@@ -205,19 +205,16 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
 
             DBManager baseDatos = null;
 
-            //Pedir nombre
+            //Pedir nombre a usuario
             String nombreUsuario = "";
 
-            //Obtiene la lista de nombers
-            List<String> listaNombres = null;
-
-
-           Boolean encontrado = false;
+            //Obtiene la lista de nombres que hay en la base
+            List<String> listaNombres =  baseDatos.obtenerNombresDeGrafos();
 
             if(listaNombres.contains(nombreUsuario)){
                //Pedir otro nombre
             }else{
-                // inserta en la base de datos
+                // Inserta en la base de datos
                 baseDatos.insertarGrafo(grafo,nombreUsuario);
             }
 
