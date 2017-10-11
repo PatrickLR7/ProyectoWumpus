@@ -41,6 +41,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
     private Grafo grafo;
     private List<String> listaNombres;
     private String nombreUsuario = "";
+    private Boolean repetido = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -229,6 +230,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
 
 
             //Pedir nombre a usuario
+
                 mostrarAlertDialog();
 
 
@@ -249,6 +251,9 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                 Toast.makeText(this, "Hubo un error al intentar guardar el laberinto. Por favor intente de nuevo", Toast.LENGTH_LONG).show();
             }
 
+            if(repetido = true) {
+                Toast.makeText(this, "El nombre utilizado ya se encuentra en la base de datos. Por favor intente de nuevo", Toast.LENGTH_LONG).show();
+            }
 
         }
     }
@@ -265,16 +270,18 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                 .setPositiveButton("Guardar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         nombreUsuario = nombre.getText().toString();
+
                         System.out.println(nombreUsuario);
                         //Obtiene la lista de nombres que hay en la base
                          listaNombres = dbManager.obtenerNombresDeGrafos();
 
                          if (listaNombres.contains(nombreUsuario)) {
                         //Pedir otro nombre
+                             repetido = true;
                          } else {
                         // Inserta en la base de datos
-
                             dbManager.insertarGrafo(grafo, nombreUsuario);
+                             repetido = false;
                          }
                     }
                 })
