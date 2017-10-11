@@ -1689,12 +1689,35 @@
                 android:textColor="@color/azul"
                 android:visibility="visible" />
 
-            <Button
-                android:id="@+id/finalizeDrawButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="@string/graphDrawFinished" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/finalizeDrawButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Finalizar el Laberinto" />
+
+                <Button
+                    android:id="@+id/elegirBiblio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Elegir de la Biblioteca" />
+
+                <Button
+                    android:id="@+id/compartirBluetooth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Compartir por Bluetooth" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>

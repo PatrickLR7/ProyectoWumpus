@@ -21,6 +21,8 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
     private ImageButton[][] matriz;
     private int numeroPuntos;
     private Button finalizeButton;
+    private Button btnBiblio;
+    private Button btnBluetooth;
     private float inicioX = -1;
     private float inicioY = -1;
     private float finalX = -1;
@@ -57,6 +59,22 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
         }
         finalizeButton = (Button) findViewById(R.id.finalizeDrawButton);
         finalizeButton.setOnClickListener(this);
+
+        btnBiblio = (Button) findViewById(R.id.elegirBiblio);
+        btnBiblio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        btnBluetooth = (Button) findViewById(R.id.compartirBluetooth);
+        btnBluetooth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         dbManager = new DBManager(this);
         dbManager.openDataBase();
