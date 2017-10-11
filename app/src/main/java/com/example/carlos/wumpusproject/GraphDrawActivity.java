@@ -4,11 +4,15 @@ import com.example.carlos.wumpusproject.utils.DBManager;
 import com.example.carlos.wumpusproject.utils.DrawingCanvas;
 import com.example.carlos.wumpusproject.utils.Grafo;
 
+import android.content.DialogInterface;
 import android.support.v4.util.Pair;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -35,6 +39,8 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
 
     private DBManager dbManager;
     private Grafo grafo;
+    private List<String> listaNombres;
+    private String nombreUsuario = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,8 +145,8 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                                         for (int b = 0; b < numeroPuntos; b++) {
                                             if (matriz[a][b].getId() == origen) {
                                                 matriz[a][b].setImageResource(R.drawable.punto1);
-                                                a = numeroPuntos*2;
-                                                b = numeroPuntos*2;
+                                                a = numeroPuntos * 2;
+                                                b = numeroPuntos * 2;
                                             }
                                         }
                                     }
@@ -150,8 +156,8 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                                         for (int b = 0; b < numeroPuntos; b++) {
                                             if (matriz[a][b].getId() == destino) {
                                                 matriz[a][b].setImageResource(R.drawable.punto1);
-                                                a = numeroPuntos*2;
-                                                b = numeroPuntos*2;
+                                                a = numeroPuntos * 2;
+                                                b = numeroPuntos * 2;
                                             }
                                         }
                                     }
@@ -205,7 +211,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                 int nodo1 = -1;
                 int nodo2 = -1;
                 int counter = 0;
-                while ( (nodo1 == -1 && nodo2 == -1) || counter < nodos.size() ) {
+                while ((nodo1 == -1 && nodo2 == -1) || counter < nodos.size()) {
                     if (nodos.get(counter) == id1) {
                         nodo1 = counter;
                     }
@@ -221,20 +227,20 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                 grafo.addArista(nodo1, nodo2);
             }
 
-            DBManager baseDatos = null;
 
             //Pedir nombre a usuario
-            String nombreUsuario = "";
+                mostrarAlertDialog();
+
 
             //Obtiene la lista de nombres que hay en la base
-            List<String> listaNombres =  baseDatos.obtenerNombresDeGrafos();
+           // listaNombres = dbManager.obtenerNombresDeGrafos();
 
-            if(listaNombres.contains(nombreUsuario)){
-               //Pedir otro nombre
-            }else{
+          // if (listaNombres.contains(nombreUsuario)) {
+                //Pedir otro nombre
+          // } else {
                 // Inserta en la base de datos
-                baseDatos.insertarGrafo(grafo,nombreUsuario);
-            }
+          //      dbManager.insertarGrafo(grafo, nombreUsuario);
+          // }
 
 
             if (error == 0) {
@@ -242,6 +248,48 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
             } else {
                 Toast.makeText(this, "Hubo un error al intentar guardar el laberinto. Por favor intente de nuevo", Toast.LENGTH_LONG).show();
             }
+
+
         }
     }
+
+
+    public void mostrarAlertDialog(){
+
+        final EditText nombre = new EditText(this);
+
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setTitle("Nombre del grafo")
+                .setMessage("Ingrese el nombre del grafo:")
+                .setView(nombre)
+                .setPositiveButton("Guardar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        nombreUsuario = nombre.getText().toString();
+                        System.out.println(nombreUsuario);
+                        //Obtiene la lista de nombres que hay en la base
+                         listaNombres = dbManager.obtenerNombresDeGrafos();
+
+                         if (listaNombres.contains(nombreUsuario)) {
+                        //Pedir otro nombre
+                         } else {
+                        // Inserta en la base de datos
+
+                            dbManager.insertarGrafo(grafo, nombreUsuario);
+                         }
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                    }
+                }).create();
+         alertDialog.show();
+
+
+
+    }
 }
+
+
+
+

@@ -41,6 +41,8 @@ public class DBManager {
         values.put(DBConnection.Origin, origin);
         values.put(DBConnection.Destiny, destiny);
         database.insert(DBConnection.Aristas, null, values);
+
+
     }
 
     private Cursor readData(){
@@ -87,6 +89,7 @@ public class DBManager {
     }
 
     public void insertarGrafo(Grafo grafo, String nombre){
+        System.out.println(nombre);
         int n = grafo.getTotalCuevas();
         int k = 0;
         for (int i = 0; i < n; i++) {

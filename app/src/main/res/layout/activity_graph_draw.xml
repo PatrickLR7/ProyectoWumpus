@@ -7,6 +7,8 @@
     android:background="@color/blanco"
     tools:context="com.example.carlos.wumpusproject.GraphDrawActivity">
 
+
+
     <view
         android:id="@+id/drawingCanvas"
         class="com.example.carlos.wumpusproject.utils.DrawingCanvas"
@@ -1721,5 +1723,7 @@
         </LinearLayout>
 
     </LinearLayout>
+
+
 
 </android.widget.RelativeLayout>
