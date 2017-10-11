@@ -1,5 +1,6 @@
 package com.example.carlos.wumpusproject.utils;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,19 +9,16 @@ import java.util.List;
  */
 
 public class Grafo {
+
     /** Matriz que representa el grafo. */
     private boolean[][] matriz;
+
     /** Tamaño del juego. */
     private int totalCuevas;
 
     public Grafo(int tam) {
         totalCuevas = tam;
         matriz = new boolean[tam][tam];
-        for (int x = 0; x < tam; x++) {
-            for (int y = 0; y < tam; y++) {
-                matriz[x][y] = false;
-            }
-        }
     }
 
     public int getTotalCuevas(){
@@ -44,7 +42,6 @@ public class Grafo {
         if (matriz[nodoX][nodoY]) {
             matriz[nodoX][nodoY] = false;
             matriz[nodoY][nodoX] = false;
-
         }
     }
 
@@ -67,4 +64,25 @@ public class Grafo {
         }
         return lista;
     }
+
+    /**
+     * Obtiene los nodos del grafo
+     */
+    public List<Integer> obtenerNodos(){
+        List<Integer> nodos = new ArrayList<>();
+        for (int i = 0; i < totalCuevas; i++) {
+            boolean found = false;
+            int j = 0;
+            while (j < totalCuevas && !found){
+                if (matriz[i][j]){
+                    nodos.add(i);
+                    found = true;
+                }
+                ++j;
+            }
+        }
+        return nodos;
+    }
+
+
 }

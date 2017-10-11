@@ -52,7 +52,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                 nombreBoton += y;
                 int id = getResources().getIdentifier(nombreBoton, "id", getPackageName());
                 matriz[x][y] = (ImageButton) findViewById(id);
-                if (x % 2 == 1 && y % 2 == 0) {
+                if (x % 2 == 1 && y % 2 == 0) { // Solo botones de puntos tienen un ClickListener
                     matriz[x][y].setOnClickListener(this);
                 }
             }
@@ -80,7 +80,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
         dbManager.openDataBase();
         listaAristas = new LinkedList<>();
         dw = (DrawingCanvas) findViewById(R.id.drawingCanvas);
-        grafo = new Grafo(numeroPuntos);
+        grafo = new Grafo( numeroPuntos/2 );
     }
 
     @Override
@@ -164,9 +164,9 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                             }
                             inicioX = -1;
                             inicioY = -1;
-                            finalX = -1;
-                            finalY = -1;
-                            origen = -1;
+                            finalX  = -1;
+                            finalY  = -1;
+                            origen  = -1;
                             destino = -1;
                         }
                     }
@@ -233,7 +233,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                //Pedir otro nombre
             }else{
                 // Inserta en la base de datos
-                baseDatos.insertarGrafo(grafo,nombreUsuario);
+                baseDatos.insertarGrafo(grafo, nombreUsuario);
             }
 
 
