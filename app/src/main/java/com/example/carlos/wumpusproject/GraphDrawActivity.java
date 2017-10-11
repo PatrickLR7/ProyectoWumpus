@@ -168,6 +168,25 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                 grafo.addArista(nodo1, nodo2);
             }
 
+            DBManager baseDatos = null;
+
+            //Pedir nombre
+            String nombreUsuario = "";
+
+            //Obtiene la lista de nombers
+            List<String> listaNombres = null;
+
+
+           Boolean encontrado = false;
+
+            if(listaNombres.contains(nombreUsuario)){
+               //Pedir otro nombre
+            }else{
+                // inserta en la base de datos
+                baseDatos.insertarGrafo(grafo,nombreUsuario);
+            }
+
+
             if (error == 0) {
                 Toast.makeText(this, "Su laberinto se guardó correctamente", Toast.LENGTH_LONG).show();
             } else {
