@@ -1,6 +1,5 @@
 package com.example.carlos.wumpusproject;
 
-import com.example.carlos.wumpusproject.utils.DBConnection;
 import com.example.carlos.wumpusproject.utils.DBManager;
 import com.example.carlos.wumpusproject.utils.DrawingCanvas;
 import com.example.carlos.wumpusproject.utils.Grafo;
@@ -14,14 +13,14 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 public class GraphDrawActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageButton[][] matriz;
-    Button finalizeButton;
+    private int numeroPuntos;
+    private Button finalizeButton;
     private float inicioX = -1;
     private float inicioY = -1;
     private float finalX = -1;
@@ -33,34 +32,40 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
     private int destino = -1; //Se usa para guardar las aristas
 
     private DBManager dbManager;
+    private Grafo grafo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph_draw);
 
-        matriz = new ImageButton[10][10];
-        for (int x = 0; x < 10; x++) {
-            for (int y = 0; y < 10; y++) {
-                String nombreBoton = "imageButton" + x + y;
+        numeroPuntos = 14;
+        matriz = new ImageButton[numeroPuntos][numeroPuntos];
+        for (int x = 0; x < numeroPuntos; x++) {
+            for (int y = 0; y < numeroPuntos; y++) {
+                String nombreBoton = "imageButton" + x;
+                if (x == 11 && y < 4)    nombreBoton += 0;
+                nombreBoton += y;
                 int id = getResources().getIdentifier(nombreBoton, "id", getPackageName());
                 matriz[x][y] = (ImageButton) findViewById(id);
-                matriz[x][y].setOnClickListener(this);
+                if (x % 2 == 1 && y % 2 == 0)
+                    matriz[x][y].setOnClickListener(this);
             }
         }
-
-        finalizeButton = (Button) findViewById(R.id.graphDrawButton);
+        finalizeButton = (Button) findViewById(R.id.finalizeDrawButton);
         finalizeButton.setOnClickListener(this);
 
         dbManager = new DBManager(this);
         dbManager.openDataBase();
         listaAristas = new LinkedList<>();
+        dw = (DrawingCanvas) findViewById(R.id.drawingCanvas);
+        grafo = new Grafo(numeroPuntos);
     }
 
     @Override
     public void onClick(View v) {
-        for (int x = 0; x < 10; x++) {
-            for (int y = 0; y < 10; y++) {
+        for (int x = 0; x < numeroPuntos; x++) {
+            for (int y = 0; y < numeroPuntos; y++) {
                 if (matriz[x][y].getId() == v.getId()) {
                     matriz[x][y].setImageResource(R.drawable.cueva1);
                     int[] ubicacion = new int[2];
@@ -74,7 +79,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                         finalY = ubicacion[1] + (matriz[x][y].getHeight() / 2) - 250;
                         destino = matriz[x][y].getId();
                     }
-                    if (inicioX == finalX && inicioY == finalY) {
+                    if (inicioX == finalX && inicioY == finalY) { // Se toca dos veces el mismo punto
                         boolean encontrado = false;
                         for (int a = 0; a < listaAristas.size(); a++) {
                             if (listaAristas.get(a).first == origen) {
@@ -95,8 +100,11 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                         if (inicioX != -1 && inicioY != -1 && finalX != -1 && finalY != -1) {
                             if (listaAristas.contains(new Pair<>(origen, destino))) {
                                 Toast.makeText(this, "La arista ya existe", Toast.LENGTH_SHORT).show();
+                                // Deshacer linea
+                                dw.borrarLinea(inicioX, inicioY, finalX, finalY);
+                                listaAristas.remove(new Pair<>(origen, destino));
+                                listaAristas.remove(new Pair<>(destino, origen));
                             } else {
-                                dw = (DrawingCanvas) findViewById(R.id.drawingCanvas);
                                 dw.dibujarLinea(inicioX, inicioY, finalX, finalY);
                                 listaAristas.add(new Pair<>(origen, destino));
                                 listaAristas.add(new Pair<>(destino, origen));
@@ -113,7 +121,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
             }
         }
 
-        if (v.getId() == R.id.graphDrawButton) {
+        if (v.getId() == R.id.finalizeDrawButton) {
             int error = 0;
             List<Integer> nodos = new LinkedList<>();
             for (int x = 0; x < listaAristas.size(); x++) {
@@ -123,8 +131,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                 }
             }
 
-            Grafo g = new Grafo(nodos.size());
-            List<Integer> tipos = new ArrayList<>(nodos.size());
+            List<Integer> tiposCuevas = new ArrayList<>(nodos.size());
             //Se crean los tipos de cuevas
             boolean wumpus = false;
             for (int x = 0; x < nodos.size(); x++) {
@@ -132,7 +139,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                 if (tipo == 1 && wumpus) {
                     x--;
                 } else {
-                    tipos.add(tipo);
+                    tiposCuevas.add(tipo);
                     if (tipo == 1) {
                         wumpus = true;
                     }
@@ -145,7 +152,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                 int nodo1 = -1;
                 int nodo2 = -1;
                 int counter = 0;
-                while ((nodo1 == -1 && nodo2 == -1) || counter < nodos.size()) {
+                while ( (nodo1 == -1 && nodo2 == -1) || counter < nodos.size() ) {
                     if (nodos.get(counter) == id1) {
                         nodo1 = counter;
                     }
@@ -158,7 +165,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                     error = -1;
                     x = listaAristas.size() + 10;
                 }
-                g.addArista(nodo1, nodo2);
+                grafo.addArista(nodo1, nodo2);
             }
 
             if (error == 0) {
@@ -167,7 +174,8 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                 Toast.makeText(this, "Hubo un error al intentar guardar el laberinto. Por favor intente de nuevo", Toast.LENGTH_LONG).show();
             }
         }
-    }
 
+
+    }
 
 }

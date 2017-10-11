@@ -1,4 +1,4 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="dotLayoutHeight">38sp</dimen>
+    <dimen name="dotLayoutHeight">26sp</dimen>
 </resources>

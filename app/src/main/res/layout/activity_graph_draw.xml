@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blanco"
     tools:context="com.example.carlos.wumpusproject.GraphDrawActivity">
 
     <view
@@ -11,6 +12,7 @@
         class="com.example.carlos.wumpusproject.utils.DrawingCanvas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/blanco"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -32,7 +34,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="36dp"
+                android:layout_height="@dimen/dotLayoutHeight"
                 android:orientation="horizontal">
 
                 <ImageButton
@@ -113,11 +115,41 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:alpha="0.0"
-                    app:srcCompat="@android:color/transparent" />            </LinearLayout>
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton010"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+                <ImageButton
+                    android:id="@+id/imageButton011"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+                <ImageButton
+                    android:id="@+id/imageButton012"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+                <ImageButton
+                    android:id="@+id/imageButton013"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
+                android:layout_height="@dimen/dotLayoutHeight"
                 android:orientation="horizontal">
 
                 <ImageButton
@@ -199,11 +231,43 @@
                     android:layout_weight="0"
                     app:srcCompat="@android:color/transparent"
                     android:alpha = "0.0" />
+
+                <ImageButton
+                    android:id="@+id/imageButton110"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickBoton"
+                    app:srcCompat="@drawable/punto1" />
+
+                <ImageButton
+                    android:id="@+id/imageButton111"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    app:srcCompat="@android:color/transparent"
+                    android:alpha = "0.0" />
+
+                <ImageButton
+                    android:id="@+id/imageButton112"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickBoton"
+                    app:srcCompat="@drawable/punto1" />
+
+                <ImageButton
+                    android:id="@+id/imageButton113"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    app:srcCompat="@android:color/transparent"
+                    android:alpha = "0.0" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
+                android:layout_height="@dimen/dotLayoutHeight"
                 android:orientation="horizontal">
 
                 <ImageButton
@@ -285,11 +349,43 @@
                     android:layout_weight="0"
                     android:alpha="0.0"
                     app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton210"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton211"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton212"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton213"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
+                android:layout_height="@dimen/dotLayoutHeight"
                 android:orientation="horizontal">
 
                 <ImageButton
@@ -371,11 +467,43 @@
                     android:layout_weight="0"
                     android:alpha="0.0"
                     app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton310"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickBoton"
+                    app:srcCompat="@drawable/punto1"/>
+
+                <ImageButton
+                    android:id="@+id/imageButton311"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton312"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickBoton"
+                    app:srcCompat="@drawable/punto1"/>
+
+                <ImageButton
+                    android:id="@+id/imageButton313"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
+                android:layout_height="@dimen/dotLayoutHeight"
                 android:orientation="horizontal">
 
                 <ImageButton
@@ -457,11 +585,43 @@
                     android:layout_weight="0"
                     android:alpha="0.0"
                     app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton410"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton411"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton412"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton413"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
+                android:layout_height="@dimen/dotLayoutHeight"
                 android:orientation="horizontal">
 
                 <ImageButton
@@ -543,11 +703,43 @@
                     android:layout_weight="0"
                     android:alpha="0.0"
                     app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton510"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickBoton"
+                    app:srcCompat="@drawable/punto1" />
+
+                <ImageButton
+                    android:id="@+id/imageButton511"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton512"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickBoton"
+                    app:srcCompat="@drawable/punto1" />
+
+                <ImageButton
+                    android:id="@+id/imageButton513"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
+                android:layout_height="@dimen/dotLayoutHeight"
                 android:orientation="horizontal">
 
                 <ImageButton
@@ -629,11 +821,43 @@
                     android:layout_weight="0"
                     android:alpha="0.0"
                     app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton610"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton611"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton612"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton613"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
+                android:layout_height="@dimen/dotLayoutHeight"
                 android:orientation="horizontal">
 
                 <ImageButton
@@ -715,11 +939,43 @@
                     android:layout_weight="0"
                     android:alpha="0.0"
                     app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton710"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickBoton"
+                    app:srcCompat="@drawable/punto1" />
+
+                <ImageButton
+                    android:id="@+id/imageButton711"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton712"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickBoton"
+                    app:srcCompat="@drawable/punto1" />
+
+                <ImageButton
+                    android:id="@+id/imageButton713"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
+                android:layout_height="@dimen/dotLayoutHeight"
                 android:orientation="horizontal">
 
                 <ImageButton
@@ -801,11 +1057,43 @@
                     android:layout_weight="0"
                     android:alpha="0.0"
                     app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton810"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton811"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton812"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton813"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
+                android:layout_height="@dimen/dotLayoutHeight"
                 android:orientation="horizontal">
 
                 <ImageButton
@@ -887,24 +1175,528 @@
                     android:layout_weight="0"
                     android:alpha="0.0"
                     app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton910"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickBoton"
+                    app:srcCompat="@drawable/punto1"/>
+
+                <ImageButton
+                    android:id="@+id/imageButton911"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton912"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickBoton"
+                    app:srcCompat="@drawable/punto1"/>
+
+                <ImageButton
+                    android:id="@+id/imageButton913"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dotLayoutHeight"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/imageButton100"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton101"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton102"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton103"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton104"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton105"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton106"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton107"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton108"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton109"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton1010"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton1011"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton1012"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton1013"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dotLayoutHeight"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/imageButton1100"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickBoton"
+                    app:srcCompat="@drawable/punto1" />
+
+                <ImageButton
+                    android:id="@+id/imageButton1101"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton1102"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickBoton"
+                    app:srcCompat="@drawable/punto1" />
+
+                <ImageButton
+                    android:id="@+id/imageButton1103"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton114"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickBoton"
+                    app:srcCompat="@drawable/punto1"/>
+
+                <ImageButton
+                    android:id="@+id/imageButton115"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton116"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickBoton"
+                    app:srcCompat="@drawable/punto1"/>
+
+                <ImageButton
+                    android:id="@+id/imageButton117"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton118"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickBoton"
+                    app:srcCompat="@drawable/punto1"/>
+
+                <ImageButton
+                    android:id="@+id/imageButton119"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton1110"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickBoton"
+                    app:srcCompat="@drawable/punto1"/>
+
+                <ImageButton
+                    android:id="@+id/imageButton1111"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton1112"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickBoton"
+                    app:srcCompat="@drawable/punto1"/>
+
+                <ImageButton
+                    android:id="@+id/imageButton1113"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dotLayoutHeight"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/imageButton120"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton121"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton122"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton123"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton124"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton125"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton126"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton127"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton128"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton129"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton1210"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton1211"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton1212"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton1213"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dotLayoutHeight"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/imageButton130"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickBoton"
+                    app:srcCompat="@drawable/punto1" />
+
+                <ImageButton
+                    android:id="@+id/imageButton131"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton132"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickBoton"
+                    app:srcCompat="@drawable/punto1" />
+
+                <ImageButton
+                    android:id="@+id/imageButton133"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton134"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickBoton"
+                    app:srcCompat="@drawable/punto1"/>
+
+                <ImageButton
+                    android:id="@+id/imageButton135"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton136"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickBoton"
+                    app:srcCompat="@drawable/punto1"/>
+
+                <ImageButton
+                    android:id="@+id/imageButton137"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton138"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickBoton"
+                    app:srcCompat="@drawable/punto1"/>
+
+                <ImageButton
+                    android:id="@+id/imageButton139"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton1310"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickBoton"
+                    app:srcCompat="@drawable/punto1"/>
+
+                <ImageButton
+                    android:id="@+id/imageButton1311"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton1312"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickBoton"
+                    app:srcCompat="@drawable/punto1"/>
+
+                <ImageButton
+                    android:id="@+id/imageButton1313"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:alpha="0.0"
+                    app:srcCompat="@android:color/transparent" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/graphDrawText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/labyrinthText"
+                android:textColor="@color/azul"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/finalizeDrawButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/graphDrawFinished" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/labyrinthText"
-            android:textColor="@color/azul"
-            android:visibility="visible" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/graphDrawButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/graphDrawFinished"
-        android:layout_alignBottom="@+id/todo"
-        android:layout_centerInParent="true" />
 
 </android.widget.RelativeLayout>

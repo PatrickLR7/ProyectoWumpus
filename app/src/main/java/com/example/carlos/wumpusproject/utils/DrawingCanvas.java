@@ -1,23 +1,16 @@
 package com.example.carlos.wumpusproject.utils;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
-import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
-
-import com.example.carlos.wumpusproject.R;
 
 /**
  * Created by carlos on 8/23/17.
@@ -27,7 +20,8 @@ public class DrawingCanvas extends View {
 
     private Path drawPath; // Path used to draw lines.
     public static Paint drawPaint, canvasPaint; // Paint objects to draw and paint the canvas
-    private static int paintColor = 0xFF660000; // Default color
+    private static int defaultColor = 0xFF660000; // Default color
+    private static int whiteColor = 0xFFFFFFFF;
     public Canvas canvas; // This is the drawing and painting area
     private Bitmap canvasBitmap; // Saving canvas
 
@@ -49,7 +43,7 @@ public class DrawingCanvas extends View {
         // Initialize workspace
         drawPath = new Path();
         drawPaint = new Paint();
-        drawPaint.setColor(paintColor);
+        drawPaint.setColor(defaultColor);
         drawPaint.setAntiAlias(true);
         drawPaint.setStrokeWidth(20);
         drawPaint.setStyle(Paint.Style.STROKE);
@@ -153,6 +147,12 @@ public class DrawingCanvas extends View {
         // Repaint
         //invalidate();
         return true;
+    }
+
+    public void borrarLinea(float iX, float iY, float fX, float fY){
+        drawPaint.setColor(whiteColor);
+        this.dibujarLinea(iX, iY, fX, fY);
+        drawPaint.setColor(defaultColor);
     }
 
     public void dibujarLinea(float iX, float iY, float fX, float fY){
@@ -394,8 +394,8 @@ public class DrawingCanvas extends View {
     //Actualiza color
     public void setColor(String newColor){
         invalidate();
-        paintColor = Color.parseColor(newColor);
-        drawPaint.setColor(paintColor);
+        defaultColor = Color.parseColor(newColor);
+        drawPaint.setColor(defaultColor);
     }
 
     //Poner tamaño del punto
@@ -411,7 +411,7 @@ public class DrawingCanvas extends View {
             drawPaint.setColor(Color.WHITE);
         }
         else {
-            drawPaint.setColor(paintColor);
+            drawPaint.setColor(defaultColor);
         }
     }
 
