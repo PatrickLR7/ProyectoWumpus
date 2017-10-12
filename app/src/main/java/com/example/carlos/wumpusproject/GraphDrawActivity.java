@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -188,8 +189,12 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
         if(v.getId() == R.id.elegirBiblio){
             nombresBiblio = dbManager.obtenerNombresDeGrafos();
             ArrayList<String> miLista = new ArrayList<>(nombresBiblio);
-            listaBiblio = new ListaBiblio(this, miLista);
-            listView1.setAdapter(listaBiblio);
+            //listaBiblio = new ListaBiblio(this, miLista);
+            listView1 = (ListView) findViewById(R.id.nameListView);
+            ArrayAdapter arAd = new ArrayAdapter(this, android.R.layout.simple_list_item_1, nombresBiblio);
+            listView1.setAdapter(arAd);
+
+            //listView1.setAdapter(listaBiblio);
             listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
