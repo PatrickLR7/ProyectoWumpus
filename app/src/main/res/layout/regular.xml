@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1.00"
-                android:background="@drawable/tetrahedron"
+                android:background="@drawable/Tetrahedron1"
                 android:onClick="TetrahedroOnClick"
                 app:srcCompat="@android:color/transparent" />
 
@@ -69,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1.00"
-                android:background="@drawable/octahedron"
+                android:background="@drawable/Octahedron1"
                 app:srcCompat="@android:color/transparent" />
 
             <TextView
@@ -93,7 +93,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1.00"
-                android:background="@drawable/cube"
+                android:background="@drawable/Cube1"
                 app:srcCompat="@android:color/transparent" />
 
             <TextView
@@ -117,7 +117,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1.00"
-                android:background="@drawable/icosahedron"
+                android:background="@drawable/Icosahedron1"
                 app:srcCompat="@android:color/transparent" />
 
             <TextView
@@ -141,7 +141,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1.00"
-                android:background="@drawable/dodecahedron"
+                android:background="@drawable/Dodecahedron1"
                 app:srcCompat="@android:color/transparent" />
 
             <TextView
