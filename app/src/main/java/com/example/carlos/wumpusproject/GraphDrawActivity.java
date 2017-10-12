@@ -180,17 +180,8 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
             }
 
             //Pedir nombre a usuario
-            //mostrarAlertDialog();
+            mostrarAlertDialog();
 
-            //Obtiene la lista de nombres que hay en la base
-           // listaNombres = dbManager.obtenerNombresDeGrafos();
-
-          // if (listaNombres.contains(nombreUsuario)) {
-                //Pedir otro nombre
-          // } else {
-                // Inserta en la base de datos
-          //      dbManager.insertarGrafo(grafo, nombreUsuario);
-          // }
 
         }
 
