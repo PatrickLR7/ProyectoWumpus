@@ -5,6 +5,7 @@ import com.example.carlos.wumpusproject.utils.DrawingCanvas;
 import com.example.carlos.wumpusproject.utils.Grafo;
 import com.example.carlos.wumpusproject.utils.ListaBiblio;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AlertDialog;
@@ -224,9 +225,10 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
 
     public void mostrarAlertDialog(){
 
-        final EditText nombre = new EditText(this);
+        final Context context = this;
+        final EditText nombre = new EditText(context);
 
-        AlertDialog alertDialog = new AlertDialog.Builder(this)
+        AlertDialog alertDialog = new AlertDialog.Builder(context)
                 .setTitle("Nombre del laberinto")
                 .setMessage("Ingrese el nombre del laberinto:")
                 .setView(nombre)
@@ -238,14 +240,26 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                         //Obtiene la lista de nombres que hay en la base
                         listaNombres = dbManager.obtenerNombresDeGrafos();
 
+                        AlertDialog.Builder alerta2 = new AlertDialog.Builder(context)
+                                .setTitle("Estado")
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // continue with delete
+                                    }
+                                });
                          if (listaNombres.contains(nombreUsuario)) {
                         //Pedir otro nombre
                              repetido = true;
+                             alerta2.setMessage("Nombre repetido. Elija otro");
+                             alerta2.setIcon(android.R.drawable.ic_dialog_alert);
                          } else {
                         // Inserta en la base de datos
                              dbManager.insertarGrafo(grafo, nombreUsuario);
                              repetido = false;
+                             alerta2.setMessage("Grafo guardado exitosamente");
+                             alerta2.setIcon(android.R.drawable.ic_dialog_info);
                          }
+                        alerta2.show();
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
