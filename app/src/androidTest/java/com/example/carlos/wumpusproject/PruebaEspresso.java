@@ -50,12 +50,12 @@ public class PruebaEspresso extends ActivityInstrumentationTestCase2<GameModeAct
                 .perform(click());
         SystemClock.sleep(1000);
 
-        onView(withId(R.id.PoliRegButton)) //Ahora entra al modo social
+        onView(withId(R.id.PoliRegButton)) //Entra a ver poligonos regulares
                 .perform(click());
         SystemClock.sleep(1000);
         onView(isRoot()).perform(ViewActions.pressBack()); //Retorna
         SystemClock.sleep(1000);
-        onView(withId(R.id.LabIrregButton)) //Ahora entra al modo social
+        onView(withId(R.id.LabIrregButton)) //Ahora entra a dibujar laberinto
                 .perform(click());
     }
 
