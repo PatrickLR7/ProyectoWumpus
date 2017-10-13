@@ -38,7 +38,6 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
     private float finalY = -1;
     private DrawingCanvas dw;
 
-    private List<Pair<Integer, Integer>> listaAristas;
     private List<Integer> tiposCuevas;
     private int botonPrevio = -1; // Guarda indice del boton previamente seleccionado en el grafo
     private int botonFinal = -1; // Guarda indice de boton final en el grafo
@@ -63,7 +62,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
         for (int x = 0; x < numeroFilas; x++) {
             for (int y = 0; y < numeroFilas; y++) {
                 String nombreBoton = "imageButton" + x;
-                if (x == 11 && y == 1) {
+                if (x == 11 && y <= 1) {
                     nombreBoton += 0;
                 }
                 nombreBoton += y;
@@ -89,7 +88,6 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
         });
 
         dbManager = new DataBaseHelper(this);
-        listaAristas = new LinkedList<>();
         tiposCuevas = new ArrayList<>();
         dw = (DrawingCanvas) findViewById(R.id.drawingCanvas);
         grafo = new Grafo( numeroFilas*numeroFilas/4 );
@@ -191,7 +189,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
             nombresBiblio = dbManager.obtenerNombresDeGrafos();
             ArrayList<String> miLista = new ArrayList<>(nombresBiblio);
             //listaBiblio = new ListaBiblio(this, miLista);
-            listView1 = (ListView) findViewById(R.id.nameListView);
+            //listView1 = (ListView) findViewById(R.id.nameListView);
             ArrayAdapter arAd = new ArrayAdapter(this, android.R.layout.simple_list_item_1, nombresBiblio);
             listView1.setAdapter(arAd);
 
@@ -255,7 +253,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                          if (listaNombres.contains(nombreUsuario)) {
                         //Pedir otro nombre
                              repetido = true;
-                             alerta2.setMessage("Nombre repetido. Elija otro");
+                             alerta2.setMessage("Nombre repetido.");
                              alerta2.setIcon(android.R.drawable.ic_dialog_alert);
                          } else {
                         // Inserta en la base de datos
