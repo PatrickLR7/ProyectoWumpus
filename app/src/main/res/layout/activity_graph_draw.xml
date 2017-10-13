@@ -7,8 +7,6 @@
     android:background="@color/blanco"
     tools:context="com.example.carlos.wumpusproject.GraphDrawActivity">
 
-
-
     <view
         android:id="@+id/drawingCanvas"
         class="com.example.carlos.wumpusproject.utils.DrawingCanvas"
@@ -26,6 +24,14 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
+
+        <TextView
+            android:id="@+id/graphDrawText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/labyrinthText"
+            android:textColor="@color/azul"
+            android:visibility="visible" />
 
         <LinearLayout
             android:id="@+id/buttonMatrix"
@@ -1269,48 +1275,36 @@
 
             </LinearLayout>
 
+        </LinearLayout>
 
-            <TextView
-                android:id="@+id/graphDrawText"
-                android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/finalizeDrawButton"
+                android:layout_width="160sp"
                 android:layout_height="wrap_content"
-                android:text="@string/labyrinthText"
-                android:textColor="@color/azul"
-                android:visibility="visible" />
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Guardar Grafo" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+            <Button
+                android:id="@+id/elegirBiblio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Elegir de la Biblioteca" />
 
-                <Button
-                    android:id="@+id/finalizeDrawButton"
-                    android:layout_width="160sp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Guardar Grafo" />
-
-                <Button
-                    android:id="@+id/elegirBiblio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Elegir de la Biblioteca" />
-
-                <Button
-                    android:id="@+id/compartirBluetooth"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Compartir por Bluetooth" />
-
-            </LinearLayout>
-
+            <Button
+                android:id="@+id/compartirBluetooth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Compartir por Bluetooth" />
         </LinearLayout>
 
     </LinearLayout>
-
-
 
 </android.widget.RelativeLayout>

@@ -5,12 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.example.carlos.wumpusproject.GraphDrawActivity;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -83,7 +81,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     public void insertarGrafo(Grafo grafo, String nombre){
-        int n = grafo.getTotalCuevas();
+        int n = grafo.getDimensionMatriz();
         int k = 0;
         for (int i = 0; i < n; i++) {
             for (int j = k; j < n; j++) {
@@ -96,7 +94,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     public Grafo obtenerGrafoDeLibreria(String nombreGrafo){
-        int nodos = GraphDrawActivity.numeroFilas/2;
+        int nodos = GraphDrawActivity.numeroFilas / 2;
         nodos = nodos*nodos;
         Grafo grafo = new Grafo(nodos);
         Cursor cursor = this.getTuples(nombreGrafo);
@@ -116,18 +114,22 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return nombres;
     }
 
-    private class AristaGrafo {
-        private String nombre;
-        private int id;
-        private int origen;
-        private int destino;
+    /*
+     * Revisar TODO
+     */
+    public void limpiarAristas(){
+        String peticion = "TRUNCATE TABLE " + TABLE_NAME;
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(peticion);
+    }
 
-        public AristaGrafo(int id, String nombre, int origen, int destino){
-            this.destino = destino;
-            this.id = id;
-            this.origen = origen;
-            this.nombre = nombre;
-        }
+    /*
+     * Revisar TODO
+     */
+    public void borrarArista(String nombre){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String peticion = "DELETE FROM " + TABLE_NAME + " WHERE " + Name + " = " + nombre;
+        db.execSQL(peticion);
     }
 
 }
