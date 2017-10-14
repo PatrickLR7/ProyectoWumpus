@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/azulOscuro"
     tools:context="com.example.carlos.wumpusproject.GameModeActivity">
 
     <LinearLayout
@@ -27,9 +28,9 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/wumpus_large"
+            android:layout_width="@dimen/wumpusTitleSize"
+            android:layout_height="@dimen/wumpusTitleSize"
+            app:srcCompat="@drawable/wumpustitle"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="0dp" />
 
@@ -37,8 +38,8 @@
             android:id="@+id/gameModeText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#FF000000"
-            android:textSize="30dp"
+            android:textColor= "@color/blanco"
+            android:textSize="30sp"
             android:text="Por favor seleccione la modalidad del juego:" />
 
         <LinearLayout

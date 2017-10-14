@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/azulOscuro"
     tools:context="com.example.carlos.wumpusproject.MainActivity">
 
     <LinearLayout
@@ -21,9 +22,9 @@
 
         <ImageView
             android:id="@+id/wumpusIMG1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/wumpus_large" />
+            android:layout_width="@dimen/wumpusTitleSize"
+            android:layout_height="@dimen/wumpusTitleSize"
+            app:srcCompat="@drawable/wumpustitle" />
 
         <TextView
             android:id="@+id/introMessage"
@@ -31,8 +32,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed"
             android:textSize="25dp"
-            android:textColor="#FF000000"
-            android:text="Bienvenido al juego The Wumpus!\nPor favor escoja la forma del laberinto en el que desea jugar."
+            android:textColor="@color/blanco"
+            android:text="Bienvenido al juego The Wumpus!\nPor favor escoja la forma del laberinto."
             />
 
         <LinearLayout

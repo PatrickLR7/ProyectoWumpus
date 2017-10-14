@@ -11,4 +11,5 @@
     <color name="cafe">#FF660000</color>
     <color name="blanco">#FFFFFFFF</color>
     <color name="transparente">#00FFFFFF</color>
+    <color name="azulOscuro">#000080</color>
 </resources>
