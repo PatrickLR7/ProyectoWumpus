@@ -7,6 +7,7 @@ import com.example.carlos.wumpusproject.utils.Grafo;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -71,12 +72,8 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
         btnBiblio.setOnClickListener(this);
 
         btnBluetooth = (Button) findViewById(R.id.compartirBluetooth);
-        btnBluetooth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO Implementar Bluetooth
-            }
-        });
+        btnBluetooth.setOnClickListener(this);
+
 
         dbManager = new DataBaseHelper(this);
         tiposCuevas = new ArrayList<>();
@@ -182,6 +179,12 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
             builder.setNegativeButton("Cancel", null); // No tiene OnClickListener
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
+        }
+
+        if(v.getId() == R.id.compartirBluetooth){
+            Intent intent;
+            intent = new Intent(getApplicationContext(),ActivityBluetooth.class);
+            startActivity(intent);
         }
 
     }

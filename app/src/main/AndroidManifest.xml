@@ -19,8 +19,12 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".GraphDrawActivity" />
         <activity android:name=".GrafosRegulares" />
+        <activity android:name=".ActivityBluetooth" />
         <uses-permission android:name="android.permission.BLUETOOTH" />
         <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+        <uses-permission android:name="android.permission.INTERNET" />
     </application>
 
 </manifest>
