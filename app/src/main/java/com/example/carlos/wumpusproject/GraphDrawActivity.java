@@ -1,28 +1,21 @@
 package com.example.carlos.wumpusproject;
 
+import com.example.carlos.wumpusproject.utils.Config;
 import com.example.carlos.wumpusproject.utils.DataBaseHelper;
 import com.example.carlos.wumpusproject.utils.DrawingCanvas;
 import com.example.carlos.wumpusproject.utils.Grafo;
-import com.example.carlos.wumpusproject.utils.ListaBiblio;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.v4.util.Pair;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class GraphDrawActivity extends AppCompatActivity implements View.OnClickListener {
@@ -46,16 +39,15 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
     private Grafo grafo;
     private List<String> listaNombres;
     private String nombreUsuario = "";
-    private Boolean repetido = true;
+    private boolean repetido = true;
 
-    private List<String> nombresBiblio = new ArrayList<>();
-    private ListaBiblio listaBiblio; //ADAPTADOR entre lista de laberintos y la vista en el layout
-    private ListView listView1;
+    private String[] vectorNombres;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph_draw);
+        setTitle("¡Escogencia de Laberinto!");
 
         numeroFilas = 12;
         matriz = new ImageButton[numeroFilas][numeroFilas];
@@ -91,6 +83,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
         tiposCuevas = new ArrayList<>();
         dw = (DrawingCanvas) findViewById(R.id.drawingCanvas);
         grafo = new Grafo( numeroFilas*numeroFilas/4 );
+        repetido = true;
     }
 
     @Override
@@ -179,43 +172,42 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                 }
             }
 
+            Config.laberinto = grafo;
+            Config.tiposDeCuevas = tiposCuevas;
+
             //Pedir nombre a usuario
             mostrarAlertDialog();
-
 
         }
 
         if(v.getId() == R.id.elegirBiblio){
-            nombresBiblio = dbManager.obtenerNombresDeGrafos();
-            ArrayList<String> miLista = new ArrayList<>(nombresBiblio);
-            //listaBiblio = new ListaBiblio(this, miLista);
-            //listView1 = (ListView) findViewById(R.id.nameListView);
-            ArrayAdapter arAd = new ArrayAdapter(this, android.R.layout.simple_list_item_1, nombresBiblio);
-            listView1.setAdapter(arAd);
-
-            //listView1.setAdapter(listaBiblio);
-            listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            List<String> nombresGrafos = dbManager.obtenerNombresDeGrafos();
+            vectorNombres = GraphDrawActivity.listAsStringArray(nombresGrafos);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Escoga el nombre del laberinto deseado.");
+            builder.setItems(vectorNombres, new DialogInterface.OnClickListener() {
                 @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    TextView txt1 = (TextView) view;
-                    grafo = dbManager.obtenerGrafoDeLibreria(txt1.getText().toString());
-                    mostrarMensajeBiblio(txt1.getText().toString());
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    mostrarMensajeBiblio(vectorNombres[i]);
                 }
             });
+            builder.setNegativeButton("Cancel", null); // No tiene OnClickListener
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
         }
 
     }
 
-    public void mostrarMensajeBiblio(String n){
-
+    public void mostrarMensajeBiblio(final String hilera){
         final EditText nombre = new EditText(this);
-
         AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setTitle("Wumpus")
-                .setMessage("Ha escogido el laberinto: " + n)
+                .setMessage("Ha escogido el laberinto: " + hilera)
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         // cargar juego
+                        grafo = dbManager.obtenerGrafoDeLibreria(hilera);
+
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -239,7 +231,6 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                     public void onClick(DialogInterface dialog, int whichButton) {
                         nombreUsuario = nombre.getText().toString();
 
-                        System.out.println(nombreUsuario);
                         //Obtiene la lista de nombres que hay en la base
                         listaNombres = dbManager.obtenerNombresDeGrafos();
 
@@ -252,15 +243,15 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                                 });
                          if (listaNombres.contains(nombreUsuario)) {
                         //Pedir otro nombre
-                             repetido = true;
-                             alerta2.setMessage("Nombre repetido.");
+                             alerta2.setMessage("Nombre repetido. No se ha podido guardar.");
                              alerta2.setIcon(android.R.drawable.ic_dialog_alert);
                          } else {
                         // Inserta en la base de datos
                              dbManager.insertarGrafo(grafo, nombreUsuario);
-                             repetido = false;
                              alerta2.setMessage("Grafo guardado exitosamente");
+                             repetido = false;
                              alerta2.setIcon(android.R.drawable.ic_dialog_info);
+                             // Empezar el juego
                          }
                         alerta2.show();
                     }
@@ -271,6 +262,14 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                     }
                 }).create();
          alertDialog.show();
+    }
+
+    public static String[] listAsStringArray(List<String> list){
+        String[] array = new String[list.size()];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = list.get(i);
+        }
+        return array;
     }
 
 
