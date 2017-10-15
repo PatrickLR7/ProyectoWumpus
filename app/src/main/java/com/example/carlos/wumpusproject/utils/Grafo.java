@@ -50,9 +50,9 @@ public class Grafo {
         if (matriz[nodoX][nodoY]) {
             matriz[nodoX][nodoY] = false;
             matriz[nodoY][nodoX] = false;
-            if (nodos.contains(nodoX))
+            if (this.presenteEnElGrafo(nodoX))
                 nodos.remove(nodoX);
-            if (nodos.contains(nodoY))
+            if (this.presenteEnElGrafo(nodoY))
                 nodos.remove(nodoY);
         }
     }
@@ -89,6 +89,66 @@ public class Grafo {
      */
     public int getNumeroNodos(){
         return nodos.size();
+    }
+
+    /**
+     * Metodo para verificar que el grafo posea un solo componente conectado.
+     * @return true si solo hay un componente, falso en caso contrario.
+     */
+    public boolean totalmenteConectado(){
+        List<Integer> encontrados = new ArrayList<>();
+        if (nodos.size() > 0)
+            this.totalmenteConectado(encontrados, nodos.get(0) );
+        return Grafo.igualdadEntreListas(encontrados, nodos);
+    }
+
+    /**
+     * Metodo recursivo que recorre los elementos conectados apartir de cierto nodo actual
+     * @param encontrados: Los nodos encontrados hasta el momento
+     * @param nodoActual: El nodo que estamos a punto de agregar y analizar.
+     */
+    private void totalmenteConectado(List<Integer> encontrados, int nodoActual){
+        encontrados.add(nodoActual);
+        List<Integer> listaVecinos = this.obtenerVecinos(nodoActual);
+        for (int i = 0; i < listaVecinos.size(); i++) {
+            Integer vecino = listaVecinos.get(i);
+            if ( !encontrados.contains( vecino )){
+                this.totalmenteConectado(encontrados, vecino );
+            }
+        }
+    }
+
+    /**
+     * Metodo que verifica si dos listas contienen los mismos elementos.
+     * @param L1: La primera lista
+     * @param L2: La segunda lista
+     * @return true si contienen los mismos elementos, false en caso contrario.
+     */
+    private static boolean igualdadEntreListas(List<Integer> L1, List<Integer> L2){
+        int i = 0;
+        boolean iguales = ( L1.size() == L2.size() );
+        while (iguales && i < L1.size() ){
+            if ( !L2.contains(L1.get(i)) ){
+                iguales = false;
+            }
+            ++i;
+        }
+        return iguales;
+    }
+
+    /**
+     * Metodo para verificar si un nodo tiene al menos alguna conexion dentro del grafo.
+     * @param nodo: El nodo en la matriz
+     * @return true si el nodo tiene una conexion en el grafo.
+     */
+    private boolean presenteEnElGrafo(int nodo){
+        boolean presente = false;
+        int i = 0;
+        while (!presente && i < dimensionMatriz){
+            presente = matriz[nodo][i];
+            ++i;
+        }
+        return presente;
     }
 
 

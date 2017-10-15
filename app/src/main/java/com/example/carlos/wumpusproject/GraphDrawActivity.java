@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +22,11 @@ import java.util.List;
 public class GraphDrawActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageButton[][] matriz;
-    public static int numeroFilas;
     private Button finalizeButton;
     private Button btnBiblio;
     private Button btnBluetooth;
+
+    public static int numeroFilas;
     private float inicioX = -1;
     private float inicioY = -1;
     private float finalX = -1;
@@ -37,10 +39,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
 
     private DataBaseHelper dbManager;
     private Grafo grafo;
-    private List<String> listaNombres;
-    private String nombreUsuario = "";
     private boolean repetido = true;
-
     private String[] vectorNombres;
 
     @Override
@@ -75,7 +74,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
         btnBluetooth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                // TODO Implementar Bluetooth
             }
         });
 
@@ -136,8 +135,6 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
 
                                 if (!encontrado2)
                                     matriz[X * 2 + 1][Y * 2].setImageResource(R.drawable.punto1);
-
-
                                 dw.borrarLinea(inicioX, inicioY, finalX, finalY);
                             } else {
                                 dw.dibujarLinea(inicioX, inicioY, finalX, finalY);
@@ -156,28 +153,19 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
         }
 
         if (v.getId() == R.id.finalizeDrawButton) {
-            List<Integer> nodos = grafo.obtenerNodos();
-
-            //Se crean los tipos de cuevas
-            boolean wumpus = false;
-            for (int x = 0; x < nodos.size(); x++) {
-                int tipo = (int) (Math.random() * 3);
-                if (tipo == 1 && wumpus) {
-                    x--;
-                } else {
-                    tiposCuevas.add(tipo);
-                    if (tipo == 1) {
-                        wumpus = true;
-                    }
-                }
+            boolean condicion1 = grafo.getNumeroNodos() > 4;
+            boolean condicion2 = grafo.totalmenteConectado();
+            if ( condicion1 && condicion2 ) {
+                this.definirTiposDeCuevas();
+                this.guardarConfiguracion();
+                //Pedir nombre a usuario
+                mostrarAlertDialog();
             }
-
-            Config.laberinto = grafo;
-            Config.tiposDeCuevas = tiposCuevas;
-
-            //Pedir nombre a usuario
-            mostrarAlertDialog();
-
+            else {
+                if (!condicion1) Toast.makeText(this, "ERROR\nGrafo contiene cantidad insuficiente de cuevas." +
+                        "Deben haber al menos 5.", Toast.LENGTH_LONG).show();
+                if (!condicion2) Toast.makeText(this, "ERROR\nEl grafo no es totalmente conexo.", Toast.LENGTH_LONG).show();
+            }
         }
 
         if(v.getId() == R.id.elegirBiblio){
@@ -207,7 +195,8 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                     public void onClick(DialogInterface dialog, int whichButton) {
                         // cargar juego
                         grafo = dbManager.obtenerGrafoDeLibreria(hilera);
-
+                        definirTiposDeCuevas();
+                        guardarConfiguracion();
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -229,27 +218,27 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                 .setView(nombre)
                 .setPositiveButton("Guardar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        nombreUsuario = nombre.getText().toString();
+                        String nombreUsuario = nombre.getText().toString();
 
                         //Obtiene la lista de nombres que hay en la base
-                        listaNombres = dbManager.obtenerNombresDeGrafos();
+                        List<String> listaNombres = dbManager.obtenerNombresDeGrafos();
 
                         AlertDialog.Builder alerta2 = new AlertDialog.Builder(context)
-                                .setTitle("Estado")
+                                .setTitle("Guardar laberinto")
                                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         // continue with delete
                                     }
                                 });
                          if (listaNombres.contains(nombreUsuario)) {
-                        //Pedir otro nombre
+                             alerta2.setTitle("ERROR!!!");
                              alerta2.setMessage("Nombre repetido. No se ha podido guardar.");
-                             alerta2.setIcon(android.R.drawable.ic_dialog_alert);
+                             alerta2.setIcon(android.R.drawable.stat_notify_error);
                          } else {
-                        // Inserta en la base de datos
+                             repetido = false;
+                             // Inserta en la base de datos
                              dbManager.insertarGrafo(grafo, nombreUsuario);
                              alerta2.setMessage("Grafo guardado exitosamente");
-                             repetido = false;
                              alerta2.setIcon(android.R.drawable.ic_dialog_info);
                              // Empezar el juego
                          }
@@ -262,6 +251,29 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                     }
                 }).create();
          alertDialog.show();
+    }
+
+    public  void definirTiposDeCuevas(){
+        List<Integer> nodos = grafo.obtenerNodos();
+
+        //Se crean los tipos de cuevas
+        boolean wumpus = false;
+        for (int x = 0; x < nodos.size(); x++) {
+            int tipo = (int) (Math.random() * 3);
+            if (tipo == 1 && wumpus) {
+                x--;
+            } else {
+                tiposCuevas.add(tipo);
+                if (tipo == 1) {
+                    wumpus = true;
+                }
+            }
+        }
+    }
+
+    public void guardarConfiguracion(){
+        Config.laberinto = grafo;
+        Config.tiposDeCuevas = tiposCuevas;
     }
 
     public static String[] listAsStringArray(List<String> list){
