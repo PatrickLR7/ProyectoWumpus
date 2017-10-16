@@ -10,10 +10,10 @@ import java.util.List;
 
 public class Grafo {
 
-    /** Matriz que representa el grafo. */
+    /* Matriz que representa el grafo. */
     private boolean[][] matriz;
 
-    /** Tamaño del juego. */
+    /* Tamaño del juego. */
     private int dimensionMatriz;
 
     /* Lista de cuevas en el juego */

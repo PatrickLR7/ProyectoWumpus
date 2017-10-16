@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.carlos.wumpusproject.GraphDrawActivity;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +60,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     /**
      * Returns all the names from database
      *
-     * @return
+     * @return Un cursor que apunta a el conjunto de tuplas asociadas a los nombres que pertenecen
+     * a la base de datos.
      */
     public Cursor getNames() {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -68,10 +70,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Returns only the ID that matches the name passed in
+     * Obtiene todas las aristas asociados a un grafo particular.
      *
-     * @param graphName
-     * @return
+     * @param graphName: El nombre del grafo por consultar.
+     * @return Un cursor que apunta a la tabla asociado al grafo consultado.
      */
     public Cursor getTuples(String graphName) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -131,5 +133,69 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         String peticion = "DELETE FROM " + TABLE_NAME + " WHERE " + Name + " = " + nombre;
         db.execSQL(peticion);
     }
+
+    /*
+     * Escribe el archivo a almacenamiento interno, de forma privada, es decir solo es visible para
+     * esta aplicacion.
+     */
+    public void grafoComoArchivo(String nombre, Context context) {
+        Cursor cursor = this.getTuples(nombre);
+        try {
+            FileOutputStream stream =  context.openFileOutput(nombre, Context.MODE_PRIVATE);
+            while ( cursor.moveToNext() ){
+                String hilera = cursor.getInt(2) + "-" + cursor.getInt(3) + "\n";
+                stream.write( hilera.getBytes() );
+            }
+            stream.close();
+        }catch (FileNotFoundException e){
+            System.out.println("File not found");
+        }catch (IOException e){
+            System.out.println("IO exception");
+        }
+    }
+
+    public void leerGrafoComoArchivo(String nombre, Context context){
+        try {
+            FileInputStream stream = context.openFileInput(nombre);
+            String hilera = "";
+            int nodos = GraphDrawActivity.numeroFilas / 2;
+            nodos = nodos*nodos;
+            Grafo grafo = new Grafo(nodos);
+            Integer num1 = 0, num2;
+            while (stream.available() > 0){
+                char a = (char) stream.read();
+                switch (a){
+                    case 32: // Espacio en blanco
+                        num2 = Integer.parseInt(hilera);
+                        grafo.addArista(num1, num2);
+                        hilera = "";
+                        break;
+                    case 45: // Guion que separa numeros
+                        num1 = Integer.parseInt(hilera);
+                        hilera = "";
+                        break;
+                    default: // Digito numerico
+                        hilera += a;
+                        break;
+                }
+            }
+
+            /*
+             * Se hace pues la ultima tupla no se agrego, ya que
+             * no habia un cambio de linea despues de ella
+             */
+            num2 = Integer.parseInt(hilera);
+            grafo.addArista(num1, num2);
+            stream.close();
+            this.insertarGrafo(grafo, nombre);
+
+        }catch (FileNotFoundException e){
+            System.out.println("File not found");
+        }catch (IOException e){
+            System.out.println("IO exception");
+        }
+    }
+
+
 
 }
