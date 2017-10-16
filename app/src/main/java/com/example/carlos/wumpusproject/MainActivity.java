@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.PoliRegButton:
                 Config.labEsRegular = true;
+                //intent = new Intent(getApplicationContext(), MapsActivity.class); //Descomentar para Cargar Mapa para prueba
+                //startActivity(intent); //Descomentar para Cargar Mapa para prueba
                 intent = new Intent(getApplicationContext(), GrafosRegulares.class);
                 startActivity(intent);
                 break;

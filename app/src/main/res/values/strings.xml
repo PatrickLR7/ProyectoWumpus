@@ -5,4 +5,9 @@
         lo forman. Buena suerte!!!</string>
     <string name="title_activity_labirynth_draw">LabirynthDraw</string>
     <string name="graphDrawFinished">Finalizar</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+        YOUR_KEY_HERE
+    </string>
+
 </resources>
