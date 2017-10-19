@@ -9,6 +9,5 @@
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
         AIzaSyCgJ5S4DzTIf3Xkxmmz_i4CD11Gt2aqcrw
     </string>
-    <string name="title_activity_maps2">Map</string>
 
 </resources>

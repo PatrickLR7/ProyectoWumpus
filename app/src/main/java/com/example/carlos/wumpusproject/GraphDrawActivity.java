@@ -160,9 +160,9 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                 mostrarAlertDialog();
             }
             else {
-                if (!condicion1) Toast.makeText(this, "ERROR\nGrafo contiene cantidad insuficiente de cuevas." +
+                if (!condicion1) Toast.makeText(this, "ERROR!\nEL grafo contiene una cantidad insuficiente de cuevas." +
                         "Deben haber al menos 5.", Toast.LENGTH_LONG).show();
-                if (!condicion2) Toast.makeText(this, "ERROR\nEl grafo no es totalmente conexo.", Toast.LENGTH_LONG).show();
+                if (!condicion2) Toast.makeText(this, "ERROR!\nEl grafo no es totalmente conexo.", Toast.LENGTH_LONG).show();
             }
         }
 
@@ -170,7 +170,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
             List<String> nombresGrafos = dbManager.obtenerNombresDeGrafos();
             vectorNombres = GraphDrawActivity.listAsStringArray(nombresGrafos);
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Escoga el nombre del laberinto deseado.");
+            builder.setTitle("Escoja el nombre del laberinto deseado.");
             builder.setItems(vectorNombres, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -187,7 +187,6 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
             intent = new Intent(getApplicationContext(),BluetoothActivity.class);
             startActivity(intent);
         }
-
     }
 
     public void mostrarMensajeBiblio(final String hilera){
@@ -287,11 +286,4 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
         }
         return array;
     }
-
-
-
 }
-
-
-
-

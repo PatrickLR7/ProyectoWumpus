@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Button poliedro;
     private Button laberinto;
+    private Button emplazar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         poliedro.setOnClickListener(this);
         laberinto = (Button) findViewById(R.id.LabIrregButton);
         laberinto.setOnClickListener(this);
+        emplazar = (Button) findViewById(R.id.emplazar);
+        emplazar.setOnClickListener(this);
     }
 
     @Override
@@ -31,15 +34,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.PoliRegButton:
                 Config.labEsRegular = true;
-                //intent = new Intent(getApplicationContext(), MapsActivity.class); //Descomentar para Cargar Mapa para prueba
-                //startActivity(intent); //Descomentar para Cargar Mapa para prueba
                 intent = new Intent(getApplicationContext(), GrafosRegulares.class);
                 startActivity(intent);
                 break;
+
             case R.id.LabIrregButton:
                 Config.labEsRegular = false;
                 intent = new Intent(getApplicationContext(), GraphDrawActivity.class);
                 startActivity(intent);
+                break;
+
+            case R.id.emplazar:
+                intent = new Intent(getApplicationContext(), MapsActivity.class); //Descomentar para Cargar Mapa para prueba
+                startActivity(intent); //Descomentar para Cargar Mapa para prueba
                 break;
         }
     }

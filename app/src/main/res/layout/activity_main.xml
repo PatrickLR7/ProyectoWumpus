@@ -24,6 +24,7 @@
             android:id="@+id/wumpusIMG1"
             android:layout_width="@dimen/wumpusTitleSize"
             android:layout_height="@dimen/wumpusTitleSize"
+            android:layout_gravity="center"
             app:srcCompat="@drawable/wumpustitle" />
 
         <TextView
@@ -32,32 +33,55 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed"
             android:textSize="25dp"
+            android:textAlignment="center"
             android:textColor="@color/blanco"
-            android:text="Bienvenido al juego The Wumpus!\nPor favor escoja la forma del laberinto."
+            android:text="Por favor escoja la forma del laberinto en el que desea jugar:"
             />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp">
 
-            <Button
-                android:id="@+id/PoliRegButton"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="onClick"
-                android:text="Poliedro Regular" />
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/LabIrregButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="onClick"
-                android:text="Laberinto Irregular" />
+                <Button
+                    android:id="@+id/PoliRegButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="Poliedro Regular" />
+
+                <Button
+                    android:id="@+id/LabIrregButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="Laberinto Irregular" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/emplazar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="Emplazar Laberinto" />
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
     </LinearLayout>
