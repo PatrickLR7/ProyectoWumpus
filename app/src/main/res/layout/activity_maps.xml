@@ -8,7 +8,8 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="344dp"
         android:layout_height="495dp"
-        tools:context="com.example.carlos.wumpusproject.MapsActivity" />
+        tools:context="com.example.carlos.wumpusproject.MapsActivity"
+        tools:layout="@layout/prueba" />
 
 
 

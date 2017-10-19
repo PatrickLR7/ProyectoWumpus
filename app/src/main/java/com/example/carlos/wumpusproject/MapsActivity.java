@@ -3,9 +3,8 @@ package com.example.carlos.wumpusproject;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
-
-import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -25,7 +24,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
     }
 
-
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -39,9 +37,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        // Add a marker in ECCI and move the camera
+        LatLng ECCI = new LatLng(9.9379054,-84.0518864);
+        mMap.addMarker(new MarkerOptions().position(ECCI).title("Marker in ECCI"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(ECCI));
     }
 }
