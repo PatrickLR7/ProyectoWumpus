@@ -7,9 +7,16 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -17,11 +24,15 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.carlos.wumpusproject.R;
 
+import java.io.File;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -49,6 +60,8 @@ public class BluetoothActivity extends AppCompatActivity implements AdapterView.
 
     ListView lvNewDevices;
 
+    String path = "";
+    TextView textView_FileName;
 
     // Create a BroadcastReceiver for ACTION_FOUND
     private final BroadcastReceiver mBroadcastReceiver1 = new BroadcastReceiver() {
@@ -199,7 +212,7 @@ public class BluetoothActivity extends AppCompatActivity implements AdapterView.
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         lvNewDevices.setOnItemClickListener(BluetoothActivity.this);
-
+        textView_FileName = (TextView) findViewById(R.id.textView_FileName);
 
         btnONOFF.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -221,6 +234,17 @@ public class BluetoothActivity extends AppCompatActivity implements AdapterView.
             public void onClick(View view) {
                 byte[] bytes = etSend.getText().toString().getBytes(Charset.defaultCharset());
                 mBluetoothConnection.write(bytes);
+                /*
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+
+
+                String uri = "/mnt/sdcard/test.jpg";
+                intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(uri)));
+                startActivity(intent);
+
+                 */
             }
         });
 
@@ -344,6 +368,149 @@ public class BluetoothActivity extends AppCompatActivity implements AdapterView.
 
             mBTDevice = mBTDevices.get(i);
             mBluetoothConnection = new BluetoothConnectionService(BluetoothActivity.this);
+        }
+    }
+
+    private boolean canAccessWriteStorage() {
+        return (hasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE));
+    }
+
+    private boolean canAccessReadStorage() {
+        return (hasPermission(Manifest.permission.READ_EXTERNAL_STORAGE));
+    }
+
+    private boolean canAccessLocation() {
+        return (hasPermission(Manifest.permission.ACCESS_FINE_LOCATION));
+    }
+
+    private boolean hasPermission(String perm) {
+        return (PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(this, perm));
+    }
+
+    public static String getPath(final Context context, final Uri uri) {
+        final boolean isKitKatOrAbove = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+
+        // DocumentProvider
+        if (isKitKatOrAbove && DocumentsContract.isDocumentUri(context, uri)) {
+            // ExternalStorageProvider
+            if (isExternalStorageDocument(uri)) {
+                final String docId = DocumentsContract.getDocumentId(uri);
+                final String[] split = docId.split(":");
+                final String type = split[0];
+
+                if ("primary".equalsIgnoreCase(type)) {
+                    return Environment.getExternalStorageDirectory() + "/" + split[1];
+                }
+
+                // TODO handle non-primary volumes
+            }
+        }
+        // MediaStore (and general)
+        else if ("content".equalsIgnoreCase(uri.getScheme())) {
+            return getDataColumn(context, uri, null, null);
+        }
+        // File
+        else if ("file".equalsIgnoreCase(uri.getScheme())) {
+            return uri.getPath();
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the value of the data column for this Uri. This is useful for
+     * MediaStore Uris, and other file-based ContentProviders.
+     *
+     * @param context       The context.
+     * @param uri           The Uri to query.
+     * @param selection     (Optional) Filter used in the query.
+     * @param selectionArgs (Optional) Selection arguments used in the query.
+     * @return The value of the _data column, which is typically a file path.
+     */
+    public static String getDataColumn(Context context, Uri uri, String selection,
+                                       String[] selectionArgs) {
+
+        Cursor cursor = null;
+        final String column = "_data";
+        final String[] projection = {
+                column
+        };
+
+        try {
+            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
+                    null);
+            if (cursor != null && cursor.moveToFirst()) {
+                final int column_index = cursor.getColumnIndexOrThrow(column);
+                return cursor.getString(column_index);
+            }
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return null;
+    }
+
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is ExternalStorageProvider.
+     */
+    public static boolean isExternalStorageDocument(Uri uri) {
+        return "com.android.externalstorage.documents".equals(uri.getAuthority());
+    }
+
+    public void getFile(View v) { /// obtiene la ubicación del archivo.
+        Intent mediaIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        mediaIntent.setType("text/plain"); //set mime type as per requirement
+        startActivity(mediaIntent);
+        finish();
+        Intent intent = getIntent();
+        Uri uriPath = intent.getData();
+        Log.d("", "Video URI= " + uriPath);
+
+        path = getPath(this, uriPath);// "/mnt/sdcard/FileName.mp3"
+        System.out.println("pathhhh " + path);
+        textView_FileName.setText(path);
+    }
+
+    public void enviar(){
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.setType("plain/text");
+
+        if(path == ""){
+            Toast.makeText(this, "Por favor seleccione un archivo primero.",  Toast.LENGTH_LONG).show();
+        }
+        else {
+            File f = new File(path);
+            intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(f));
+
+            PackageManager pm = getPackageManager();
+            List<ResolveInfo> appsList = pm.queryIntentActivities(intent, 0);
+
+            if (appsList.size() > 0) {
+                String packageName = null;
+                String className = null;
+                boolean found = false;
+
+                for (ResolveInfo info : appsList) {
+                    packageName = info.activityInfo.packageName;
+                    if (packageName.equals("com.android.bluetooth")) {
+                        className = info.activityInfo.name;
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found) {
+                    Toast.makeText(this, "No se ha encontrado Bluetooth",
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    intent.setClassName(packageName, className);
+                    startActivity(intent);
+                }
+
+            }
         }
     }
 }

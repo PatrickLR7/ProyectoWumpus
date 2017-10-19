@@ -56,26 +56,39 @@
         android:layout_alignBaseline="@+id/btnSend"
         android:layout_alignBottom="@+id/btnSend"
         android:layout_toStartOf="@+id/btnSend"
-        android:hint="Inserte el Texto Aquí" />
+        android:hint="Inserte el Texto Aquí"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/btnSend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/lvNewDevices"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="14dp"
-        android:layout_toEndOf="@+id/btnDiscoverable_on_off"
-        android:text="ENVIAR" />
+        android:text="ENVIAR"
+        android:layout_below="@+id/btnFile"
+        android:layout_toStartOf="@+id/btnFile"
+        android:layout_marginEnd="14dp"
+        android:layout_marginTop="26dp"
+        android:onClick = "enviar"/>
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        app:srcCompat="@drawable/iconbluetooth"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/btnStartConnection"
-        android:layout_marginBottom="41dp" />
+    <TextView
+        android:id="@+id/textView_FileName"
+        android:layout_width="250dp"
+        android:layout_height="20dp"
+        android:text="TextView"
+        android:layout_alignBottom="@+id/btnFile"
+        android:layout_toEndOf="@+id/editText"
+        android:layout_marginStart="11dp"
+        android:layout_marginBottom="13dp" />
+
+    <Button
+        android:id="@+id/btnFile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/lvNewDevices"
+        android:layout_marginTop="32dp"
+        android:onClick="getFile"
+        android:text="Seleccionar \n Archivo" />
 
 
 </RelativeLayout>
