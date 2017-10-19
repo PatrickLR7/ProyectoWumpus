@@ -11,27 +11,27 @@ import java.util.List;
 
 public class GrafosRegulares extends AppCompatActivity implements View.OnClickListener {
 
-    ImageButton tetrahedro;
-    ImageButton octahedro;
+    ImageButton tetraedro;
+    ImageButton octaedro;
     ImageButton cubo;
-    ImageButton icosahedro;
-    ImageButton dodecahedro;
+    ImageButton icosaedro;
+    ImageButton dodecaedro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.regular);
 
-        tetrahedro = (ImageButton) findViewById(R.id.Tetrahedro);
-        octahedro = (ImageButton) findViewById(R.id.Octahedro);
+        tetraedro = (ImageButton) findViewById(R.id.Tetraedro);
+        octaedro = (ImageButton) findViewById(R.id.Octaedro);
         cubo = (ImageButton) findViewById(R.id.Cubo);
-        icosahedro = (ImageButton) findViewById(R.id.Icosahedro);
-        dodecahedro = (ImageButton) findViewById(R.id.Dodecahedro);
-        tetrahedro.setOnClickListener(this);
-        octahedro.setOnClickListener(this);
+        icosaedro = (ImageButton) findViewById(R.id.Icosaedro);
+        dodecaedro = (ImageButton) findViewById(R.id.Dodecaedro);
+        tetraedro.setOnClickListener(this);
+        octaedro.setOnClickListener(this);
         cubo.setOnClickListener(this);
-        icosahedro.setOnClickListener(this);
-        dodecahedro.setOnClickListener(this);
+        icosaedro.setOnClickListener(this);
+        dodecaedro.setOnClickListener(this);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
         Grafo laberinto;
         List<Integer> tipos;
         switch(v.getId()){
-            case R.id.Tetrahedro:
+            case R.id.Tetraedro:
                 Toast.makeText(this, "Su laberinto tiene 4 cuevas", Toast.LENGTH_LONG).show();
                 laberinto = new Grafo(4);
                 tipos = llenarCueva(4);
@@ -57,7 +57,7 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
                 laberinto.addArista(3,2);
                 break;
 
-            case R.id.Octahedro:
+            case R.id.Octaedro:
                 Toast.makeText(this, "Su laberinto tiene 6 cuevas", Toast.LENGTH_LONG).show();
                 laberinto = new Grafo(6);
                 tipos = llenarCueva(6);
@@ -117,7 +117,7 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
                 laberinto.addArista(7,6);
                 break;
 
-            case R.id.Icosahedro:
+            case R.id.Icosaedro:
                 Toast.makeText(this, "Su laberinto tiene 12 cuevas", Toast.LENGTH_LONG).show();
                 laberinto = new Grafo(12);
                 tipos = llenarCueva(12);
@@ -183,7 +183,7 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
                 laberinto.addArista(11,9);
                 break;
 
-            case R.id.Dodecahedro:
+            case R.id.Dodecaedro:
                 Toast.makeText(this, "Su laberinto tiene 20 cuevas", Toast.LENGTH_LONG).show();
                 laberinto = new Grafo(20);
                 tipos = llenarCueva(20);

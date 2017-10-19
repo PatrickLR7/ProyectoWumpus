@@ -40,12 +40,12 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/Tetrahedro"
+                android:id="@+id/Tetraedro"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1.00"
                 android:background="@drawable/tetrahedron1"
-                android:onClick="TetrahedroOnClick"
+                android:onClick="TetraedroOnClick"
                 app:srcCompat="@android:color/transparent" />
 
             <TextView
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Tetrahedro" />
+                android:text="Tetraedro" />
 
         </LinearLayout>
 
@@ -66,7 +66,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/Octahedro"
+                android:id="@+id/Octaedro"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1.00"
@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Octahedro" />
+                android:text="Octaedro" />
         </LinearLayout>
 
         <LinearLayout
@@ -114,7 +114,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/Icosahedro"
+                android:id="@+id/Icosaedro"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="0.97"
@@ -127,7 +127,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Icosahedro" />
+                android:text="Icosaedro" />
         </LinearLayout>
 
         <LinearLayout
@@ -138,7 +138,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/Dodecahedro"
+                android:id="@+id/Dodecaedro"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="0.94"
@@ -151,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Dodecahedro" />
+                android:text="Dodecaedro" />
         </LinearLayout>
     </LinearLayout>
 
