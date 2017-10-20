@@ -1,8 +1,10 @@
 package com.example.carlos.wumpusproject.utils;
 
 import android.Manifest;
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -39,6 +41,7 @@ import java.util.UUID;
 public class BluetoothActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
     private static final String TAG = "MainActivity";
 
+    BluetoothManager mBluetoothMana;
     BluetoothAdapter mBluetoothAdapter;
     Button btnEnableDisable_Discoverable;
 
@@ -62,6 +65,10 @@ public class BluetoothActivity extends AppCompatActivity implements AdapterView.
 
     String path = "";
     TextView textView_FileName;
+
+    private static final int DISCOVER_DURATION = 300;
+    private static final int REQUEST_BLU = 1;
+
 
     // Create a BroadcastReceiver for ACTION_FOUND
     private final BroadcastReceiver mBroadcastReceiver1 = new BroadcastReceiver() {
@@ -209,7 +216,8 @@ public class BluetoothActivity extends AppCompatActivity implements AdapterView.
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
         registerReceiver(mBroadcastReceiver4, filter);
 
-        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        mBluetoothMana = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
+        mBluetoothAdapter = mBluetoothMana.getAdapter();
 
         lvNewDevices.setOnItemClickListener(BluetoothActivity.this);
         textView_FileName = (TextView) findViewById(R.id.textView_FileName);
@@ -462,8 +470,8 @@ public class BluetoothActivity extends AppCompatActivity implements AdapterView.
     public void getFile(View v) { /// obtiene la ubicación del archivo.
         Intent mediaIntent = new Intent(Intent.ACTION_GET_CONTENT);
         mediaIntent.setType("text/plain"); //set mime type as per requirement
-        startActivity(mediaIntent);
-        finish();
+        startActivityForResult(mediaIntent, 1001);
+        /*finish();
         Intent intent = getIntent();
         Uri uriPath = intent.getData();
         Log.d("", "Video URI= " + uriPath);
@@ -471,9 +479,11 @@ public class BluetoothActivity extends AppCompatActivity implements AdapterView.
         path = getPath(this, uriPath);// "/mnt/sdcard/FileName.mp3"
         System.out.println("pathhhh " + path);
         textView_FileName.setText(path);
+        */
     }
 
-    public void enviar(){
+    public void enviar(View view){
+    /*
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);
         intent.setType("plain/text");
@@ -511,6 +521,72 @@ public class BluetoothActivity extends AppCompatActivity implements AdapterView.
                 }
 
             }
+        }
+        */
+        if (path == null) {
+            Toast.makeText(this, "Seleccione un archivo primero", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        mBluetoothMana = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
+        mBluetoothAdapter = mBluetoothMana.getAdapter();
+
+        if (mBluetoothAdapter == null) {
+            Toast.makeText(this, "Bluetooth no está disponible en este dispositivo", Toast.LENGTH_LONG).show();
+        } else {
+            Intent discoveryIntent = new Intent(mBluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+            discoveryIntent.putExtra(mBluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, DISCOVER_DURATION);
+            startActivityForResult(discoveryIntent, REQUEST_BLU);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (resultCode == DISCOVER_DURATION && requestCode == REQUEST_BLU) {
+
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+
+            File f = new File(path);
+            intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(f));
+
+            PackageManager pm = getPackageManager();
+            List<ResolveInfo> appsList = pm.queryIntentActivities(intent, 0);
+
+            if (appsList.size() > 0) {
+                String packageName = null;
+                String className = null;
+                boolean found = false;
+
+                for (ResolveInfo info : appsList) {
+                    packageName = info.activityInfo.packageName;
+                    if (packageName.equals("com.android.bluetooth")) {
+                        className = info.activityInfo.name;
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found) {
+                    Toast.makeText(this, "Bluetooth no ha sido encontrado",
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    intent.setClassName(packageName, className);
+                    startActivity(intent);
+                }
+            }
+        } else if (requestCode == 1001 && resultCode == Activity.RESULT_OK) {
+            Uri uriPath = data.getData();
+            Log.d("", "Video URI= " + uriPath);
+
+            path = getPath(this, uriPath);// "/mnt/sdcard/FileName.mp3"
+            System.out.println("pathhhh " + path);
+            textView_FileName.setText(path);
+
+        } else {
+            Toast.makeText(this, "Bluetooth is cancelled", Toast.LENGTH_LONG).show();
         }
     }
 }
