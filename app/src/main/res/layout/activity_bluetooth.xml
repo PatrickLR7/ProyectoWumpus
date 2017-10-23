@@ -1,94 +1,65 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.carlos.wumpusproject.utils.BluetoothActivity">
-
-    <Button
-        android:text="ON/OFF"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/btnONOFF"/>
-
-    <Button
-        android:id="@+id/btnDiscoverable_on_off"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="btnEnableDisable_Discoverable"
-        android:text="Habilitar Detectable" />
-
-    <Button
-        android:id="@+id/btnFindUnpairedDevices"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="btnDiscover"
-        android:text="Buscar" />
-
-    <ListView
-        android:id="@+id/lvNewDevices"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_below="@+id/btnStartConnection"
-        android:layout_marginTop="15dp" />
-
-    <Button
-        android:id="@+id/btnStartConnection"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnDiscoverable_on_off"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
-        android:text="Empezar Conexión"
-        android:textAlignment="center" />
+    android:orientation="vertical"
+    tools:context=".BluetoothActivity"
+    android:gravity="center"
+    android:background="#002145">
 
     <EditText
-        android:id="@+id/editText"
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btnSend"
-        android:layout_alignBottom="@+id/btnSend"
-        android:layout_toStartOf="@+id/btnSend"
-        android:hint="Inserte el Texto Aquí"
-        android:visibility="gone" />
+        android:id="@+id/FilePath"
+        android:layout_gravity="center_horizontal"
+        android:textSize="12dp"
+        android:layout_marginBottom="20dp"
+        android:theme="@android:style/Animation.Translucent"
+        android:textColor="#2fffff"
+        android:padding="15dp"
+        android:layout_margin="5dp" />
 
     <Button
-        android:id="@+id/btnSend"
-        android:layout_width="wrap_content"
+        android:id="@+id/opendailog"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="ENVIAR"
-        android:layout_below="@+id/btnFile"
-        android:layout_toStartOf="@+id/btnFile"
-        android:layout_marginEnd="14dp"
-        android:layout_marginTop="26dp"
-        android:onClick = "enviar"/>
-
-    <TextView
-        android:id="@+id/textView_FileName"
-        android:layout_width="250dp"
-        android:layout_height="20dp"
-        android:text="TextView"
-        android:layout_alignBottom="@+id/btnFile"
-        android:layout_toEndOf="@+id/editText"
-        android:layout_marginStart="11dp"
-        android:layout_marginBottom="13dp" />
+        android:layout_above="@+id/BTNquit"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="5dp"
+        android:background="#0bba1c"
+        android:onClick="getFile"
+        android:padding="15dp"
+        android:text="Seleccionar Archivo"
+        android:textColor="#edebff" />
 
     <Button
-        android:id="@+id/btnFile"
+        android:id="@+id/sendBtooth"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/BTNquit"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="5dp"
+        android:background="#113b6a"
+        android:onClick="sendViaBluetooth"
+        android:padding="15dp"
+        android:text="Enviar"
+        android:textColor="#edebff" />
+
+    <Button
+        android:id="@+id/BTNquit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/lvNewDevices"
-        android:layout_marginTop="32dp"
-        android:onClick="getFile"
-        android:text="Seleccionar \n Archivo" />
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="50dp"
+        android:background="#bc2745"
+        android:onClick="exit"
+        android:padding="15dp"
+        android:text="Salir"
+        android:textColor="#29faf5" />
 
-
-</RelativeLayout>
+</LinearLayout>

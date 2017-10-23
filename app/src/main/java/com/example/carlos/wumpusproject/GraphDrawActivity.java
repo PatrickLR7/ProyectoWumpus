@@ -1,6 +1,5 @@
 package com.example.carlos.wumpusproject;
 
-import com.example.carlos.wumpusproject.utils.BluetoothActivity;
 import com.example.carlos.wumpusproject.utils.Config;
 import com.example.carlos.wumpusproject.utils.DataBaseHelper;
 import com.example.carlos.wumpusproject.utils.DrawingCanvas;
@@ -184,7 +183,8 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
 
         if(v.getId() == R.id.compartirBluetooth){
             Intent intent;
-            intent = new Intent(getApplicationContext(),BluetoothActivity.class);
+            intent = new Intent(this ,BluetoothActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
     }
