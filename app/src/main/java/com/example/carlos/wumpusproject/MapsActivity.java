@@ -33,6 +33,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        toggleNetworkUpdates();
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -91,6 +92,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         public void onLocationChanged(Location location) {
             longitudeNetwork = location.getLongitude();
             latitudeNetwork = location.getLatitude();
+
         }
 
         @Override
@@ -116,10 +118,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        toggleNetworkUpdates();
-
-        //LatLng sydney = new LatLng(latitudeNetwork, longitudeNetwork);
-        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in " + latitudeNetwork + ", " + longitudeNetwork));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng sydney = new LatLng(latitudeNetwork, longitudeNetwork);
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in " + latitudeNetwork + ", " + longitudeNetwork));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 }
