@@ -21,7 +21,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
- * Clase que muestra mapas.
+ * Clase de la activity maps.
  */
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {

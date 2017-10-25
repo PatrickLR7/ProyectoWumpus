@@ -7,6 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import com.example.carlos.wumpusproject.utils.Config;
 
+/**
+ * Clase de main activity.
+ */
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     /** Boton que muestra el layout de poliedros. */
@@ -47,8 +51,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.emplazar:
-                intent = new Intent(getApplicationContext(), MapsActivity.class); //Descomentar para Cargar Mapa para prueba
-                startActivity(intent); //Descomentar para Cargar Mapa para prueba
+                intent = new Intent(getApplicationContext(), MapsActivity.class);
+                startActivity(intent);
                 break;
         }
     }

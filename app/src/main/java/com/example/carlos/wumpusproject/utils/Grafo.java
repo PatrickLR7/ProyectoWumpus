@@ -10,13 +10,13 @@ import java.util.List;
 
 public class Grafo {
 
-    /* Matriz que representa el grafo. */
+    /** Matriz que representa el grafo. */
     private boolean[][] matriz;
 
-    /* Tamaño del juego. */
+    /** Tamaño del juego. */
     private int dimensionMatriz;
 
-    /* Lista de cuevas en el juego */
+    /** Lista de cuevas en el juego */
     private List<Integer> nodos;
 
     public Grafo(int tam) {
@@ -84,7 +84,7 @@ public class Grafo {
         return nodos;
     }
 
-    /*
+    /**
      * Obtiene la cantidad de nodos presentes en el grafo
      */
     public int getNumeroNodos(){

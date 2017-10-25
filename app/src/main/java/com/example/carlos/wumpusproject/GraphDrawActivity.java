@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Clase de se encarga de dibujar el laberinto irregular.
+ * Clase de se encarga de graphdraw activity.
  */
 
 public class GraphDrawActivity extends AppCompatActivity implements View.OnClickListener {
@@ -42,7 +42,6 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
 
     private DataBaseHelper dbManager;
     private Grafo grafo;
-    private boolean repetido = true;
     private String[] vectorNombres;
 
     @Override
@@ -81,7 +80,6 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
         tiposCuevas = new ArrayList<>();
         dw = (DrawingCanvas) findViewById(R.id.drawingCanvas);
         grafo = new Grafo( numeroFilas*numeroFilas/4 );
-        repetido = true;
     }
 
     @Override
@@ -103,7 +101,9 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                         finalY = ubicacion[1] + (matriz[x][y].getHeight() / 2) - 250;
                         botonFinal = (numeroFilas/2)*X + Y;
                     }
-                    if (inicioX == finalX && inicioY == finalY) { // Se toca dos veces el mismo punto
+
+                    // Se toca dos veces el mismo punto
+                    if (inicioX == finalX && inicioY == finalY) {
                         List<Integer> lista = grafo.obtenerVecinos(botonFinal);
                         boolean encontrado = (lista.size() > 0);
 
@@ -118,6 +118,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                         botonFinal = -1;
                     } else {
                         if (inicioX != -1 && inicioY != -1 && finalX != -1 && finalY != -1) {
+                            //Si ya existe una arista, se borra.
                             if (grafo.hayArista(botonPrevio, botonFinal)) {
                                 grafo.deleteArista(botonPrevio, botonFinal);
 
@@ -126,6 +127,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                                 boolean encontrado1 = (vecinosInicial.size() > 0);
                                 boolean encontrado2 = (vecinosFinal.size() > 0);
 
+                                //Si el nodo queda sin ninguna arista, se le cambia la imagen de fondo.
                                 if (!encontrado1) {
                                     int f = botonPrevio/(numeroFilas/2);
                                     int c = botonPrevio%(numeroFilas/2);
@@ -136,6 +138,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                                     matriz[X * 2 + 1][Y * 2].setImageResource(R.drawable.punto1);
                                 dw.borrarLinea(inicioX, inicioY, finalX, finalY);
                             } else {
+                                // Se crea la arista.
                                 dw.dibujarLinea(inicioX, inicioY, finalX, finalY);
                                 grafo.addArista(botonPrevio, botonFinal);
                             }
@@ -151,23 +154,24 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
             }
         }
 
+        //Click en boton finalizar.
         if (v.getId() == R.id.finalizeDrawButton) {
             boolean condicion1 = grafo.getNumeroNodos() > 4;
             boolean condicion2 = grafo.totalmenteConectado();
-            if ( condicion1 && condicion2 ) {
+
+            if (condicion1 && condicion2) {
                 this.definirTiposDeCuevas();
                 this.guardarConfiguracion();
                 //Pedir nombre a usuario
                 mostrarAlertDialog();
-            }
-            else {
-                if (!condicion1) Toast.makeText(this, "ERROR!\nEL grafo contiene una cantidad insuficiente de cuevas." +
-                        "Deben haber al menos 5.", Toast.LENGTH_LONG).show();
+            } else {
+                if (!condicion1) Toast.makeText(this, "ERROR!\nEL grafo contiene una cantidad insuficiente de cuevas. " + "Deben haber al menos 5.", Toast.LENGTH_LONG).show();
                 if (!condicion2) Toast.makeText(this, "ERROR!\nEl grafo no es totalmente conexo.", Toast.LENGTH_LONG).show();
             }
         }
 
-        if(v.getId() == R.id.elegirBiblio){
+        // Click en elegir grafo desde biblioteca.
+        if (v.getId() == R.id.elegirBiblio) {
             List<String> nombresGrafos = dbManager.obtenerNombresDeGrafos();
             vectorNombres = GraphDrawActivity.listAsStringArray(nombresGrafos);
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -183,7 +187,8 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
             alertDialog.show();
         }
 
-        if(v.getId() == R.id.compartirBluetooth){
+        // Click en compartir laberinto por bluetooth.
+        if (v.getId() == R.id.compartirBluetooth) {
             Intent intent;
             intent = new Intent(this ,BluetoothActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -191,6 +196,11 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
+    /**
+     * Muestra un mensaje con el archivo seleccionado desde la base de datos.
+     *
+     * @param hilera:
+     */
     public void mostrarMensajeBiblio(final String hilera){
         final EditText nombre = new EditText(this);
         AlertDialog alertDialog = new AlertDialog.Builder(this)
@@ -212,8 +222,11 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
         alertDialog.show();
     }
 
+    /**
+     * Metodo que muestra alerta de guardado en base de datos.
+     * Se solicita el nombre con el que se va a guardar el grafo.
+     */
     public void mostrarAlertDialog(){
-
         final Context context = this;
         final EditText nombre = new EditText(context);
 
@@ -240,7 +253,6 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                              alerta2.setMessage("Nombre repetido. No se ha podido guardar.");
                              alerta2.setIcon(android.R.drawable.stat_notify_error);
                          } else {
-                             repetido = false;
                              // Inserta en la base de datos
                              dbManager.insertarGrafo(grafo, nombreUsuario);
                              alerta2.setMessage("Grafo guardado exitosamente");
@@ -258,6 +270,15 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
          alertDialog.show();
     }
 
+    /**
+     * Define los tipos de las cuevas; es decir, si hay pozos o murcielagos.
+     * Se usaran los siguientes numeros:
+     * 0 -> cueva Libre.
+     * 1 -> cueva con Wumpus.
+     * 2 -> cueva con pozo.
+     * 3 -> cueva con murcielagos.
+     * 4 -> cueva inicial del personaje.
+     */
     public  void definirTiposDeCuevas(){
         List<Integer> nodos = grafo.obtenerNodos();
 
@@ -276,11 +297,19 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
+    /**
+     * Guarda la configuracion del juego.
+     */
     public void guardarConfiguracion(){
         Config.laberinto = grafo;
         Config.tiposDeCuevas = tiposCuevas;
     }
 
+    /**
+     * Devuelve los elmentos de una lista como un array.
+     *
+     * @return Un array con los elementos de la lista.
+     */
     public static String[] listAsStringArray(List<String> list){
         String[] array = new String[list.size()];
         for (int i = 0; i < array.length; i++) {
