@@ -1,12 +1,28 @@
 package com.example.carlos.wumpusproject;
 
-/**
- * Clase que se encarga de ejecutar el juego.
- */
+import com.example.carlos.wumpusproject.utils.Grafo;
 
-public class Jugar {
-    /** Flechas que le restan al jugador. */
+import java.util.List;
+
+public class Jugar
+{
+    private Grafo tablero;
     private int flechasRestantes = 5;
-    /** Ubicacion actual del jugador. */
     private int cuevaActual = -1;
+
+    public Jugar(Grafo lab)
+    {
+        tablero = lab;
+    }
+
+    public void mostrarIndicios()
+    {
+        List<Integer> vecinos = tablero.obtenerVecinos(cuevaActual);
+        int vecinoActual = -1;
+        for(int i = 0; i < vecinos.size(); i++)
+        {
+            vecinoActual = vecinos.get(i);
+
+        }
+    }
 }
