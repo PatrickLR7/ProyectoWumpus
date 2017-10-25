@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/azulOscuro"
+    android:background="@color/black"
     tools:context="com.example.carlos.wumpusproject.MainActivity">
 
     <LinearLayout
@@ -25,7 +25,8 @@
             android:layout_width="@dimen/wumpusTitleSize"
             android:layout_height="@dimen/wumpusTitleSize"
             android:layout_gravity="center"
-            app:srcCompat="@drawable/wumpustitle" />
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/wumpuslogogreen" />
 
         <TextView
             android:id="@+id/introMessage"

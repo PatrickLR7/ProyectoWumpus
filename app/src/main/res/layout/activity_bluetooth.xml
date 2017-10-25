@@ -5,7 +5,7 @@
     android:orientation="vertical"
     tools:context=".BluetoothActivity"
     android:gravity="center"
-    android:background="#002145">
+    android:background="#101112">
 
     <EditText
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_margin="5dp"
-        android:background="#0bba1c"
+        android:background="@android:color/holo_green_dark"
         android:onClick="getFile"
         android:padding="15dp"
         android:text="Seleccionar Archivo"
@@ -41,7 +41,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_margin="5dp"
-        android:background="#113b6a"
+        android:background="@android:color/holo_green_light"
         android:onClick="sendViaBluetooth"
         android:padding="15dp"
         android:text="Enviar"
@@ -56,10 +56,10 @@
         android:layout_centerVertical="true"
         android:layout_gravity="center_horizontal"
         android:layout_margin="50dp"
-        android:background="#bc2745"
+        android:background="@color/grisOscuro"
         android:onClick="exit"
         android:padding="15dp"
         android:text="Salir"
-        android:textColor="#29faf5" />
+        android:textColor="#edebff" />
 
 </LinearLayout>

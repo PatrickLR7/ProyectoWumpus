@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -150,19 +151,19 @@ public class BluetoothActivity extends AppCompatActivity {
     //exit to application---------------------------------------------------------------------------
     public void exit(View V) {
         btAdatper.disable();
-        Toast.makeText(this,"*** Now Bluetooth is off... Thanks. ***",Toast.LENGTH_LONG).show();
+        Toast.makeText(this,"Saliendo de Bluetooth",Toast.LENGTH_LONG).show();
         finish(); }
 
     //Method for send file via bluetooth------------------------------------------------------------
     public void sendViaBluetooth(View v) {
         if(!dataPath.equals(null)){
         if (btAdatper == null) {
-            Toast.makeText(this, "Device not support bluetooth", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "El dispositivo no tiene bluetooth disponible", Toast.LENGTH_LONG).show();
         } else {
             enableBluetooth();
         }
     }else{
-            Toast.makeText(this,"Please select a file.",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Seleccione un archivo",Toast.LENGTH_LONG).show();
         }
     }
 
@@ -174,7 +175,7 @@ public class BluetoothActivity extends AppCompatActivity {
 
     public void getFile(View v) { /// obtiene la ubicación del archivo.
         Intent mediaIntent = new Intent(Intent.ACTION_GET_CONTENT);
-        mediaIntent.setType("text/plain"); //set mime type as per requirement
+        mediaIntent.setType("*/*"); //set mime type as per requirement
         startActivityForResult(mediaIntent, 1001);
     }
 
@@ -260,6 +261,8 @@ public class BluetoothActivity extends AppCompatActivity {
             File file = new File(dataPath.getText().toString());
 
             i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+            //i.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(BluetoothActivity.this,
+            //BuildConfig.APPLICATION_ID + ".provider", file));
 
             PackageManager pm = getPackageManager();
             List<ResolveInfo> list = pm.queryIntentActivities(i, 0);
@@ -278,9 +281,10 @@ public class BluetoothActivity extends AppCompatActivity {
                 }
                 //CHECK BLUETOOTH available or not------------------------------------------------
                 if (!found) {
-                    Toast.makeText(this, "Bluetooth han't been found", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "No se ha encontrado Bluetooth", Toast.LENGTH_LONG).show();
                 } else {
                     i.setClassName(packageName, className);
+                    i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     startActivity(i);
                 }
             }
@@ -295,7 +299,7 @@ public class BluetoothActivity extends AppCompatActivity {
         }
 
         else {
-            Toast.makeText(this, "Bluetooth is cancelled", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Bluetooth se ha cancelado", Toast.LENGTH_LONG).show();
         }
     }
 }
