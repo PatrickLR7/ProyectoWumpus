@@ -4,7 +4,6 @@ import com.example.carlos.wumpusproject.utils.Config;
 import com.example.carlos.wumpusproject.utils.DataBaseHelper;
 import com.example.carlos.wumpusproject.utils.DrawingCanvas;
 import com.example.carlos.wumpusproject.utils.Grafo;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,9 +15,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * Clase de se encarga de dibujar el laberinto irregular.
+ */
 
 public class GraphDrawActivity extends AppCompatActivity implements View.OnClickListener {
 

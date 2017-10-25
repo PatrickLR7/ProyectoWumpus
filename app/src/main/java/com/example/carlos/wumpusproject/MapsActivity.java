@@ -13,7 +13,6 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -21,11 +20,16 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+/**
+ * Clase que muestra mapas.
+ */
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     LocationManager locationManager;
-    double longitudeNetwork = -10, latitudeNetwork = -20;
+    /** Variables pra latitud y longitud. */
+    double longitudeNetwork = 0, latitudeNetwork = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +44,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
     }
 
+    /**
+     * Revisa si el gps del dispositivo está activo.
+     */
     private boolean checkLocation() {
-        if (!isLocationEnabled())
+        if (!(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)))
             showAlert();
-        return isLocationEnabled();
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
+    /**
+     * Muestra una alerta de que el gps del dispositivo está o no activado.
+     */
     private void showAlert() {
         final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("Enable Location")
@@ -66,11 +76,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         dialog.show();
     }
 
-    private boolean isLocationEnabled() {
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
-                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-    }
-
+    /**
+     * Metodo que actuliza las coordenadas actuales del jugador.
+     */
     public void toggleNetworkUpdates() {
         if (!checkLocation())
             return;

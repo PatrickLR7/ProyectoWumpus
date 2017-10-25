@@ -5,13 +5,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
 import com.example.carlos.wumpusproject.utils.Config;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    /** Boton que muestra el layout de poliedros. */
     private Button poliedro;
+    /** Boton que muestra el layout de drawingcanvas. */
     private Button laberinto;
+    /** Boton que muestra el layout de emplazar el laberinto. */
     private Button emplazar;
 
     @Override
