@@ -20,6 +20,13 @@
         android:layout_margin="5dp" />
 
     <Button
+        android:id="@+id/btnLaberinto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/actionModeSplitBackground"
+        android:text="Seleccionar Laberinto" />
+
+    <Button
         android:id="@+id/opendailog"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -27,7 +34,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_margin="5dp"
-        android:background="@android:color/holo_green_dark"
+        android:background="@android:color/holo_green_light"
         android:onClick="getFile"
         android:padding="15dp"
         android:text="Seleccionar Archivo"
@@ -41,7 +48,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_margin="5dp"
-        android:background="@android:color/holo_green_light"
+        android:background="@android:color/holo_green_dark"
         android:onClick="sendViaBluetooth"
         android:padding="15dp"
         android:text="Enviar"

@@ -157,7 +157,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void grafoComoArchivo(String nombre, Context context) {
         Cursor cursor = this.getTuples(nombre);
         try {
-            FileOutputStream stream =  context.openFileOutput(nombre, Context.MODE_PRIVATE);
+            FileOutputStream stream =  context.openFileOutput(nombre+".txt", Context.MODE_PRIVATE);
             while ( cursor.moveToNext() ){
                 String hilera = cursor.getInt(2) + "-" + cursor.getInt(3) + "\n";
                 stream.write( hilera.getBytes() );
@@ -174,7 +174,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
      * Recrea un grafo representado como archivo.
      * @param nombre El nombre con el que se va a guardar el grafo.
      */
-    public void leerGrafoComoArchivo(String nombre, Context context){
+    public void leerArchivoComoGrafo(String nombre, Context context){
         try {
             FileInputStream stream = context.openFileInput(nombre);
             String hilera = "";

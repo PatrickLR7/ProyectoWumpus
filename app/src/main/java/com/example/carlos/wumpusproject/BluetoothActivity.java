@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -13,6 +14,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,13 +27,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.carlos.wumpusproject.utils.DataBaseHelper;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BluetoothActivity extends AppCompatActivity {
     //Create Objects-------------------------------------------------------
-    Button buttonopenDailog, buttonUp, send;
+    Button buttonopenDailog, buttonUp, send, btnLaberinto;
     TextView textFolder;
     EditText dataPath;
     static final int CUSTOM_DIALOG_ID = 0;
@@ -42,6 +46,10 @@ public class BluetoothActivity extends AppCompatActivity {
     private static final int REQUEST_BLU = 1;
     BluetoothAdapter btAdatper = BluetoothAdapter.getDefaultAdapter();
     String path = "";
+    private String[] vectorNombres;
+    private DataBaseHelper dbManager;
+    private ArrayList<String> archCreados;
+
     //---------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +58,9 @@ public class BluetoothActivity extends AppCompatActivity {
         dataPath=(EditText)findViewById(R.id.FilePath);
         buttonopenDailog= (Button) findViewById(R.id.opendailog);
         send=(Button)findViewById(R.id.sendBtooth);
-
+        btnLaberinto = (Button) findViewById(R.id.btnLaberinto);
+        dbManager = new DataBaseHelper(this);
+        archCreados = new ArrayList<String>();
         dataPath.setText("");
         /*buttonopenDailog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -301,5 +311,70 @@ public class BluetoothActivity extends AppCompatActivity {
         else {
             Toast.makeText(this, "Bluetooth se ha cancelado", Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void elegirLaberinto(){
+        List<String> nombresGrafos = dbManager.obtenerNombresDeGrafos();
+        vectorNombres = GraphDrawActivity.listAsStringArray(nombresGrafos);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Escoja el nombre del laberinto deseado.");
+        builder.setItems(vectorNombres, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                msjBiblioYGenerarArchivo(vectorNombres[i]);
+            }
+        });
+        builder.setNegativeButton("Cancel", null); // No tiene OnClickListener
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+
+    /**
+     * Muestra un mensaje con el archivo seleccionado desde la base de datos.
+     *
+     * @param hilera:
+     */
+    public void msjBiblioYGenerarArchivo(final String hilera){
+        final EditText nombre = new EditText(this);
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setTitle("Wumpus")
+                .setMessage("Ha escogido el laberinto: " + hilera)
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // generar archivo para enviar
+                        /*
+                        grafo = dbManager.obtenerGrafoDeLibreria(hilera);
+                        definirTiposDeCuevas();
+                        guardarConfiguracion();
+                        */
+                        boolean encontrado = false;
+                        String nombre = hilera;
+                        for(int i = 0; i < archCreados.size(); i++){
+                            if(nombre.equals(archCreados.get(i))){
+                                encontrado = true;
+                            } else{
+                                encontrado = false;
+                            }
+                        }
+                        if(!encontrado){
+                            dbManager.grafoComoArchivo(hilera, BluetoothActivity.this);
+                            archCreados.add(hilera);
+                            path = (getFilesDir().getAbsolutePath() + "/" + hilera + ".txt");
+                        } else {
+                            path = (getFilesDir().getAbsolutePath() + "/" + hilera + ".txt");
+                        }
+
+
+
+
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //elegir otro laberinto
+                    }
+                }).create();
+        alertDialog.show();
     }
 }
