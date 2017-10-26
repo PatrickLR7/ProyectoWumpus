@@ -1,39 +1,48 @@
 package com.example.carlos.wumpusproject;
 
+import android.content.Context;
+import android.widget.Toast;
+import android.os.Vibrator;
+
 import com.example.carlos.wumpusproject.utils.Config;
 import com.example.carlos.wumpusproject.utils.Grafo;
+
 import java.util.List;
 
-public class Jugar {
-
-    /** Laberinto con el que se juega. */
-    private Grafo tablero = Config.laberinto;
-    /** Los tipos de las cuevas. */
-    private List<Integer> tiposCueva = Config.tiposDeCuevas;
-    /** Flechas que le quedan al jugador. */
+public class Jugar
+{
+    private Grafo tablero;
+    private List<Integer> tiposCueva;
     private int flechasRestantes = 5;
-    /** Posicion actual del jugador. */
-    private int cuevaActual = -1;
+    private int cuevaActual = -1; //Posición actual del jugador
 
-    /**
-     * Muestra indicios de peligro en las cuevas cercanas.
-     */
-    public void mostrarIndicios() {
+    public Jugar() //Recibe el tablero con el que se va a jugar
+    {
+        tablero = Config.laberinto;
+        tiposCueva = Config.tiposDeCuevas;
 
+    }
+
+    public void mostrarIndicios()
+    {
         List<Integer> vecinos = tablero.obtenerVecinos(cuevaActual);
+
+        int vecinoActual = -1;
         int tipo = -1;
-        for (int i = 0; i < vecinos.size(); i++) {
-            int vecinoActual = vecinos.get(i);
+        for(int i = 0; i < vecinos.size(); i++)
+        {
+            vecinoActual = vecinos.get(i);
             tipo = tiposCueva.get(vecinoActual);
-            switch (tipo) {
+            switch (tipo)
+            {
                 case 1:
-                    //Hay un Wumpus cerca
+                    //Mensaje diciendo que hay wumpus
                     break;
                 case 2:
-                    //Pozo
+                    //Pozo vibra
                     break;
                 case 3:
-                    //Murc
+                    //Murcielagos con efecto de sonido
                     break;
             }
         }

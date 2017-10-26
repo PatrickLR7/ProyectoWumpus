@@ -24,26 +24,42 @@ import java.util.List;
 
 public class GraphDrawActivity extends AppCompatActivity implements View.OnClickListener {
 
+    /** Guarda indice del boton previamente seleccionado en el grafo. */
+    private int botonPrevio = -1;
+    /** Guarda indice del boton final en el grafo */
+    private int botonFinal = -1;
+    /** Matriz de botones. */
     private ImageButton[][] matriz;
+    /** Boton finalizar. */
     private Button finalizeButton;
+    /** Boton escoger de librería. */
     private Button btnBiblio;
+    /** Boton compartir laberinto de bluetooth. */
     private Button btnBluetooth;
-
+    /** Numero de filas. */
     public static int numeroFilas;
+    /** Coordenada inicial x del canvas. */
     private float inicioX = -1;
+    /** Coordenada inicial y del canvas. */
     private float inicioY = -1;
+    /** Coordenada final x del canvas. */
     private float finalX = -1;
+    /** Coordenada final y del canvas. */
     private float finalY = -1;
+    /** Canvas donde se dibuja. */
     private DrawingCanvas dw;
-
+    /** Tipos de cuevas del juego. */
     private List<Integer> tiposCuevas;
-    private int botonPrevio = -1; // Guarda indice del boton previamente seleccionado en el grafo
-    private int botonFinal = -1; // Guarda indice de boton final en el grafo
-
+    /** Controlador de la base de datos. */
     private DataBaseHelper dbManager;
+    /** Grafo que representa el laberinto creado. */
     private Grafo grafo;
+    /** Vector de los nombres de los grafos guardados en la base de datos. */
     private String[] vectorNombres;
 
+    /**
+     * Metodo onCreate.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,12 +82,11 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                 }
             }
         }
+
         finalizeButton = (Button) findViewById(R.id.finalizeDrawButton);
         finalizeButton.setOnClickListener(this);
-
         btnBiblio = (Button) findViewById(R.id.elegirBiblio);
         btnBiblio.setOnClickListener(this);
-
         btnBluetooth = (Button) findViewById(R.id.compartirBluetooth);
         btnBluetooth.setOnClickListener(this);
 
@@ -82,21 +97,28 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
         grafo = new Grafo( numeroFilas*numeroFilas/4 );
     }
 
+    /**
+     * Metodo onClick
+     */
     @Override
     public void onClick(View v) {
         for (int x = 0; x < numeroFilas; x++) {
             for (int y = 0; y < numeroFilas; y++) {
+                //Click en un boton
                 if (matriz[x][y].getId() == v.getId()) {
                     int X = x/2;
                     int Y = y/2;
                     matriz[x][y].setImageResource(R.drawable.cueva1);
                     int[] ubicacion = new int[2];
                     matriz[x][y].getLocationOnScreen(ubicacion);
+
+                    //click por primera vez en un boton
                     if (inicioX == -1 && inicioY == -1) {
                         inicioX = ubicacion[0] + matriz[x][y].getWidth() / 2;
                         inicioY = ubicacion[1] + (matriz[x][y].getHeight() / 2) - 250;
                         botonPrevio = (numeroFilas/2)*X + Y;
                     } else {
+                        //click por segunda vez en un boton
                         finalX = ubicacion[0] + matriz[x][y].getWidth() / 2;
                         finalY = ubicacion[1] + (matriz[x][y].getHeight() / 2) - 250;
                         botonFinal = (numeroFilas/2)*X + Y;
@@ -110,6 +132,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                         if (!encontrado) {
                             matriz[x][y].setImageResource(R.drawable.punto1);
                         }
+
                         inicioX = -1;
                         inicioY = -1;
                         finalX = -1;
@@ -134,6 +157,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                                     matriz[f*2+1][c*2].setImageResource(R.drawable.punto1);
                                 }
 
+                                //Si el nodo queda sin ninguna arista, se le cambia la imagen de fondo.
                                 if (!encontrado2)
                                     matriz[X * 2 + 1][Y * 2].setImageResource(R.drawable.punto1);
                                 dw.borrarLinea(inicioX, inicioY, finalX, finalY);
@@ -198,8 +222,6 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
 
     /**
      * Muestra un mensaje con el archivo seleccionado desde la base de datos.
-     *
-     * @param hilera:
      */
     public void mostrarMensajeBiblio(final String hilera){
         final EditText nombre = new EditText(this);
