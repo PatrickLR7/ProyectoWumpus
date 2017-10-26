@@ -44,6 +44,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
     }
 
+    public MapsActivity(GoogleMap map) {
+        mMap = map;
+    }
+
     /**
      * Revisa si el gps del dispositivo está activo.
      */
@@ -101,6 +105,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             longitudeNetwork = location.getLongitude();
             latitudeNetwork = location.getLatitude();
 
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    agregarMarca(latitudeNetwork, longitudeNetwork);
+                    Toast.makeText(MapsActivity.this, "Marcador creado", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
         @Override
@@ -125,9 +136,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+    }
 
-        LatLng sydney = new LatLng(latitudeNetwork, longitudeNetwork);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in " + latitudeNetwork + ", " + longitudeNetwork));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    public void agregarMarca(double lat, double lon) {
+        LatLng temp = new LatLng(lat, lon);
+        mMap.addMarker(new MarkerOptions().position(temp).title("Marker in " + lat + ", " + lon));
+
+        Toast.makeText(MapsActivity.this, "Marcador agregado", Toast.LENGTH_SHORT).show();
     }
 }
