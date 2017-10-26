@@ -6,42 +6,42 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.PorterDuff;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
 /**
- * Created by carlos on 8/23/17.
+ * Clase que representa el canvas en donde se dibuja el laberinto.
  */
 
 public class DrawingCanvas extends View {
 
-    private Path drawPath; // Path used to draw lines.
-    public static Paint drawPaint, canvasPaint; // Paint objects to draw and paint the canvas
-    private static int defaultColor = 0xFFFFFFFF; // Default color
-    private static int whiteColor = 0xFFFFFFFF;
+    /** Path used to draw lines. */
+    private Path drawPath;
+    /** Paint objects to draw and paint the canvas. */
+    public static Paint drawPaint, canvasPaint;
+    /** Default color. */
+    private static int defaultColor = 0xFFFFFFFF;
+    /** Black color. */
     private static int blackColor = 0xFF000000;
-    public Canvas canvas; // This is the drawing and painting area
-    private Bitmap canvasBitmap; // Saving canvas
+    /** This is the drawing and painting area. */
+    public Canvas canvas;
+    /** Saving canvas. */
+    private Bitmap canvasBitmap;
 
-    private static float dotSize;
-    private static boolean erased = false;
-
-    public float inicioX = -1;
-    private float inicioY = -1;
-    private float finalX = -1;
-    private float finalY = -1;
-
-
+    /**
+     * Constructor
+     */
     public DrawingCanvas(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         setupDrawing();
     }
 
+    /**
+     * Initialize workspace.
+     */
     private void setupDrawing(){
-        // Initialize workspace
         drawPath = new Path();
         drawPaint = new Paint();
         drawPaint.setColor(defaultColor);
@@ -54,7 +54,9 @@ public class DrawingCanvas extends View {
 
     }
 
-    // Size assigned to the view
+    /**
+     * Size assigned to the view.
+     */
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
@@ -62,6 +64,9 @@ public class DrawingCanvas extends View {
         canvas = new Canvas(canvasBitmap);
     }
 
+    /**
+     * Metodo que dibuja.
+     */
     @Override
     protected void onDraw (Canvas canvas) {
         canvas.drawBitmap(canvasBitmap, 0, 0, canvasPaint);
@@ -69,7 +74,9 @@ public class DrawingCanvas extends View {
 
     }
 
-    // Registers users finger touch actions
+    /**
+     * Registers users finger touch actions.
+     */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
@@ -87,14 +94,19 @@ public class DrawingCanvas extends View {
         return true;
     }
 
+    /**
+     * Borra una línea en el canvas.
+     */
     public void borrarLinea(float iX, float iY, float fX, float fY){
         drawPaint.setColor(blackColor);
         this.dibujarLinea(iX, iY, fX, fY);
         drawPaint.setColor(defaultColor);
     }
 
+    /**
+     * Dibuja una linea en el canvas.
+     */
     public void dibujarLinea(float iX, float iY, float fX, float fY){
-        //canvas.drawLine(iX, iY, fX, fY, drawPaint);
         drawPath.moveTo(iX, iY);
         drawPath.lineTo(fX, fY);
         canvas.drawPath(drawPath, drawPaint);
@@ -102,45 +114,12 @@ public class DrawingCanvas extends View {
         invalidate();
     }
 
-    //Actualiza color
+    /**
+     * Actualiza color.
+     */
     public void setColor(String newColor){
         invalidate();
         defaultColor = Color.parseColor(newColor);
         drawPaint.setColor(defaultColor);
     }
-
-    //Poner tamaño del punto
-    public static void setDotSize(float nuevoTamanyo){
-        drawPaint.setStrokeWidth(nuevoTamanyo);
-    }
-
-
-    //set borrado true or false
-    public static void setErasen(boolean estaborrado){
-        erased = estaborrado;
-        if(erased) {
-            drawPaint.setColor(Color.WHITE);
-        }
-        else {
-            drawPaint.setColor(defaultColor);
-        }
-    }
-
-    public void newDrawing(){
-        canvas.drawColor(0, PorterDuff.Mode.CLEAR);
-        invalidate();
-
-    }
-
-    public void setCoordInicio(float x, float y){
-        inicioX = x;
-        inicioY = y;
-    }
-
-    public void setCoordFinal(float x, float y){
-        finalX = x;
-        finalY = y;
-    }
-
 }
-

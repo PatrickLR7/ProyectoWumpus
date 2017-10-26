@@ -3,12 +3,14 @@ package com.example.carlos.wumpusproject.utils;
 import java.util.List;
 
 /**
- * Created by carlos on 11/10/17.
+ * Clase que guarda la configuracion escogida por el usuario.
  */
 
 public class Config {
-    public static boolean modoIndividual;
+    /** Indica si el laberinto es regular o no. true => labRegular; false => labIrregular */
     public static boolean labEsRegular;
+    /** Grafo que representa el laberinto. */
     public static Grafo laberinto;
+    /** Tipos de cuevas del juego. */
     public static List<Integer> tiposDeCuevas;
 }

@@ -12,10 +12,8 @@ public class Grafo {
 
     /** Matriz que representa el grafo. */
     private boolean[][] matriz;
-
     /** Tamaño del juego. */
     private int dimensionMatriz;
-
     /** Lista de cuevas en el juego */
     private List<Integer> nodos;
 
@@ -150,6 +148,4 @@ public class Grafo {
         }
         return presente;
     }
-
-
 }
