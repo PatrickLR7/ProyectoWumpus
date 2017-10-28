@@ -139,7 +139,7 @@ public class Grafo {
      * @param nodo: El nodo en la matriz
      * @return true si el nodo tiene una conexion en el grafo.
      */
-    private boolean presenteEnElGrafo(int nodo){
+    public boolean presenteEnElGrafo(int nodo){
         boolean presente = false;
         int i = 0;
         while (!presente && i < dimensionMatriz){

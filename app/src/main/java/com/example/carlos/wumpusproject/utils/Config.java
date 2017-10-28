@@ -1,16 +1,21 @@
 package com.example.carlos.wumpusproject.utils;
 
+import com.google.android.gms.maps.GoogleMap;
+
 import java.util.List;
+import java.util.Vector;
 
 /**
- * Clase que guarda la configuracion escogida por el usuario.
+ * Created by carlos on 11/10/17.
  */
 
 public class Config {
-    /** Indica si el laberinto es regular o no. true => labRegular; false => labIrregular */
+    public static boolean modoIndividual;
     public static boolean labEsRegular;
-    /** Grafo que representa el laberinto. */
     public static Grafo laberinto;
-    /** Tipos de cuevas del juego. */
-    public static List<Integer> tiposDeCuevas;
+    public static Vector tiposDeCuevas;
+    public static GoogleMap map;
+    public static  List<Vector> coordenadasCuevas;
+
+
 }

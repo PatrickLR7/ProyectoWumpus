@@ -2,6 +2,7 @@ package com.example.carlos.wumpusproject;
 
 import com.example.carlos.wumpusproject.utils.Config;
 import com.example.carlos.wumpusproject.utils.Grafo;
+import com.example.carlos.wumpusproject.Emplazar;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,25 +11,16 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Clase que representa el activity de escogencia de grafos regulares.
- */
 public class GrafosRegulares extends AppCompatActivity implements View.OnClickListener {
 
-    /** Boton Tetraedro. */
     ImageButton tetraedro;
-    /** Boton octaedro. */
     ImageButton octaedro;
-    /** Boton cubo. */
     ImageButton cubo;
-    /** Boton icosaedro. */
     ImageButton icosaedro;
-    /** Boton dodecaedro. */
     ImageButton dodecaedro;
 
-    /**
-     * Metodo onCreate
-     */
+    Emplazar emplazar = new Emplazar();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,34 +38,34 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
         dodecaedro.setOnClickListener(this);
     }
 
-    /**
-     * Metodo onClick
-     */
     @Override
     public void onClick(View v){
         Grafo laberinto = null;
         List<Integer> tipos = null;
         switch(v.getId()){
             case R.id.Tetraedro:
-                laberinto = new Grafo(4);
-                laberinto.addArista(0,1);
-                laberinto.addArista(0,2);
-                laberinto.addArista(0,3);
-                laberinto.addArista(1,0);
-                laberinto.addArista(1,2);
-                laberinto.addArista(1,3);
-                laberinto.addArista(2,0);
-                laberinto.addArista(2,1);
-                laberinto.addArista(2,3);
-                laberinto.addArista(3,0);
-                laberinto.addArista(3,1);
-                laberinto.addArista(3,2);
-                tipos = llenarCueva(4);
                 Toast.makeText(this, "Su laberinto tiene 4 cuevas", Toast.LENGTH_LONG).show();
+                laberinto = new Grafo(4);
+                tipos = llenarCueva(4);
+                laberinto.addArista(1,14);
+                laberinto.addArista(19,2);
+                laberinto.addArista(2,16);
+                laberinto.addArista(16,2);
+                laberinto.addArista(2,14);
+                laberinto.addArista(14,2);
+                laberinto.addArista(14,19);
+                laberinto.addArista(19,14);
+                laberinto.addArista(14,16);
+                laberinto.addArista(16,14);
+                laberinto.addArista(16,19);
+                laberinto.addArista(19,16);
+
                 break;
 
             case R.id.Octaedro:
+                Toast.makeText(this, "Su laberinto tiene 6 cuevas", Toast.LENGTH_LONG).show();
                 laberinto = new Grafo(6);
+                tipos = llenarCueva(6);
                 laberinto.addArista(0,1);
                 laberinto.addArista(0,2);
                 laberinto.addArista(0,3);
@@ -98,12 +90,12 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
                 laberinto.addArista(5,2);
                 laberinto.addArista(5,3);
                 laberinto.addArista(5,4);
-                tipos = llenarCueva(6);
-                Toast.makeText(this, "Su laberinto tiene 6 cuevas", Toast.LENGTH_LONG).show();
                 break;
 
             case R.id.Cubo:
+                Toast.makeText(this, "Su laberinto tiene 8 cuevas", Toast.LENGTH_LONG).show();
                 laberinto = new Grafo(8);
+                tipos = llenarCueva(8);
                 laberinto.addArista(0,1);
                 laberinto.addArista(0,3);
                 laberinto.addArista(0,4);
@@ -128,12 +120,12 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
                 laberinto.addArista(7,3);
                 laberinto.addArista(7,4);
                 laberinto.addArista(7,6);
-                tipos = llenarCueva(8);
-                Toast.makeText(this, "Su laberinto tiene 8 cuevas", Toast.LENGTH_LONG).show();
                 break;
 
             case R.id.Icosaedro:
+                Toast.makeText(this, "Su laberinto tiene 12 cuevas", Toast.LENGTH_LONG).show();
                 laberinto = new Grafo(12);
+                tipos = llenarCueva(12);
                 laberinto.addArista(0,1);
                 laberinto.addArista(0,5);
                 laberinto.addArista(0,6);
@@ -194,12 +186,12 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
                 laberinto.addArista(11,5);
                 laberinto.addArista(11,7);
                 laberinto.addArista(11,9);
-                tipos = llenarCueva(12);
-                Toast.makeText(this, "Su laberinto tiene 12 cuevas", Toast.LENGTH_LONG).show();
                 break;
 
             case R.id.Dodecaedro:
+                Toast.makeText(this, "Su laberinto tiene 20 cuevas", Toast.LENGTH_LONG).show();
                 laberinto = new Grafo(20);
+                tipos = llenarCueva(20);
                 laberinto.addArista(0,1);
                 laberinto.addArista(0,2);
                 laberinto.addArista(0,3);
@@ -260,39 +252,48 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
                 laberinto.addArista(19,16);
                 laberinto.addArista(19,17);
                 laberinto.addArista(19,18);
-                tipos = llenarCueva(20);
-                Toast.makeText(this, "Su laberinto tiene 20 cuevas", Toast.LENGTH_LONG).show();
                 break;
         }
 
-        //Guardar configuracion
         Config.laberinto = laberinto;
-        Config.tiposDeCuevas = tipos;
+       // Config.tiposDeCuevas = tipos;
+
+        emplazar.crearMapMarks();
     }
 
     /**
-     * Define los tipos de las cuevas; es decir, si hay pozos o murcielagos.
-     * Se usaran los siguientes numeros:
-     * 0 -> cueva Libre.
-     * 1 -> cueva con Wumpus.
-     * 2 -> cueva con pozo.
-     * 3 -> cueva con murcielagos.
-     * 4 -> cueva inicial del personaje.
+     * 0 -> Cueva libre
+     * 1 -> Wumpus
+     * 2 -> Pozo
+     * 3 -> Murcielago
+     * 4 -> Personaje
      */
-    private List<Integer> llenarCueva(int tamGrafo) {
-        List<Integer> tiposC = new ArrayList<>(tamGrafo);
-        boolean estaWumpus = false;
-        for (int x = 0; x < tamGrafo; x++) {
-            int tipo = (int) (Math.random() * 3);
-            if (tipo == 1 && estaWumpus) {
+    public List<Integer> llenarCueva(int tamGrafo) {
+        List<Integer> tiposC = new ArrayList<>(tamGrafo*tamGrafo);
+        boolean wumpus = false;
+        boolean personaje = false;
+        for (int x = 0; x < tamGrafo*2; x++) {
+            int tipo = (int) (Math.random() * 4);
+
+            if (tipo == 1 && wumpus == true) {
                 x--;
             } else {
                 tiposC.add(tipo);
                 if (tipo == 1) {
-                    estaWumpus = true;
+                    wumpus = true;
                 }
             }
+
+           // if (tipo == 4 && personaje == true) {
+             //   x--;
+           // } else {
+           //     tiposC.add(tipo);
+            //    if (tipo == 4) {
+                    personaje = true;
+            //    }
+           // }
         }
         return tiposC;
     }
+
 }
