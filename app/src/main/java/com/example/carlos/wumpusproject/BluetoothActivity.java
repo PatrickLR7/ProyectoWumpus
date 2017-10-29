@@ -45,7 +45,7 @@ import java.util.List;
 public class BluetoothActivity extends AppCompatActivity {
     private static final int RECORD_REQUEST_CODE = 1;
     //Create Objects-------------------------------------------------------
-    Button buttonopenDailog, buttonUp, send, btnLaberinto;
+    Button buttonopenDailog, buttonUp, send, btnLaberinto, btnRecibido;
     TextView textFolder;
     EditText dataPath;
     static final int CUSTOM_DIALOG_ID = 0;
@@ -59,7 +59,7 @@ public class BluetoothActivity extends AppCompatActivity {
     private String[] vectorNombres;
     private DataBaseHelper dbManager;
     private ArrayList<String> archCreados;
-    String h;
+    String pathRecibido = "";
 
     //---------------------------------------------------------------
     @Override
@@ -70,6 +70,7 @@ public class BluetoothActivity extends AppCompatActivity {
         buttonopenDailog= (Button) findViewById(R.id.opendailog);
         send=(Button)findViewById(R.id.sendBtooth);
         btnLaberinto = (Button) findViewById(R.id.btnLaberinto);
+        btnRecibido = (Button) findViewById(R.id.btnRecibido);
         dbManager = new DataBaseHelper(this);
         archCreados = new ArrayList<String>();
         dataPath.setText("");
@@ -344,9 +345,9 @@ public class BluetoothActivity extends AppCompatActivity {
             Uri uriPath = data.getData();
             Log.d("", "Video URI= " + uriPath);
 
-            path = getPath(this, uriPath);// "/mnt/sdcard/FileName.mp3"
+            pathRecibido = getPath(this, uriPath);// "/mnt/sdcard/FileName.mp3"
             System.out.println("pathhhh " + path);
-            dataPath.setText(path);
+            //dataPath.setText(path);
 
         }
 
@@ -424,4 +425,30 @@ public class BluetoothActivity extends AppCompatActivity {
                 }).create();
         alertDialog.show();
     }
+
+    public void guardarEnBiblioteca(View view){
+        String nom;
+        File file = new File(pathRecibido);
+        nom = file.getName();
+        int pos = nom.lastIndexOf(".");
+        if (pos > 0) {
+            nom = nom.substring(0, pos);
+        }
+        dbManager.leerArchivoComoGrafo(nom, BluetoothActivity.this);
+        msjRecibido();
+    }
+
+    public void msjRecibido(){
+        final EditText nombre = new EditText(this);
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setTitle("Wumpus")
+                .setMessage("El laberinto recibido se ha activado correctamente")
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                    }
+                }).create();
+        alertDialog.show();
+    }
 }
+
+
