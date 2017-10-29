@@ -324,7 +324,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
      */
     public void guardarConfiguracion(){
         Config.laberinto = grafo;
-        Config.tiposDeCuevas = tiposCuevas;
+        //Config.tiposDeCuevas = tiposCuevas;
     }
 
     /**

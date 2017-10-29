@@ -1,5 +1,7 @@
 package com.example.carlos.wumpusproject;
 
+import android.*;
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
@@ -13,6 +15,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -30,10 +34,16 @@ import android.widget.Toast;
 import com.example.carlos.wumpusproject.utils.DataBaseHelper;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BluetoothActivity extends AppCompatActivity {
+    private static final int RECORD_REQUEST_CODE = 1;
     //Create Objects-------------------------------------------------------
     Button buttonopenDailog, buttonUp, send, btnLaberinto;
     TextView textFolder;
@@ -49,6 +59,7 @@ public class BluetoothActivity extends AppCompatActivity {
     private String[] vectorNombres;
     private DataBaseHelper dbManager;
     private ArrayList<String> archCreados;
+    String h;
 
     //---------------------------------------------------------------
     @Override
@@ -62,6 +73,13 @@ public class BluetoothActivity extends AppCompatActivity {
         dbManager = new DataBaseHelper(this);
         archCreados = new ArrayList<String>();
         dataPath.setText("");
+        PackageManager pm = getBaseContext().getPackageManager();
+        int hasPerm = pm.checkPermission(
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                getBaseContext().getPackageName());
+        if (hasPerm != PackageManager.PERMISSION_GRANTED) {
+            makeRequest();
+        }
         /*buttonopenDailog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,6 +98,29 @@ public class BluetoothActivity extends AppCompatActivity {
             }
         });
         */
+    }
+
+    protected void makeRequest() {
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+            if(requestCode == 1){
+                for(int i = 0, len = permissions.length; i < len; i++){
+                    if(grantResults[i] == PackageManager.PERMISSION_GRANTED){
+                        //Permiso concedido
+                        Toast.makeText(BluetoothActivity.this, "Permiso concedido", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        //permiso denegado
+                        Toast.makeText(BluetoothActivity.this, "Permiso denegado", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
     }
 
    @Override
@@ -268,9 +309,10 @@ public class BluetoothActivity extends AppCompatActivity {
             Intent i = new Intent();
             i.setAction(Intent.ACTION_SEND);
             i.setType("*/*");
-            File file = new File(dataPath.getText().toString());
+            File file = new File(path);
 
-            i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+             i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+            //i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(getFileStreamPath(h)));
             //i.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(BluetoothActivity.this,
             //BuildConfig.APPLICATION_ID + ".provider", file));
 
@@ -313,7 +355,7 @@ public class BluetoothActivity extends AppCompatActivity {
         }
     }
 
-    public void elegirLaberinto(){
+    public void elegirLaberinto(View view){
         List<String> nombresGrafos = dbManager.obtenerNombresDeGrafos();
         vectorNombres = GraphDrawActivity.listAsStringArray(nombresGrafos);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -322,6 +364,7 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 msjBiblioYGenerarArchivo(vectorNombres[i]);
+                dataPath.setText("Ha elegido el laberinto: " + vectorNombres[i]);
             }
         });
         builder.setNegativeButton("Cancel", null); // No tiene OnClickListener
@@ -360,9 +403,13 @@ public class BluetoothActivity extends AppCompatActivity {
                         if(!encontrado){
                             dbManager.grafoComoArchivo(hilera, BluetoothActivity.this);
                             archCreados.add(hilera);
-                            path = (getFilesDir().getAbsolutePath() + "/" + hilera + ".txt");
+                            //path = (getFilesDir().getAbsolutePath() + "/" + hilera + ".txt");
+                            //h = hilera;
+                            path = (Environment.getExternalStorageDirectory().getPath() + "/WumpusApp/" + hilera + ".txt");
                         } else {
-                            path = (getFilesDir().getAbsolutePath() + "/" + hilera + ".txt");
+                            //path = (getFilesDir().getAbsolutePath() + "/" + hilera + ".txt");
+                            //h = hilera;
+                            path = (Environment.getExternalStorageDirectory().getPath() + "/WumpusApp/" + hilera + ".txt");
                         }
 
 

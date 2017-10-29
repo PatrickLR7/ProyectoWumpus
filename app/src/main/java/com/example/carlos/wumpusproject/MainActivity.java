@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTitle("Bienvenido al \"The Wumpus\"");
+        setTitle("Caza al Wumpus!");
 
         poliedro = (Button) findViewById(R.id.PoliRegButton);
         poliedro.setOnClickListener(this);

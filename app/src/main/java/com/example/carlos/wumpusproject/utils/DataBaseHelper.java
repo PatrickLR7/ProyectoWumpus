@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
+
 import com.example.carlos.wumpusproject.GraphDrawActivity;
 import java.io.*;
 import java.util.ArrayList;
@@ -156,8 +158,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
      */
     public void grafoComoArchivo(String nombre, Context context) {
         Cursor cursor = this.getTuples(nombre);
-        try {
-            FileOutputStream stream =  context.openFileOutput(nombre+".txt", Context.MODE_PRIVATE);
+ /*       try {
+            FileOutputStream stream =  context.openFileOutput(nombre+".txt", Context.MODE_WORLD_READABLE);
             while ( cursor.moveToNext() ){
                 String hilera = cursor.getInt(2) + "-" + cursor.getInt(3) + "\n";
                 stream.write( hilera.getBytes() );
@@ -168,6 +170,29 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }catch (IOException e){
             System.out.println("IO exception");
         }
+        */
+        File almacenamiento = Environment.getExternalStorageDirectory();
+        File directorio = new File(almacenamiento.getAbsolutePath() + "/WumpusApp/");
+        directorio.mkdirs();
+        File file = new File(directorio, nombre+".txt");
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            FileOutputStream stream = new FileOutputStream(file);
+            while ( cursor.moveToNext() ){
+                String hilera = cursor.getInt(2) + "-" + cursor.getInt(3) + "\n";
+                stream.write( hilera.getBytes() );
+            }
+            stream.close();
+        }catch (FileNotFoundException e){
+            System.out.println("File not found");
+        }catch (IOException e) {
+            System.out.println("IO exception");
+        }
+
     }
 
     /**
