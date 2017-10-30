@@ -1,5 +1,7 @@
 package com.example.carlos.wumpusproject;
 
+import android.*;
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,7 +17,6 @@ import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
 import com.example.carlos.wumpusproject.utils.Config;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -40,12 +41,39 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        PackageManager pm = getBaseContext().getPackageManager();
+        int hasPerm1 = pm.checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION, getBaseContext().getPackageName());
+        if (hasPerm1 != PackageManager.PERMISSION_GRANTED) {
+            makeRequest();
+        }
+
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         toggleNetworkUpdates();
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
+
+    protected void makeRequest() {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        if(requestCode == 1){
+            for(int i = 0, len = permissions.length; i < len; i++){
+                if(grantResults[i] == PackageManager.PERMISSION_GRANTED){
+                    //Permiso concedido
+                    Toast.makeText(MapsActivity.this, "Permiso concedido", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    //permiso denegado
+                    Toast.makeText(MapsActivity.this, "Permiso denegado", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+
     }
 
     /**
@@ -86,7 +114,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void toggleNetworkUpdates() {
         if (!checkLocation())
             return;
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -145,7 +173,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void agregarMarca(double lat, double lon) {
         LatLng temp = new LatLng(lat, lon);
-        mMap.addMarker(new MarkerOptions().position(temp).title("Marcador en " + lat + ", " + lon));
+        mMap.addMarker(new MarkerOptions().position(temp).title("Marker in " + lat + ", " + lon + " (Cueva " + contadorMarcas + ")"));
 
         if (contadorMarcas == 0) {
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(temp, 20));
@@ -154,27 +182,4 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Toast.makeText(MapsActivity.this, "Marcador agregado", Toast.LENGTH_SHORT).show();
         contadorMarcas++;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

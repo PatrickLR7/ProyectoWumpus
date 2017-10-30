@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Hunt The Wumpus</string>
+    <string name="app_name">Caza al Wumpus</string>
     <string name="labyrinthText">Dibuje el laberinto, para ello una los puntos.\nToque dos puntos distintos para unirlos.
         Si toca un boton por error, vuelvalo a tocar para evitar unirlo a otro. Para deshacer un camino, toque los puntos que
         lo forman. ¡Buena suerte!</string>
