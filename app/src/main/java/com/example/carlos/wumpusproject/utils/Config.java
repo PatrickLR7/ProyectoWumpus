@@ -16,6 +16,7 @@ public class Config {
     public static Vector tiposDeCuevas;
     public static GoogleMap map;
     public static  List<Vector> coordenadasCuevas;
+    public static  Double latUsuario,lonUsuario;
 
 
 }

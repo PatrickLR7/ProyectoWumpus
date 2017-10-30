@@ -13,6 +13,8 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
+
+import com.example.carlos.wumpusproject.utils.Config;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -31,6 +33,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /** Variables pra latitud y longitud. */
     double longitudeNetwork = 0, latitudeNetwork = 0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,9 +47,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
     }
 
-    public MapsActivity(GoogleMap map) {
-        mMap = map;
-    }
+   //public MapsActivity(GoogleMap map) {
+     //  mMap = map;
+   // }
 
     /**
      * Revisa si el gps del dispositivo está activo.
@@ -112,6 +115,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     Toast.makeText(MapsActivity.this, "Marcador creado", Toast.LENGTH_SHORT).show();
                 }
             });
+
+            Config.latUsuario = latitudeNetwork;
+            Config.lonUsuario = longitudeNetwork;
+
         }
 
         @Override
