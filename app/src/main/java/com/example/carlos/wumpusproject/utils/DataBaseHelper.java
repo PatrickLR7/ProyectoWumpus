@@ -213,7 +213,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             while (stream.available() > 0){
                 char a = (char) stream.read();
                 switch (a){
-                    case 32: // Espacio en blanco
+                    case 10: // Cambio de linea
                         num2 = Integer.parseInt(hilera);
                         grafo.addArista(num1, num2);
                         hilera = "";
@@ -232,8 +232,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
              * Se hace pues la ultima tupla no se agrego, ya que
              * no habia un cambio de linea despues de ella
              */
-            num2 = Integer.parseInt(hilera);
-            grafo.addArista(num1, num2);
             stream.close();
             this.insertarGrafo(grafo, nombre);
         } catch (FileNotFoundException e){
