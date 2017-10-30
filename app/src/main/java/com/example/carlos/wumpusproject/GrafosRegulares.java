@@ -273,11 +273,11 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
         Config.laberinto = laberinto;
         // Config.tiposDeCuevas = tipos;
 
-        Intent i = new Intent(getApplicationContext(), MapsActivity.class);
-        startActivity(i);
+        //Intent i = new Intent(getApplicationContext(), MapsActivity.class);
+       // startActivity(i);
 
-        //Emplazar emplazar = new Emplazar();
-        //emplazar.crearMapMarks();
+        Emplazar emplazar = new Emplazar();
+        emplazar.crearMapMarks();
     }
 
     /**

@@ -145,7 +145,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void agregarMarca(double lat, double lon) {
         LatLng temp = new LatLng(lat, lon);
-        mMap.addMarker(new MarkerOptions().position(temp).title("Marker in " + lat + ", " + lon));
+        mMap.addMarker(new MarkerOptions().position(temp).title("Marcador en " + lat + ", " + lon));
 
         if (contadorMarcas == 0) {
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(temp, 20));
@@ -154,4 +154,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Toast.makeText(MapsActivity.this, "Marcador agregado", Toast.LENGTH_SHORT).show();
         contadorMarcas++;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

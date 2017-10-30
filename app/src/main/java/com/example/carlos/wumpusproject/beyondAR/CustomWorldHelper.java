@@ -17,7 +17,7 @@ public class CustomWorldHelper {
 
     public static World sharedWorld;
 
-    public static World generateObjects(Context context) {
+   public static World generateObjects(Context context) {
         if (sharedWorld != null) {
             return sharedWorld;
         }
@@ -32,19 +32,19 @@ public class CustomWorldHelper {
         sharedWorld.setGeoPosition(41.90533734214473d, 2.565848038959814d);
 
         // Create an object with an image in the app resources.
-        GeoObject go1 = new GeoObject(1L);
+       GeoObject go1 = new GeoObject(1L);
         go1.setGeoPosition(41.90523339794433d, 2.565036406654116d);
         go1.setImageResource(R.drawable.cueva1);
         go1.setName("Creature 1");
 
         // Is it also possible to load the image asynchronously form internet
         GeoObject go2 = new GeoObject(2L);
-        go2.setGeoPosition(41.90518966360719d, 2.56582424468222d);
-        go2.setImageUri("http://beyondar.github.io/beyondar/images/logo_512.png");
+       go2.setGeoPosition(41.90518966360719d, 2.56582424468222d);
+               go2.setImageUri("http://beyondar.github.io/beyondar/images/logo_512.png");
         go2.setName("Online image");
 
         sharedWorld.addBeyondarObject(go1);
-        sharedWorld.addBeyondarObject(go2, LIST_TYPE_EXAMPLE_1);
+       sharedWorld.addBeyondarObject(go2, LIST_TYPE_EXAMPLE_1);
         return sharedWorld;
     }
 }

@@ -29,7 +29,7 @@ public class Emplazar extends AppCompatActivity {
      GoogleMap map = Config.map;
      int tamGrafo = laberinto.getDimensionMatriz();
 
-     Vector<Vector> coordenadasCuevas = new Vector() ;
+     Vector<Vector> coordenadasCuevas = new Vector<Vector>() ;
 
 
     //MapsActivity mapsActivity = new MapsActivity(map);
@@ -96,7 +96,7 @@ public class Emplazar extends AppCompatActivity {
 
 
 
-       //getlocation usuario
+
 
        MapsActivity mapa = new MapsActivity();
        Intent intent;
@@ -104,10 +104,10 @@ public class Emplazar extends AppCompatActivity {
        //startActivity(intent);
 
 
-
-       double latInicial = 0;
+        //getlocation usuario
+       double latInicial = 0; //llenar con usuario
        double lonInicial = 0;
-       Vector<Double> coordenada = new Vector();
+
        int nodoInicial = 0;
        int nodoPer = tiposDeCuevas.indexOf(4);
 
@@ -118,13 +118,15 @@ public class Emplazar extends AppCompatActivity {
 
        for (int x = 0; x < tamGrafo; x++) {
 
+           Vector<Double> coordenada = new Vector<Double>();
+
            if( x == nodoPer ){
 
 
                coordenada.add(latInicial);//usuario
                coordenada.add(lonInicial);//usuario
                coordenadasCuevas.add(x,coordenada);
-               coordenada.clear();
+
 
                nodoInicial = x;
 
@@ -136,7 +138,7 @@ public class Emplazar extends AppCompatActivity {
                coordenada.add(-1.0);
                coordenada.add(-1.0);
                coordenadasCuevas.add(x,coordenada);
-               coordenada.clear();
+
 
            }
 
@@ -162,6 +164,7 @@ public class Emplazar extends AppCompatActivity {
            switch(tamGrafo) {
 
                case 4:
+                   Vector<Double> coordenada = new Vector<Double>();
 
                    if(nodoInicial == 0){
 
@@ -169,18 +172,20 @@ public class Emplazar extends AppCompatActivity {
                        coordenada.add(latInicial+dis*2);//fila
                        coordenada.add(lonInicial+dis);//colum
                        coordenadasCuevas.setElementAt(coordenada,1);
-                       coordenada.clear();
 
+
+                       coordenada = new Vector<Double>();
 
                        coordenada.add(latInicial+dis*2);
                        coordenada.add(lonInicial-dis);
                        coordenadasCuevas.setElementAt(coordenada,2);
-                       coordenada.clear();
+
+                       coordenada = new Vector<Double>();
 
                        coordenada.add(latInicial+dis);
                        coordenada.add(lonInicial);
                        coordenadasCuevas.setElementAt(coordenada,3);
-                       coordenada.clear();
+
                    }
 
                    if(nodoInicial == 1){
@@ -189,17 +194,21 @@ public class Emplazar extends AppCompatActivity {
                        coordenada.add(latInicial-dis*2);//fila
                        coordenada.add(lonInicial-dis);//colum
                        coordenadasCuevas.setElementAt(coordenada,0);
-                       coordenada.clear();
+
+
+                       coordenada = new Vector<Double>();
 
                        coordenada.add(latInicial);
                        coordenada.add(lonInicial-dis*2);
                        coordenadasCuevas.setElementAt(coordenada,2);
-                       coordenada.clear();
+
+
+                       coordenada = new Vector<Double>();
 
                        coordenada.add(latInicial+dis);
                        coordenada.add(lonInicial-dis);
                        coordenadasCuevas.setElementAt(coordenada,3);
-                       coordenada.clear();
+
                    }
 
                    if(nodoInicial == 2){
@@ -208,17 +217,20 @@ public class Emplazar extends AppCompatActivity {
                        coordenada.add(latInicial-dis*2);//fila
                        coordenada.add(lonInicial+dis);//colum
                        coordenadasCuevas.setElementAt(coordenada,0);
-                       coordenada.clear();
+
+
+                       coordenada = new Vector<Double>();
 
                        coordenada.add(latInicial);
                        coordenada.add(lonInicial+dis*2);
                        coordenadasCuevas.setElementAt(coordenada,1);
-                       coordenada.clear();
+
+
+                       coordenada = new Vector<Double>();
 
                        coordenada.add(latInicial-dis);
                        coordenada.add(lonInicial+dis);
                        coordenadasCuevas.setElementAt(coordenada,3);
-                       coordenada.clear();
 
                    }
 
@@ -228,17 +240,20 @@ public class Emplazar extends AppCompatActivity {
                        coordenada.add(latInicial-dis);//fila
                        coordenada.add(lonInicial);//colum
                        coordenadasCuevas.setElementAt(coordenada,0);
-                       coordenada.clear();
+
+                       coordenada = new Vector<Double>();
 
                        coordenada.add(latInicial+dis);
                        coordenada.add(lonInicial+dis);
                        coordenadasCuevas.setElementAt(coordenada,1);
-                       coordenada.clear();
+
+
+                       coordenada = new Vector<Double>();
 
                        coordenada.add(latInicial+dis);
                        coordenada.add(lonInicial-dis);
                        coordenadasCuevas.setElementAt(coordenada,2);
-                       coordenada.clear();
+
 
                    }
                    break;
@@ -248,9 +263,10 @@ public class Emplazar extends AppCompatActivity {
 
            for (int i = 0; i < tamGrafo; i++) {
 
-               Vector<Double> coor = new Vector();
-               coor = coordenadasCuevas.elementAt(i);
+              // Vector<Double> coor = new Vector<Double>();
+              // coor = coordenadasCuevas.elementAt(i);
 
+               Double x = (Double) coordenadasCuevas.elementAt(i).elementAt(0);
 
                mapa.agregarMarca((Double)coordenadasCuevas.get(i).get(0),(Double)coordenadasCuevas.get(i).get(1));
 
