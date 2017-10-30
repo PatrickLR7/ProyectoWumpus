@@ -200,8 +200,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
      * @param nombre El nombre con el que se va a guardar el grafo.
      */
     public void leerArchivoComoGrafo(String nombre, Context context){
+        File almacenamiento = Environment.getExternalStorageDirectory();
+        File directorio = new File(almacenamiento.getAbsolutePath() + "/bluetooth/");
+        File file = new File(directorio, nombre+".txt");
         try {
-            FileInputStream stream = context.openFileInput(nombre);
+            FileInputStream stream = new FileInputStream(file);
             String hilera = "";
             int nodos = GraphDrawActivity.numeroFilas / 2;
             nodos = nodos*nodos;

@@ -25,11 +25,13 @@
         android:layout_height="wrap_content"
         android:background="?attr/actionModeSplitBackground"
         android:onClick="elegirLaberinto"
-        android:text="Seleccionar Laberinto" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="Seleccionar Laberinto Para Enviar" />
 
     <Button
         android:id="@+id/sendBtooth"
-        android:layout_width="fill_parent"
+        android:layout_width="417dp"
         android:layout_height="wrap_content"
         android:layout_above="@+id/BTNquit"
         android:layout_alignParentEnd="true"
@@ -40,6 +42,29 @@
         android:padding="15dp"
         android:text="Enviar"
         android:textColor="#edebff" />
+
+    <Button
+        android:id="@+id/btnSeleccionar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="?attr/colorBackgroundFloating"
+        android:onClick="getFile"
+        android:text="Seleccionar laberinto recibido" />
+
+    <Button
+        android:id="@+id/btnRecibido"
+        android:layout_width="414dp"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:layout_margin="5dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/darker_gray"
+        android:onClick="guardarEnBiblioteca"
+        android:text="Guardar Laberinto Recibido en Biblioteca" />
 
     <Button
         android:id="@+id/opendailog"
