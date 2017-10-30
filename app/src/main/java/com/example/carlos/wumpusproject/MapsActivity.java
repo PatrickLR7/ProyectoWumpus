@@ -15,6 +15,7 @@ import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
 import com.example.carlos.wumpusproject.utils.Config;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -32,7 +33,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     LocationManager locationManager;
     /** Variables pra latitud y longitud. */
     double longitudeNetwork = 0, latitudeNetwork = 0;
-
+    private int contadorMarcas = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +47,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
-
-   //public MapsActivity(GoogleMap map) {
-     //  mMap = map;
-   // }
 
     /**
      * Revisa si el gps del dispositivo está activo.
@@ -100,25 +97,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return;
         }
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 20 * 1000, 10, locationListenerNetwork);
-        Toast.makeText(this, "Network provider started running", Toast.LENGTH_LONG).show();
     }
 
     private final LocationListener locationListenerNetwork = new LocationListener() {
         public void onLocationChanged(Location location) {
-            longitudeNetwork = location.getLongitude();
-            latitudeNetwork = location.getLatitude();
+            if (contadorMarcas == 0) {
+                longitudeNetwork = location.getLongitude();
+                latitudeNetwork = location.getLatitude();
 
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    agregarMarca(latitudeNetwork, longitudeNetwork);
-                    Toast.makeText(MapsActivity.this, "Marcador creado", Toast.LENGTH_SHORT).show();
-                }
-            });
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        agregarMarca(latitudeNetwork, longitudeNetwork);
+                        Toast.makeText(MapsActivity.this, "Marcador creado", Toast.LENGTH_SHORT).show();
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(latitudeNetwork, longitudeNetwork)));
+                    }
+                });
 
-            Config.latUsuario = latitudeNetwork;
-            Config.lonUsuario = longitudeNetwork;
-
+                Config.latUsuario = latitudeNetwork;
+                Config.lonUsuario = longitudeNetwork;
+            }
         }
 
         @Override
@@ -149,6 +147,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng temp = new LatLng(lat, lon);
         mMap.addMarker(new MarkerOptions().position(temp).title("Marker in " + lat + ", " + lon));
 
+        if (contadorMarcas == 0) {
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(temp, 20));
+        }
+
         Toast.makeText(MapsActivity.this, "Marcador agregado", Toast.LENGTH_SHORT).show();
+        contadorMarcas++;
     }
 }

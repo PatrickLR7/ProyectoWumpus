@@ -2,7 +2,8 @@ package com.example.carlos.wumpusproject;
 
 import com.example.carlos.wumpusproject.utils.Config;
 import com.example.carlos.wumpusproject.utils.Grafo;
-import com.example.carlos.wumpusproject.Emplazar;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -18,8 +19,6 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
     ImageButton cubo;
     ImageButton icosaedro;
     ImageButton dodecaedro;
-
-  //  Emplazar emplazar = new Emplazar();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -271,15 +270,14 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
                 break;
         }
 
-
         Config.laberinto = laberinto;
         // Config.tiposDeCuevas = tipos;
 
-       Emplazar emplazar = new Emplazar();
+        Intent i = new Intent(getApplicationContext(), MapsActivity.class);
+        startActivity(i);
 
-
-
-        emplazar.crearMapMarks();
+        //Emplazar emplazar = new Emplazar();
+        //emplazar.crearMapMarks();
     }
 
     /**
