@@ -148,4 +148,10 @@ public class Grafo {
         }
         return presente;
     }
+
+    public Pair obtenerFilaColumna(int nodo){
+        int x = nodo % dimensionMatriz;
+        int y = nodo % dimensionMatriz;
+        return new Pair(x,y);
+    }
 }

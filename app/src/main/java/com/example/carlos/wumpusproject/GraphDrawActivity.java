@@ -48,8 +48,6 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
     private float finalY = -1;
     /** Canvas donde se dibuja. */
     private DrawingCanvas dw;
-    /** Tipos de cuevas del juego. */
-    private List<Integer> tiposCuevas;
     /** Controlador de la base de datos. */
     private DataBaseHelper dbManager;
     /** Grafo que representa el laberinto creado. */
@@ -92,7 +90,6 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
 
 
         dbManager = new DataBaseHelper(this);
-        tiposCuevas = new ArrayList<>();
         dw = (DrawingCanvas) findViewById(R.id.drawingCanvas);
         grafo = new Grafo( numeroFilas*numeroFilas/4 );
     }
@@ -184,7 +181,6 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
             boolean condicion2 = grafo.totalmenteConectado();
 
             if (condicion1 && condicion2) {
-                this.definirTiposDeCuevas();
                 this.guardarConfiguracion();
                 //Pedir nombre a usuario
                 mostrarAlertDialog();
@@ -232,7 +228,6 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                     public void onClick(DialogInterface dialog, int whichButton) {
                         // cargar juego
                         grafo = dbManager.obtenerGrafoDeLibreria(hilera);
-                        definirTiposDeCuevas();
                         guardarConfiguracion();
                     }
                 })
@@ -293,38 +288,10 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
     }
 
     /**
-     * Define los tipos de las cuevas; es decir, si hay pozos o murcielagos.
-     * Se usaran los siguientes numeros:
-     * 0 -> cueva Libre.
-     * 1 -> cueva con Wumpus.
-     * 2 -> cueva con pozo.
-     * 3 -> cueva con murcielagos.
-     * 4 -> cueva inicial del personaje.
-     */
-    public  void definirTiposDeCuevas(){
-        List<Integer> nodos = grafo.obtenerNodos();
-
-        //Se crean los tipos de cuevas
-        boolean wumpus = false;
-        for (int x = 0; x < nodos.size(); x++) {
-            int tipo = (int) (Math.random() * 3);
-            if (tipo == 1 && wumpus) {
-                x--;
-            } else {
-                tiposCuevas.add(tipo);
-                if (tipo == 1) {
-                    wumpus = true;
-                }
-            }
-        }
-    }
-
-    /**
      * Guarda la configuracion del juego.
      */
     public void guardarConfiguracion(){
         Config.laberinto = grafo;
-        //Config.tiposDeCuevas = tiposCuevas;
     }
 
     /**

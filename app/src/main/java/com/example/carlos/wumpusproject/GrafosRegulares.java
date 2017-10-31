@@ -79,32 +79,19 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
 
             case R.id.Octaedro:
                 Toast.makeText(this, "Su laberinto tiene 6 cuevas", Toast.LENGTH_LONG).show();
-                laberinto = new Grafo(6);
-              //  tipos = llenarCueva(6);
-                laberinto.addArista(0,1);
-                laberinto.addArista(0,2);
-                laberinto.addArista(0,3);
-                laberinto.addArista(0,4);
-                laberinto.addArista(1,0);
-                laberinto.addArista(1,2);
-                laberinto.addArista(1,4);
-                laberinto.addArista(1,5);
-                laberinto.addArista(2,0);
-                laberinto.addArista(2,1);
-                laberinto.addArista(2,3);
-                laberinto.addArista(2,5);
-                laberinto.addArista(3,0);
-                laberinto.addArista(3,2);
-                laberinto.addArista(3,4);
-                laberinto.addArista(3,5);
-                laberinto.addArista(4,0);
-                laberinto.addArista(4,1);
-                laberinto.addArista(4,3);
-                laberinto.addArista(4,5);
-                laberinto.addArista(5,1);
-                laberinto.addArista(5,2);
-                laberinto.addArista(5,3);
-                laberinto.addArista(5,4);
+                laberinto = new Grafo(25);
+                laberinto.addArista(2,20);
+                laberinto.addArista(2,13);
+                laberinto.addArista(2,11);
+                laberinto.addArista(2,24);
+                laberinto.addArista(11,13);
+                laberinto.addArista(11,20);
+                laberinto.addArista(11,17);
+                laberinto.addArista(13,17);
+                laberinto.addArista(13,24);
+                laberinto.addArista(17,20);
+                laberinto.addArista(17,24);
+                laberinto.addArista(20,24);
                 break;
 
             case R.id.Cubo:
@@ -279,40 +266,4 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
         Emplazar emplazar = new Emplazar();
         emplazar.crearMapMarks();
     }
-
-    /**
-     * 0 -> Cueva libre
-     * 1 -> Wumpus
-     * 2 -> Pozo
-     * 3 -> Murcielago
-     * 4 -> Personaje
-     */
-    public List<Integer> llenarCueva(int tamGrafo) {
-        List<Integer> tiposC = new ArrayList<>(tamGrafo*tamGrafo);
-        boolean wumpus = false;
-        boolean personaje = false;
-        for (int x = 0; x < tamGrafo*2; x++) {
-            int tipo = (int) (Math.random() * 4);
-
-            if (tipo == 1 && wumpus == true) {
-                x--;
-            } else {
-                tiposC.add(tipo);
-                if (tipo == 1) {
-                    wumpus = true;
-                }
-            }
-
-           // if (tipo == 4 && personaje == true) {
-             //   x--;
-           // } else {
-           //     tiposC.add(tipo);
-            //    if (tipo == 4) {
-                    personaje = true;
-            //    }
-           // }
-        }
-        return tiposC;
-    }
-
 }

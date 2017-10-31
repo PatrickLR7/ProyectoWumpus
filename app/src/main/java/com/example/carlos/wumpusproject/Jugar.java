@@ -20,15 +20,14 @@ public class Jugar
     {
         tablero = Config.laberinto;
         tiposCueva = Config.tiposDeCuevas;
-
     }
 
     public void mostrarIndicios()
     {
         List<Integer> vecinos = tablero.obtenerVecinos(cuevaActual);
 
-        int vecinoActual = -1;
-        int tipo = -1;
+        int vecinoActual;
+        int tipo;
         for(int i = 0; i < vecinos.size(); i++)
         {
             vecinoActual = vecinos.get(i);
