@@ -7,7 +7,7 @@ android {
         multiDexEnabled true
         applicationId "com.example.carlos.wumpusproject"
         minSdkVersion 19
-        targetSdkVersion 15
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
