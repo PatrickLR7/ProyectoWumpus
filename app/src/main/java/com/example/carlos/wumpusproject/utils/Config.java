@@ -16,7 +16,10 @@ public class Config {
     public static List<Integer> tiposDeCuevas;
     public static GoogleMap map;
     public static List<Vector> coordenadasCuevas;
-    public static Double latUsuario,lonUsuario;
+    public static double latUsuario,lonUsuario;
+    public static double distancia = 5.0;
+
+
 
     // Filas y columnas para grafos irregulares
     public static int numFilas = 6;

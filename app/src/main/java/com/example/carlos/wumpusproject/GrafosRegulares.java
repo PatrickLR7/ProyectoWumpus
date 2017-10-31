@@ -44,36 +44,17 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
         switch(v.getId()){
             case R.id.Tetraedro:
                 Toast.makeText(this, "Su laberinto tiene 4 cuevas", Toast.LENGTH_LONG).show();
-                laberinto = new Grafo(4);
+                laberinto = new Grafo(9);
                // tipos = llenarCueva(4);
-                //viejo
-                laberinto.addArista(0,1);
-                laberinto.addArista(0,2);
-                laberinto.addArista(0,3);
-                laberinto.addArista(1,0);
-                laberinto.addArista(1,2);
-                laberinto.addArista(1,3);
-                laberinto.addArista(2,0);
-                laberinto.addArista(2,1);
-                laberinto.addArista(2,3);
-                laberinto.addArista(3,0);
-                laberinto.addArista(3,1);
-                laberinto.addArista(3,2);
 
 
-                //nuevo
-                //laberinto.addArista(1,14);
-               // laberinto.addArista(19,2);
-               // laberinto.addArista(2,16);
-               // laberinto.addArista(16,2);
-               // laberinto.addArista(2,14);
-               // laberinto.addArista(14,2);
-               // laberinto.addArista(14,19);
-               // laberinto.addArista(19,14);
-               // laberinto.addArista(14,16);
-              //  laberinto.addArista(16,14);
-               // laberinto.addArista(16,19);
-               // laberinto.addArista(19,16);
+                laberinto.addArista(1,4);
+                laberinto.addArista(1,6);
+                laberinto.addArista(1,8);
+                laberinto.addArista(4,8);
+                laberinto.addArista(4,6);
+                laberinto.addArista(6,8);
+
 
                 break;
 
@@ -260,10 +241,10 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
         Config.laberinto = laberinto;
         // Config.tiposDeCuevas = tipos;
 
-        //Intent i = new Intent(getApplicationContext(), MapsActivity.class);
-       // startActivity(i);
+        Intent i = new Intent(getApplicationContext(), MapsActivity.class);
+        startActivity(i);
 
-        Emplazar emplazar = new Emplazar();
-        emplazar.crearMapMarks();
+        //Emplazar emplazar = new Emplazar();
+        //emplazar.crearMapMarks();
     }
 }

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.carlos.wumpusproject.utils.Config;
 import com.example.carlos.wumpusproject.utils.Grafo;
+import com.example.carlos.wumpusproject.utils.Pair;
 import com.google.android.gms.maps.GoogleMap;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class Emplazar extends AppCompatActivity {
      private int tamGrafo;
      private int posInicialJugador;
      private int posInicialWumpus;
+     private double distancia;
 
      private Vector< Vector<Double> > coordenadasCuevas;
     //MapsActivity mapsActivity = new MapsActivity(map);
@@ -38,6 +40,10 @@ public class Emplazar extends AppCompatActivity {
         map = Config.map;
         tamGrafo = laberinto.getDimensionMatriz();
         coordenadasCuevas = new Vector<>();
+        distancia = Config.distancia;
+
+
+
     }
 
 
@@ -72,19 +78,17 @@ public class Emplazar extends AppCompatActivity {
     }
 
    public void crearMapMarks() {
-        //9.93
-        // -84.05
-        //radio: 5 mts
+       //9.93
+       //-84.05
+       //radio: 5 mts
        this.generarTiposDeCuevas();
-       MapsActivity mapa = new MapsActivity();
-       Intent intent;
-      // intent = new Intent(getApplicationContext(), MapsActivity.class);
-       //startActivity(intent);
-        //getlocation usuario
-       double latInicial = 0; //llenar con usuario
+
+
+       //getlocation usuario
+       double latInicial = 0;                           //llenar con usuario
        double lonInicial = 0;
        int nodoInicial = 0;
-       //boolean presente = false;
+
 
        for (int x = 0; x < tamGrafo; x++) {
            Vector<Double> coordenada = new Vector<Double>();
@@ -94,7 +98,7 @@ public class Emplazar extends AppCompatActivity {
                coordenadasCuevas.add(x, coordenada);
                nodoInicial = x;
                System.out.println("x: " + x + "lat: " + latInicial + "lon: " + lonInicial);
-               //generar marcador
+                                                                                       //generar marcador
            } else {
                coordenada.add(0.0);
                coordenada.add(0.0);
@@ -103,217 +107,41 @@ public class Emplazar extends AppCompatActivity {
        }
 
 
-       /*
-       //ver nodos del laberinto
-       List<Integer> nodos = laberinto.obtenerNodos();
-       for (int i = 0; i <  nodos.size(); i++) {
-           int x = nodos.get(i);
-           System.out.println(x);
-       }*/
 
-       int dis = 5;
-       if(Config.labEsRegular){
-           switch(tamGrafo) {
-               case 4:
+       boolean encontrado = false;
+       Pair pairInicial;
+       pairInicial = laberinto.obtenerFilaColumna(nodoInicial);
+
+       int filas, columnas = 0;
+
+
+       for (int nodo = 0; nodo < tamGrafo; nodo++) {
+
+           if (nodo != nodoInicial) {
+
+               if (laberinto.presenteEnElGrafo(nodo)) {
+
+                   Pair pairNodo;
+                   Pair pairDistancia;
+                   pairNodo = laberinto.obtenerFilaColumna(nodo);
+
+                   pairDistancia = pairInicial.restarPares(pairNodo);
+
+                   filas = pairDistancia.getX();
+                   columnas = pairDistancia.getY();
+
                    Vector<Double> coordenada = new Vector<Double>();
-                   if(nodoInicial == 0){
-                       coordenada.add(latInicial + dis*2);//fila
-                       coordenada.add(lonInicial + dis);//colum
-                       coordenadasCuevas.setElementAt(coordenada,1);
-
-                       coordenada = new Vector<Double>();
-
-                       coordenada.add(latInicial + dis*2);
-                       coordenada.add(lonInicial - dis);
-                       coordenadasCuevas.setElementAt(coordenada,2);
-
-                       coordenada = new Vector<Double>();
-
-                       coordenada.add(latInicial+dis);
-                       coordenada.add(lonInicial);
-                       coordenadasCuevas.setElementAt(coordenada,3);
-                   }
-
-                   if(nodoInicial == 1){
-                       coordenada.add(latInicial-dis*2);//fila
-                       coordenada.add(lonInicial-dis);//colum
-                       coordenadasCuevas.setElementAt(coordenada,0);
-
-                       coordenada = new Vector<Double>();
-
-                       coordenada.add(latInicial);
-                       coordenada.add(lonInicial-dis*2);
-                       coordenadasCuevas.setElementAt(coordenada,2);
-
-
-                       coordenada = new Vector<Double>();
-
-                       coordenada.add(latInicial+dis);
-                       coordenada.add(lonInicial-dis);
-                       coordenadasCuevas.setElementAt(coordenada,3);
-
-                   }
-
-                   if(nodoInicial == 2){
-                       coordenada.add(latInicial-dis*2);//fila
-                       coordenada.add(lonInicial+dis);//colum
-                       coordenadasCuevas.setElementAt(coordenada,0);
-
-                       coordenada = new Vector<Double>();
-
-                       coordenada.add(latInicial);
-                       coordenada.add(lonInicial+dis*2);
-                       coordenadasCuevas.setElementAt(coordenada,1);
-
-                       coordenada = new Vector<Double>();
-
-                       coordenada.add(latInicial-dis);
-                       coordenada.add(lonInicial+dis);
-                       coordenadasCuevas.setElementAt(coordenada,3);
-
-                   }
-
-                   if(nodoInicial == 3){
-
-                       coordenada.add(latInicial-dis);//fila
-                       coordenada.add(lonInicial);//colum
-                       coordenadasCuevas.setElementAt(coordenada,0);
-
-                       coordenada = new Vector<Double>();
-
-                       coordenada.add(latInicial+dis);
-                       coordenada.add(lonInicial+dis);
-                       coordenadasCuevas.setElementAt(coordenada,1);
-
-                       coordenada = new Vector<Double>();
-
-                       coordenada.add(latInicial+dis);
-                       coordenada.add(lonInicial-dis);
-                       coordenadasCuevas.setElementAt(coordenada,2);
-                   }
-                   break;
-
-           }
-
-
-           for (int i = 0; i < tamGrafo; i++) {
-
-              // Vector<Double> coor = new Vector<Double>();
-              // coor = coordenadasCuevas.elementAt(i);
-
-               Double x = (Double) coordenadasCuevas.elementAt(i).elementAt(0);
-
-               mapa.agregarMarca((Double)coordenadasCuevas.get(i).get(0),(Double)coordenadasCuevas.get(i).get(1));
-
-           }
-       }
-       else {
-           int numNodos = Config.numFilas * Config.numColumnas;
-           for (int i = 0; i < numNodos; i++) {
-               if (laberinto.presenteEnElGrafo(i)){
+                   coordenada.add(latInicial + distancia * filas);
+                   coordenada.add(lonInicial + distancia * columnas);
+                   coordenadasCuevas.setElementAt(coordenada, nodo);
 
                }
+
            }
 
        }
 
-      // startActivity(intent);
-
-
-         //  boolean encontrado = false;
-
-      //     for (int i = 0; i < nodoInicial; i++) {//arriba
-
-       //        presente = laberinto.presenteEnElGrafo(i);
-
-       //        if (presente == true) {
-
-           //        for (int colum = i; colum >= 0; colum--) {
-
-             //          for (int fila = 1; fila < tamGrafo; fila++) {
-
-                  //         if ((colum + tamGrafo) == nodoInicial) {
-
-                               //Aumentar lat con fila y resta lon con colum
-                               //crear mark
-                 //              encontrado = true;
-                  //         }
-
-                 //      }
-
-                 //  }
-
-               //    if (encontrado == false) {
-
-                  //     for (int colum = i; colum <= nodoInicial; colum++) {
-
-                   //        for (int fila = 1; fila < tamGrafo; fila++) {
-
-                    //           if ((colum + tamGrafo) == nodoInicial) {
-
-                                   //Aumentar lat con fila y aumenta lon con colum
-                                   //crear mark
-                      //             encontrado = true;
-                     //          }
-
-                    //       }
-
-                    //   }
-
-                //   }
-           //    }
-
-         //  }
-
-          // for (int i = tamGrafo * tamGrafo; i > nodoInicial; i--) {//abajo
-
-          //     presente = laberinto.presenteEnElGrafo(i);
-
-          //     if (presente == true) {
-
-           //        for (int colum = i; colum >= nodoInicial; colum--) {
-
-               //        for (int fila = 1; fila < tamGrafo; fila++) {
-
-             //              if ((colum - tamGrafo) == nodoInicial) {
-
-                               //restar lat con fila y lon con colum
-                               //crear mark
-                 //              encontrado = true;
-                     //      }
-
-                //       }
-
-               //    }
-
-
-              //     if (encontrado == false) {
-
-                    //   for (int colum = i; colum <= tamGrafo*tamGrafo; colum++) {
-
-                    //       for (int fila = 1; fila < tamGrafo; fila++) {
-
-                      //         if ((colum - tamGrafo) == nodoInicial) {
-
-                                   //Aumentar lat con fila y aumenta lon con colum
-                                   //crear mark
-                        //           encontrado = true;
-                      //         }
-
-                       //    }
-
-                    //   }
-
-                //   }
-
-             //  }
-
-         //  }
-
-
-       }
-
-
+   }
 
 }
 
