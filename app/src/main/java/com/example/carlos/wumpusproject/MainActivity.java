@@ -1,6 +1,10 @@
 package com.example.carlos.wumpusproject;
 
+import android.*;
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -50,10 +54,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
 
+
             case R.id.emplazar:
+                PackageManager pm = getBaseContext().getPackageManager();
+                int hasPerm1 = pm.checkPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION, getBaseContext().getPackageName());
+                if (hasPerm1 != PackageManager.PERMISSION_GRANTED) {
+                    makeRequest();
+                }
+
+
                 intent = new Intent(getApplicationContext(), MapsActivity.class);
                 startActivity(intent);
                 break;
         }
     }
+
+
+    protected void makeRequest() {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+    }
+
+
+
 }
