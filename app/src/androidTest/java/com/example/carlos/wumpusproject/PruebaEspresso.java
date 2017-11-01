@@ -183,8 +183,8 @@ public class PruebaEspresso extends ActivityInstrumentationTestCase2<MainActivit
     public void postLab()
     {
         ViewInteraction appCompatButton2 = onView(
-                allOf(withId(R.id.finalizeDrawButton), withText("Guardar Grafo"), isDisplayed()));
-        appCompatButton2.perform(click());
+                allOf(withId(R.id.finalizeDrawButton), withText("Guardar Laberinto"), isDisplayed()));
+        appCompatButton2.perform(click()); //Click en el botón para guardar el laberinto
         SystemClock.sleep(500);
 
         ViewInteraction editText = onView(
@@ -192,10 +192,10 @@ public class PruebaEspresso extends ActivityInstrumentationTestCase2<MainActivit
                         withParent(allOf(withId(R.id.custom),
                                 withParent(withId(R.id.customPanel)))),
                         isDisplayed()));
-        editText.perform(replaceText("prueba-a"), closeSoftKeyboard());
+        editText.perform(replaceText("prueba"), closeSoftKeyboard()); //Le pone nombre
         SystemClock.sleep(500);
         ViewInteraction appCompatButton3 = onView(
-                allOf(withId(android.R.id.button1), withText("Guardar")));
+                allOf(withId(android.R.id.button1), withText("Guardar"))); //Lo guarda
         appCompatButton3.perform(scrollTo(), click());
         SystemClock.sleep(500);
 
@@ -206,15 +206,14 @@ public class PruebaEspresso extends ActivityInstrumentationTestCase2<MainActivit
 
         ViewInteraction appCompatButton5 = onView(
                 allOf(withId(R.id.elegirBiblio), withText("Elegir de la Biblioteca"), isDisplayed()));
-        appCompatButton5.perform(click());
+        appCompatButton5.perform(click()); //Busca el laberinto guardado en la biblioteca
         SystemClock.sleep(500);
 
         ViewInteraction appCompatTextView = onView(
-                allOf(withId(android.R.id.text1), withText("prueba-a"),
+                allOf(withId(android.R.id.text1), withText("prueba"), //Lo elige
                         childAtPosition(
                                 allOf(withId(R.id.select_dialog_listview),
-                                        withParent(withId(R.id.contentPanel))),
-                                0),
+                                        withParent(withId(R.id.contentPanel))), 0),
                         isDisplayed()));
         appCompatTextView.perform(click());
         SystemClock.sleep(500);
@@ -223,13 +222,40 @@ public class PruebaEspresso extends ActivityInstrumentationTestCase2<MainActivit
                 allOf(withId(android.R.id.button1), withText("Aceptar")));
         appCompatButton6.perform(scrollTo(), click());
 
-        /* Bluetooth no está listo
+        //Pruebas de Bluetooth
         ViewInteraction appCompatButton7 = onView(
                 allOf(withId(R.id.compartirBluetooth), withText("Compartir por Bluetooth"), isDisplayed()));
-        appCompatButton7.perform(click());
+        appCompatButton7.perform(click()); //Entra a la parte de Bluetooth
+        SystemClock.sleep(500);
+        ViewInteraction appCompatButton8 = onView(
+                allOf(withId(R.id.btnLaberinto), withText("Seleccionar Laberinto Para Enviar"), isDisplayed()));
+        appCompatButton8.perform(click()); //Muestra lista de laberintos para enviar uno
+        SystemClock.sleep(500);
+        ViewInteraction appCompatButton9 = onView(
+                allOf(withId(android.R.id.button2), withText("Cancel")));
+        appCompatButton9.perform(scrollTo(), click()); //Cancela
+        SystemClock.sleep(500);
+        ViewInteraction appCompatButton10 = onView(
+                allOf(withId(R.id.sendBtooth), withText("Enviar"), isDisplayed()));
+        appCompatButton10.perform(click()); //Intenta enviar, pero debe mandar error
+        SystemClock.sleep(500);
+        ViewInteraction appCompatButton11 = onView(
+                allOf(withId(R.id.btnSeleccionar), withText("Seleccionar laberinto recibido"), isDisplayed()));
+        appCompatButton11.perform(click()); //Entra a seleccionar un laberinto recibido
         SystemClock.sleep(500);
         onView(isRoot()).perform(ViewActions.pressBack()); //Retorna
-        */
+        SystemClock.sleep(500);
+        ViewInteraction appCompatButton12 = onView(
+                allOf(withId(R.id.btnRecibido), withText("Guardar Laberinto Recibido en Biblioteca"), isDisplayed()));
+        appCompatButton12.perform(click()); //Lo guarda
+        SystemClock.sleep(500);
+        ViewInteraction appCompatButton13 = onView(
+                allOf(withId(android.R.id.button1), withText("Aceptar")));
+        appCompatButton13.perform(scrollTo(), click());
+        SystemClock.sleep(500);
+        ViewInteraction appCompatButton14 = onView(
+                allOf(withId(R.id.BTNquit), withText("Salir"), isDisplayed()));
+        appCompatButton14.perform(click()); //Se devuelve
         SystemClock.sleep(1000);
     }
 }
