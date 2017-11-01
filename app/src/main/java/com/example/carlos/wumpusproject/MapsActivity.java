@@ -80,12 +80,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         laberinto = Config.laberinto;
-       // map = Config.map;
-       // tamGrafo = laberinto.getDimensionMatriz();
+        //map = Config.map;
+        tamGrafo = laberinto.getDimensionMatriz();
         coordenadasCuevas = new Vector<>();
         distancia = Config.distancia;
 
-       // ();
 
     }
 
@@ -202,7 +201,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
         mMap = googleMap;
+
+        crearMapMarks();
+
+
     }
 
     public void agregarMarca(double lat, double lon) {
@@ -255,6 +259,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         tiposDeCuevas.add(posInicialWumpus, 1);
         Config.tiposDeCuevas = tiposDeCuevas;
     }
+
+
+
+
 
     public void crearMapMarks() {
         //9.93
