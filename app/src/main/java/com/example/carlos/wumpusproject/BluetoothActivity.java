@@ -202,8 +202,8 @@ public class BluetoothActivity extends AppCompatActivity {
 
     //exit to application---------------------------------------------------------------------------
     public void exit(View V) {
-        btAdatper.disable();
-        Toast.makeText(this,"Saliendo de Bluetooth",Toast.LENGTH_LONG).show();
+        //btAdatper.disable();
+        Toast.makeText(getApplicationContext(),"Saliendo de Bluetooth",Toast.LENGTH_LONG).show();
         finish(); }
 
     //Method for send file via bluetooth------------------------------------------------------------
