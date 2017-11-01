@@ -20,9 +20,9 @@ public class Jugar
     private List<Integer> tiposCueva;
     private int flechasRestantes = 5;
     private int cuevaActual = -1; //Posición actual del jugador
-    private Context context;
-    private Vibrator v;
-    private MediaPlayer mp;
+    private Context context; //Contexto necesario para llamar varias funcionalidades del teléfono
+    private Vibrator v; //Vibra el dispositivo
+    private MediaPlayer mp; //Hace un efecto de sonido
 
     public Jugar(Context con) //Recibe el tablero con el que se va a jugar
     {
@@ -31,6 +31,16 @@ public class Jugar
         tiposCueva = Config.tiposDeCuevas;
         v = (Vibrator)context.getSystemService(VIBRATOR_SERVICE); //Vibrador que se usa después
         mp = MediaPlayer.create(context, R.raw.batsound); //Inicializa el efecto de sonido
+        cuevaActual = posicionarJugador();
+    }
+
+    public int posicionarJugador()
+    {
+        int pos = -1;
+        for(int i = 0; i < tiposCueva.size(); i++)
+            if(tiposCueva.get(i) == 4)
+                pos = i;
+        return pos;
     }
 
     public void mostrarIndicios()
@@ -73,5 +83,29 @@ public class Jugar
                     break;
             }
         }
+    }
+
+    public void lanzarFlecha(int direccion)
+    {
+        flechasRestantes--;
+        if(tiposCueva.get(direccion) == 1)
+            victoria();
+        else
+        {
+            if(flechasRestantes == 0)
+                sinFlechas();
+            else
+                Toast.makeText(context, "El wumpus no estaba en esa cueva", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void sinFlechas()
+    {
+        //Avisarle al usuario que perdió por quedarse sin flechas
+    }
+
+    public void victoria()
+    {
+        //Mostrar pantalla con Wumpus atravesado
     }
 }

@@ -10,16 +10,12 @@ import java.util.Vector;
  */
 
 public class Config {
-    public static boolean modoIndividual;
     public static boolean labEsRegular;
     public static Grafo laberinto;
     public static List<Integer> tiposDeCuevas;
     public static GoogleMap map;
     public static List<Vector> coordenadasCuevas;
-    public static double latUsuario,lonUsuario;
-    public static double distancia = 5.0;
-
-
+    public static double distancia = 0.00000013; // esto son 5 metros.
 
     // Filas y columnas para grafos irregulares
     public static int numFilas = 6;
