@@ -81,11 +81,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         laberinto = Config.laberinto;
        // map = Config.map;
-        tamGrafo = laberinto.getDimensionMatriz();
+       // tamGrafo = laberinto.getDimensionMatriz();
         coordenadasCuevas = new Vector<>();
         distancia = Config.distancia;
 
-        crearMapMarks();
+       // ();
 
     }
 

@@ -6,8 +6,6 @@
     <string name="title_activity_labirynth_draw">LabirynthDraw</string>
     <string name="graphDrawFinished">Finalizar</string>
     <string name="title_activity_maps">Map</string>
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
-        AIzaSyCMYRWXyF_JDXIShQCidvp3v4QBHWoqH3c
-    </string>
+
 
 </resources>
