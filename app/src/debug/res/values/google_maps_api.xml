@@ -11,8 +11,10 @@
     Package name:
     5C:D7:7B:FE:51:37:A6:EE:9F:7D:7C:C6:E0:4A:55:77:0E:C6:93:CC
 
+
     SHA-1 certificate fingerprint:
     5C:D7:7B:FE:51:37:A6:EE:9F:7D:7C:C6:E0:4A:55:77:0E:C6:93:CC
+    BB:56:97:D8:29:E6:33:00:27:8A:0D:AB:D1:09:68:6D:11:19:A2:0D
 
     Alternatively, follow the directions here:
     https://developers.google.com/maps/documentation/android/start#get-key
@@ -21,8 +23,9 @@
     string in this file.
 
     key vieja AIzaSyCMYRWXyF_JDXIShQCidvp3v4QBHWoqH3c
+    key nueva AIzaSyBklz8wk1_tTm_yOsdMiCcReWFAFcLjCNo
     -->
 
-    AIzaSyBklz8wk1_tTm_yOsdMiCcReWFAFcLjCNo
+
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBklz8wk1_tTm_yOsdMiCcReWFAFcLjCNo</string>
 </resources>

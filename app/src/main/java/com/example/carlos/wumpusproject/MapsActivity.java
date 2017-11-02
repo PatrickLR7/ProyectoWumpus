@@ -210,12 +210,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * 3 -> cueva con murcielagos.
      * 4 -> cueva inicial del personaje.
      */
-    public void generarTiposDeCuevas() {
+   /** public void generarTiposDeCuevas() {
         tiposDeCuevas = new ArrayList<>(tamGrafo);
         for (int x = 0; x < tamGrafo ; x++) {
             int tipo = (int) (Math.random() * 3);
-            switch (tipo){
-                case 0: tiposDeCuevas.add(0);
+           switch (tipo){
+               case 0: tiposDeCuevas.add(0);
                     break;
                 case 1: tiposDeCuevas.add(2);
                     break;
@@ -223,12 +223,51 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     break;
             }
         }
-        posInicialJugador = (int) (Math.random() * tamGrafo);
+        posInicialJugador = (int) (Math.random() * tamGrafo); // no se puede crear el personaje en nodos inexistentes.
+                                                                //De los 9 nodos que hay solo en 4 se puede crear el personaje en 4 de ellos
         posInicialWumpus = (int) (Math.random() * tamGrafo);
         tiposDeCuevas.add(posInicialJugador, 4);
         tiposDeCuevas.add(posInicialWumpus, 1);
         Config.tiposDeCuevas = tiposDeCuevas;
     }
+    */
+
+
+
+   public void generarPersonaje() {
+
+
+
+
+       boolean personaje = false;
+       tiposDeCuevas = new ArrayList<>(tamGrafo);
+
+       for (int x = 0; x < tamGrafo ; x++) {
+
+           if (laberinto.presenteEnElGrafo(x) == true) {
+
+               int tipo = (int) (Math.random() * 5);
+
+               if (tipo == 4 && personaje == false) {
+                   //x--;
+                   tiposDeCuevas.add(4);
+                   personaje = true;
+                   posInicialJugador = x;
+               }
+
+           }else{
+
+               tiposDeCuevas.add(-1);
+           }
+
+       }
+
+
+       Config.tiposDeCuevas = tiposDeCuevas;
+
+
+   }
+
 
     public void crearMapMarks() {
 
@@ -244,7 +283,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-        this.generarTiposDeCuevas();
+        //this.generarTiposDeCuevas();
+
+        generarPersonaje();
+
         int nodoInicial = 0;
 
         for (int x = 0; x < tamGrafo; x++) {
@@ -285,18 +327,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     System.out.println("x: " + nodo + " pair: " + pairNodo.getX() + "," + pairNodo.getY() + " pairdis" + pairDistancia.getX() + "," + pairDistancia.getY()  );
                     Vector<Double> coordenada = new Vector<>();
-                    coordenada.add( latitudeNetwork + distancia * filas);
+                    coordenada.add( latitudeNetwork - distancia * filas);
                     coordenada.add( longitudeNetwork + distancia * columnas);
                     coordenadasCuevas.setElementAt(coordenada, nodo);
+
+                    agregarMarca(coordenadasCuevas.get(nodo).get(0), coordenadasCuevas.get(nodo).get(1));
                 }
             }
         }
 
-        for (int i = 0; i < tamGrafo ; i++) { // Recorre coordenadasCuevas y hace Marks
-            if( (coordenadasCuevas.get(i).get(0) != 0.0 ) && (coordenadasCuevas.get(i).get(1) != 0.0 ) ) { //los nodos no presentes en el grafo tienen coor 0.0
-                agregarMarca(coordenadasCuevas.get(i).get(0), coordenadasCuevas.get(i).get(1));
-            }
-        }
+       // for (int i = 0; i < tamGrafo ; i++) { // Recorre coordenadasCuevas y hace Marks
+         //   if( (coordenadasCuevas.get(i).get(0) != 0.0 ) && (coordenadasCuevas.get(i).get(1) != 0.0 ) ) { //los nodos no presentes en el grafo tienen coor 0.0
+              //  agregarMarca(coordenadasCuevas.get(i).get(0), coordenadasCuevas.get(i).get(1));
+         //   }
+        //}
     }
 
 
