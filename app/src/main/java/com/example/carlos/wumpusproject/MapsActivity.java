@@ -179,7 +179,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        
+
         toggleNetworkUpdates();
         tamGrafo = laberinto.getDimensionMatriz();
         coordenadasCuevas = new Vector<>();
