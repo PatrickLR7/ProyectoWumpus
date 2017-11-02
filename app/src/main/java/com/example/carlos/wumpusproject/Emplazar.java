@@ -41,9 +41,6 @@ public class Emplazar extends AppCompatActivity {
         tamGrafo = laberinto.getDimensionMatriz();
         coordenadasCuevas = new Vector<>();
         distancia = Config.distancia;
-
-
-
     }
 
 
@@ -106,21 +103,17 @@ public class Emplazar extends AppCompatActivity {
            }
        }
 
-
-
        boolean encontrado = false;
        Pair pairInicial;
        pairInicial = laberinto.obtenerFilaColumna(nodoInicial);
 
-       int filas, columnas = 0;
+       int filas, columnas;
 
 
        for (int nodo = 0; nodo < tamGrafo; nodo++) {
 
            if (nodo != nodoInicial) {
-
                if (laberinto.presenteEnElGrafo(nodo)) {
-
                    Pair pairNodo;
                    Pair pairDistancia;
                    pairNodo = laberinto.obtenerFilaColumna(nodo);
@@ -134,9 +127,7 @@ public class Emplazar extends AppCompatActivity {
                    coordenada.add(latInicial + distancia * filas);
                    coordenada.add(lonInicial + distancia * columnas);
                    coordenadasCuevas.setElementAt(coordenada, nodo);
-
                }
-
            }
 
        }

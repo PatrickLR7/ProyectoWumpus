@@ -150,33 +150,9 @@ public class Grafo {
     }
 
     public Pair obtenerFilaColumna(int nodo){
-        //int x = nodo % dimensionMatriz;
-        //int y = nodo % dimensionMatriz;
-
-        int contador = 0;
-
-        int fila = 0;
-        int columna = 0;
-
-        while( contador != nodo){
-
-
-            while( columna < 9/2){
-
-                //
-
-
-
-                columna++;
-                contador++;
-            }
-
-            columna = 0;
-            fila++;
-        }
-
-
-
-        return new Pair(fila,columna);
+        int n = (int) Math.sqrt(dimensionMatriz);
+        int x = nodo / n;
+        int y = nodo % n;
+        return new Pair(x, y);
     }
 }

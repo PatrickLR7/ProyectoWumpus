@@ -46,18 +46,13 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
                 Toast.makeText(this, "Su laberinto tiene 4 cuevas", Toast.LENGTH_LONG).show();
                 laberinto = new Grafo(9);
                // tipos = llenarCueva(4);
-
-
                 laberinto.addArista(1,4);
                 laberinto.addArista(1,6);
                 laberinto.addArista(1,8);
                 laberinto.addArista(4,8);
                 laberinto.addArista(4,6);
                 laberinto.addArista(6,8);
-
-
                 break;
-
             case R.id.Octaedro:
                 Toast.makeText(this, "Su laberinto tiene 6 cuevas", Toast.LENGTH_LONG).show();
                 laberinto = new Grafo(25);
@@ -164,7 +159,6 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
                 laberinto.addArista(88,98);
                 laberinto.addArista(94,106);
                 laberinto.addArista(98,106);
-
                 break;
         }
 

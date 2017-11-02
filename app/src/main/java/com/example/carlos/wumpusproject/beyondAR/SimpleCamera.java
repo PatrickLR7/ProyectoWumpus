@@ -13,6 +13,8 @@ import com.beyondar.android.view.OnTouchBeyondarViewListener;
 import com.beyondar.android.world.BeyondarObject;
 import com.beyondar.android.world.World;
 import com.example.carlos.wumpusproject.R;
+import com.example.carlos.wumpusproject.utils.Config;
+import com.example.carlos.wumpusproject.utils.Pair;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -21,6 +23,8 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
 
     private BeyondarFragmentSupport mBeyondarFragment;
     private World mWorld;
+    private CustomWorldHelper customWorldHelper;
+    private Pair coordenadasIniciales;
 
     /** Called when the activity is first created. */
     @Override
@@ -31,12 +35,14 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.activity_simple_camera);
+        customWorldHelper = new CustomWorldHelper();
+        coordenadasIniciales = Config.coordenadasIniciales;
 
         mBeyondarFragment = (BeyondarFragmentSupport) getSupportFragmentManager().findFragmentById(
                 R.id.beyondarFragment);
 
         // We create the world and fill it ...
-        mWorld = CustomWorldHelper.generateObjects(this);
+        mWorld = customWorldHelper.generateObjects(this, coordenadasIniciales);
         // ... and send it to the fragment
         mBeyondarFragment.setWorld(mWorld);
 

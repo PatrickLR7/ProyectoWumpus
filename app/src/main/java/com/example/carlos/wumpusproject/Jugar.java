@@ -10,6 +10,7 @@ import android.os.VibrationEffect;
 import com.example.carlos.wumpusproject.utils.Config;
 import com.example.carlos.wumpusproject.utils.Grafo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Context.VIBRATOR_SERVICE;
@@ -23,6 +24,7 @@ public class Jugar
     private Context context; //Contexto necesario para llamar varias funcionalidades del teléfono
     private Vibrator v; //Vibra el dispositivo
     private MediaPlayer mp; //Hace un efecto de sonido
+    private List<Integer> caminoCuevas;
 
     public Jugar(Context con) //Recibe el tablero con el que se va a jugar
     {
@@ -32,6 +34,8 @@ public class Jugar
         v = (Vibrator)context.getSystemService(VIBRATOR_SERVICE); //Vibrador que se usa después
         mp = MediaPlayer.create(context, R.raw.batsound); //Inicializa el efecto de sonido
         cuevaActual = posicionarJugador();
+        caminoCuevas = new ArrayList<>();
+        Config.caminoDeCuevas = caminoCuevas;
     }
 
     public int posicionarJugador()
@@ -46,7 +50,7 @@ public class Jugar
     public void mostrarIndicios()
     {
         List<Integer> vecinos = tablero.obtenerVecinos(cuevaActual);
-
+        caminoCuevas.add(cuevaActual);
         int vecinoActual;
         int tipo;
         for(int i = 0; i < vecinos.size(); i++)
@@ -85,10 +89,10 @@ public class Jugar
         }
     }
 
-    public void lanzarFlecha(int direccion)
+    public void lanzarFlecha(int numCueva)
     {
         flechasRestantes--;
-        if(tiposCueva.get(direccion) == 1)
+        if(tiposCueva.get(numCueva) == 1)
             victoria();
         else
         {

@@ -13,9 +13,14 @@ public class Config {
     public static boolean labEsRegular;
     public static Grafo laberinto;
     public static List<Integer> tiposDeCuevas;
+    public static List<Integer> caminoDeCuevas;
     public static GoogleMap map;
     public static List<Vector> coordenadasCuevas;
-    public static double distancia =  5;   // 0.00000013; // esto son 5 metros.
+    public static Pair coordenadasIniciales;
+    public static double latUsuario,lonUsuario;
+    public static double distancia = 5.0;
+
+    public static final int NUM_FLECHAS = 5;
 
     // Filas y columnas para grafos irregulares
     public static int numFilas = 6;
