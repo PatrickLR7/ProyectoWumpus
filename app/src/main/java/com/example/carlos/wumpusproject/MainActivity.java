@@ -34,8 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         poliedro.setOnClickListener(this);
         laberinto = (Button) findViewById(R.id.LabIrregButton);
         laberinto.setOnClickListener(this);
-        emplazar = (Button) findViewById(R.id.emplazar);
-        emplazar.setOnClickListener(this);
+
     }
 
     @Override
@@ -55,17 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
 
-            case R.id.emplazar:
-                PackageManager pm = getBaseContext().getPackageManager();
-                int hasPerm1 = pm.checkPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION, getBaseContext().getPackageName());
-                if (hasPerm1 != PackageManager.PERMISSION_GRANTED) {
-                    makeRequest();
-                }
 
-
-                intent = new Intent(getApplicationContext(), MapsActivity.class);
-                startActivity(intent);
-                break;
         }
     }
 

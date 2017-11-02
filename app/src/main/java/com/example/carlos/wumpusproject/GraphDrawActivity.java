@@ -54,6 +54,8 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
     private Grafo grafo;
     /** Vector de los nombres de los grafos guardados en la base de datos. */
     private String[] vectorNombres;
+    /** Boton que muestra el layout de emplazar el laberinto. */
+    private Button emplazar;
 
     /**
      * Metodo onCreate.
@@ -87,6 +89,9 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
         btnBiblio.setOnClickListener(this);
         btnBluetooth = (Button) findViewById(R.id.compartirBluetooth);
         btnBluetooth.setOnClickListener(this);
+
+        emplazar = (Button) findViewById(R.id.emplazar);
+        emplazar.setOnClickListener(this);
 
 
         dbManager = new DataBaseHelper(this);
@@ -212,6 +217,13 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
             Intent intent;
             intent = new Intent(this ,BluetoothActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+
+        //Click en boton emplazar.
+        if (v.getId() == R.id.emplazar) {
+            Intent intent;
+            intent = new Intent(getApplicationContext(), MapsActivity.class);
             startActivity(intent);
         }
     }
