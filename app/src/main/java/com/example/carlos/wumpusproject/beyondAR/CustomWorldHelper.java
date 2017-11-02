@@ -51,7 +51,6 @@ public class CustomWorldHelper {
         // API)
         //sharedWorld.setGeoPosition(coordenada.getX(), coordenada.getY());
         coordCuevas = Config.coordenadasCuevas;
-
        sharedWorld.setGeoPosition(9.937977, -84.051858);
        GeoObject go1 = new GeoObject(1);
        go1.setGeoPosition(9.937977, -84.051858);
