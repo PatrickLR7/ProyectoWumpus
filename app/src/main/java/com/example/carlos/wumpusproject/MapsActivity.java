@@ -139,7 +139,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private final LocationListener locationListenerNetwork = new LocationListener() {
         public void onLocationChanged(Location location) {
-            Toast.makeText(getApplicationContext(), "prueba", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(getApplicationContext(), "prueba", Toast.LENGTH_SHORT).show();
             if (contadorMarcas == 0) {
                 longitudeNetwork = location.getLongitude();
                 latitudeNetwork = location.getLatitude();
@@ -179,6 +179,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        
         toggleNetworkUpdates();
         tamGrafo = laberinto.getDimensionMatriz();
         coordenadasCuevas = new Vector<>();
