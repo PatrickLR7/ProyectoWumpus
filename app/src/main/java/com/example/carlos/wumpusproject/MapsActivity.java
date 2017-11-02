@@ -13,7 +13,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.view.View;
 import android.widget.Toast;
+
+import com.example.carlos.wumpusproject.beyondAR.SimpleCamera;
 import com.example.carlos.wumpusproject.utils.Config;
 import com.example.carlos.wumpusproject.utils.Grafo;
 import com.example.carlos.wumpusproject.utils.Pair;
@@ -360,6 +363,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     }
+
+
+    public void startAR(View v){
+        Intent i = new Intent(getApplicationContext(), SimpleCamera.class);
+        startActivity(i);
+    }
+
 
 
 

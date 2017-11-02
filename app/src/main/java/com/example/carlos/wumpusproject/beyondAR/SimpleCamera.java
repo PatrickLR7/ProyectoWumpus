@@ -1,5 +1,10 @@
 package com.example.carlos.wumpusproject.beyondAR;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -12,6 +17,8 @@ import com.beyondar.android.view.OnClickBeyondarObjectListener;
 import com.beyondar.android.view.OnTouchBeyondarViewListener;
 import com.beyondar.android.world.BeyondarObject;
 import com.beyondar.android.world.World;
+import com.example.carlos.wumpusproject.Manifest;
+import com.example.carlos.wumpusproject.MapsActivity;
 import com.example.carlos.wumpusproject.R;
 import com.example.carlos.wumpusproject.utils.Config;
 import com.example.carlos.wumpusproject.utils.Pair;
@@ -31,6 +38,10 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+        String Permiso[] = {"android.permission.CAMERA", "android.permission.ACCESS_FINE_LOCATION"};
+        // Start home activity
+        requestPermission(Permiso, 1);
         // Hide the window title.
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
@@ -87,6 +98,55 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
             // ...
             // Do something
             // ...
+        }
+    }
+
+    /**
+     * Metodo encargado de mostrar los dialogos de solicitud de permisos si es necesario.
+     *
+     * @param permiso               hilera de permisos por pedir
+     * @param permissionRequestCode resultado de obtencion de permisos
+     */
+    public void requestPermission(String permiso[], int permissionRequestCode) {
+        //Preguntar por permiso
+        if (askPermissions()) {
+            ActivityCompat.requestPermissions(this, permiso, permissionRequestCode);
+        }
+    }
+
+    /**
+     * Metodo encargado de cerciorarse si es o no necesaria la solicitud dinamica de permisos.
+     *
+     * @return verdadero si android del dispositivo es mayor a Lollipop, en caso contrario falso
+     */
+    private boolean askPermissions() {
+
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Verifica que tenga los permisos apropiados para acceder a la ubicación de usuario y cámara.
+     *
+     * @param requestCode  codigo del permiso
+     * @param permissions  los permisos que se solicitan
+     * @param grantResults indica si permiso es concedido o no
+     */
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case 1:
+                Boolean camera = this.checkSelfPermission(android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
+                Boolean location = this.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+                if (location && camera) {
+                    //se crea bien
+                    //startActivity(new Intent(SimpleCamera.this, SimpleCamera.class));
+                    //finish();
+                }
+                break;
         }
     }
 }
