@@ -155,6 +155,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }
 
+
+
         @Override
         public void onStatusChanged(String s, int i, Bundle bundle) {}
 
@@ -229,9 +231,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void crearMapMarks() {
+
+       // tetrahedro();
+
+
         //9.93
         //-84.05
         //radio: 5 mts
+
+
+
+
+
+
         this.generarTiposDeCuevas();
         int nodoInicial = 0;
 
@@ -261,16 +273,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (int nodo = 0; nodo < tamGrafo; nodo++) {
             if (nodo != nodoInicial) {
                 if (laberinto.presenteEnElGrafo(nodo)) {
+                    Pair pairNodo = new Pair(0,0);
+                    pairNodo = laberinto.obtenerFilaColumna(nodo);
 
-                    Pair pairNodo = laberinto.obtenerFilaColumna(nodo);
-                    Pair pairDistancia = pairInicial.restarPares(pairNodo);
+                    Pair pairDistancia = new Pair(0,0);
+                     pairDistancia = pairNodo.restarPares(pairInicial);
 
                     filas = pairDistancia.getX();
                     columnas = pairDistancia.getY();
 
+
+                    System.out.println("x: " + nodo + " pair: " + pairNodo.getX() + "," + pairNodo.getY() + " pairdis" + pairDistancia.getX() + "," + pairDistancia.getY()  );
                     Vector<Double> coordenada = new Vector<>();
-                    coordenada.add(latitudeNetwork + distancia * filas);
-                    coordenada.add(longitudeNetwork + distancia * columnas);
+                    coordenada.add( latitudeNetwork + distancia * filas);
+                    coordenada.add( longitudeNetwork + distancia * columnas);
                     coordenadasCuevas.setElementAt(coordenada, nodo);
                 }
             }
@@ -282,4 +298,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }
     }
+
+
+
+
+    public void tetrahedro(){
+
+        for (int nodo = 0; nodo < 3; nodo++) {
+
+            agregarMarca(9.937977,-84.051858);
+            agregarMarca(9.937942,-84.051847);
+            agregarMarca(9.937898,-84.051889);
+            agregarMarca(9.937914,-84.051800);
+
+        }
+
+
+
+    }
+
+
+
+
+
+
 }
