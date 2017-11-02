@@ -163,6 +163,7 @@ public class Grafo {
 
             while( columna < 9/2){
 
+                //
 
 
 
