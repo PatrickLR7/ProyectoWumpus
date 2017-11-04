@@ -34,7 +34,7 @@ import java.util.Vector;
  * Clase de la activity maps.
  */
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback { // Clase para manejar el emplzamiento y visualización con google maps
 
     private GoogleMap mMap;
     LocationManager locationManager;
@@ -69,12 +69,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
     }
 
-    protected void makeRequest() {
+    protected void makeRequest() { // se piden los permisos
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) { //Se verifican los permisos
         if(requestCode == 1){
             for(int i = 0, len = permissions.length; i < len; i++){
                 if(grantResults[i] == PackageManager.PERMISSION_GRANTED){
@@ -92,7 +92,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /**
      * Revisa si el gps del dispositivo está activo.
      */
-    private boolean checkLocation() {
+    private boolean checkLocation() { // Se verifican los permisos
         if (!(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)))
             showAlert();
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
@@ -101,7 +101,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /**
      * Muestra una alerta de que el gps del dispositivo está o no activado.
      */
-    private void showAlert() {
+    private void showAlert() { // Mensaje para habilitar la ubicación de la app
         final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("Enable Location")
                 .setMessage("Su ubicación esta desactivada.\npor favor active su ubicación " +
@@ -124,7 +124,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /**
      * Metodo que actuliza las coordenadas actuales del jugador.
      */
-    public void toggleNetworkUpdates() {
+    public void toggleNetworkUpdates() { // se verifican los permisos del usuario de la app y se ponen parametros de tiempo y distancia para detectar coordenadas
         if (!checkLocation())
             return;
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -141,8 +141,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private final LocationListener locationListenerNetwork = new LocationListener() {
-        public void onLocationChanged(Location location) {
-           // Toast.makeText(getApplicationContext(), "prueba", Toast.LENGTH_SHORT).show();
+        public void onLocationChanged(Location location) { //cuando se cambia de posición se activa
+
+            // Toast.makeText(getApplicationContext(), "prueba", Toast.LENGTH_SHORT).show();
             if (contadorMarcas == 0) {
                 longitudeNetwork = location.getLongitude();
                 latitudeNetwork = location.getLatitude();
@@ -180,7 +181,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * installed Google Play services and returned to the app.
      */
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(GoogleMap googleMap) { //genera el mapa
         mMap = googleMap;
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -192,7 +193,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         crearMapMarks();
     }
 
-    public void agregarMarca(double lat, double lon) {
+    public void agregarMarca(double lat, double lon) { // con la lat y lon se genera un mark en el mapa
         LatLng temp = new LatLng(lat, lon);
         mMap.addMarker(new MarkerOptions().position(temp).title("Marker in " + lat + ", " + lon + " (Cueva " + contadorMarcas + ")"));
 
