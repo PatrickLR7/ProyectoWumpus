@@ -314,8 +314,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         int filas, columnas;
 
         for (int nodo = 0; nodo < tamGrafo; nodo++) { // se crean las marks y se guardan las coordenadas de cada nodo
-            if (nodo != nodoInicial) {
-                if (laberinto.presenteEnElGrafo(nodo)) {
+            if (nodo != nodoInicial) { // debe ser diferente del inicial porque el inicial tenìa las coordenadas del usuario
+                if (laberinto.presenteEnElGrafo(nodo)) { // Se verifica que el nodo sea parte del grafo
                     Pair pairNodo = new Pair(0,0);
                     pairNodo = laberinto.obtenerFilaColumna(nodo);
 
@@ -347,7 +347,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-    public void tetrahedro(){
+    public void tetrahedro(){ // tetrahedro con coordenadas fijas en la ECCI para pruebas
 
         for (int nodo = 0; nodo < 3; nodo++) {
 
@@ -363,7 +363,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-    public void startAR(View v){
+    public void startAR(View v){ // Se inicia el activity de Realidad aumentada
         Intent i = new Intent(getApplicationContext(), SimpleCamera.class);
         startActivity(i);
     }
