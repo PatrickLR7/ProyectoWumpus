@@ -226,8 +226,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     break;
             }
         }
-        posInicialJugador = (int) (Math.random() * tamGrafo); // no se puede crear el personaje en nodos inexistentes.
-                                                                //De los 9 nodos que hay solo en 4 se puede crear el personaje en 4 de ellos
+        posInicialJugador = (int) (Math.random() * tamGrafo); // No se puede crear el personaje en nodos inexistentes(sin aristas).
+                                                                //De los 9 nodos que hay, solo se puede crear el personaje en 4 de ellos en el caso del tetrahedro
         posInicialWumpus = (int) (Math.random() * tamGrafo);
         tiposDeCuevas.add(posInicialJugador, 4);
         tiposDeCuevas.add(posInicialWumpus, 1);
@@ -237,7 +237,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-   public void generarPersonaje() {
+   public void generarPersonaje() { //Se escoge un nodo aleatorio para emplazar al personaje y asi despues generar el grafo apartir de esa posición
 
 
 
@@ -272,18 +272,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
    }
 
 
-    public void crearMapMarks() {
+    public void crearMapMarks() { // Se crean marks en el mapa a partir de la posición del personaje(usuario)
+
 
        // tetrahedro();
 
 
-        //9.93
-        //-84.05
+        //9.93 ECCI
+        //-84.05 ECCI
         //radio: 5 mts
-
-
-
-
 
 
         //this.generarTiposDeCuevas();
@@ -292,7 +289,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         int nodoInicial = 0;
 
-        for (int x = 0; x < tamGrafo; x++) {
+        for (int x = 0; x < tamGrafo; x++) { //se  busca el nodo inicial y se le asignan las coordenadas del usuario
+
             Vector<Double> coordenada = new Vector<>();
             if (x == posInicialJugador) {
                 coordenada.add(latitudeNetwork);//usuario
@@ -315,7 +313,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         int filas, columnas;
 
-        for (int nodo = 0; nodo < tamGrafo; nodo++) {
+        for (int nodo = 0; nodo < tamGrafo; nodo++) { // se crean las marks y se guardan las coordenadas de cada nodo
             if (nodo != nodoInicial) {
                 if (laberinto.presenteEnElGrafo(nodo)) {
                     Pair pairNodo = new Pair(0,0);
