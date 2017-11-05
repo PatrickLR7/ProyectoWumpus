@@ -149,6 +149,13 @@ public class Grafo {
         return presente;
     }
 
+    /**
+     * Metodo que mapea un entero de 0 - (n-1) con un par de entradas fila-columna.
+     * Este par representa la posicion del elemento en la matriz de juego (NO CONFUNDIR CON MATRIZ
+     * DE ADYACENCIA).
+     * @param nodo: Entero asociado a cueva del grafo.
+     * @return El par con entradas fila y columna.
+     */
     public Pair obtenerFilaColumna(int nodo){
         int n = (int) Math.sqrt(dimensionMatriz);
         int x = nodo / n;

@@ -1,6 +1,5 @@
 package com.example.carlos.wumpusproject.beyondAR;
 
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -17,8 +16,6 @@ import com.beyondar.android.view.OnClickBeyondarObjectListener;
 import com.beyondar.android.view.OnTouchBeyondarViewListener;
 import com.beyondar.android.world.BeyondarObject;
 import com.beyondar.android.world.World;
-import com.example.carlos.wumpusproject.Manifest;
-import com.example.carlos.wumpusproject.MapsActivity;
 import com.example.carlos.wumpusproject.R;
 import com.example.carlos.wumpusproject.utils.Config;
 import com.example.carlos.wumpusproject.utils.Pair;
@@ -33,11 +30,10 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
     private CustomWorldHelper customWorldHelper;
     private Pair coordenadasIniciales;
 
-    /** Called when the activity is first created. */
+    /** Llamado cuando se crea la actividad. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         String Permiso[] = {"android.permission.CAMERA", "android.permission.ACCESS_FINE_LOCATION"};
         // Start home activity
@@ -61,11 +57,20 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
         mBeyondarFragment.showFPS(true);
     }
 
+    /**
+     * Metodo para manejar si el usuario toca un geo objeto presente en la camara.
+     * @param arrayList: Lista de los geo objetos presentes.
+     */
     @Override
     public void onClickBeyondarObject(ArrayList<BeyondarObject> arrayList) {
         Toast.makeText(this, "Clicked on: " + arrayList.get(0).getName(), Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Metodo mas general para manejar el contacto con los geo objetos.
+     * @param motionEvent
+     * @param beyondarGLSurfaceView
+     */
     @Override
     public void onTouchBeyondarView(MotionEvent motionEvent, BeyondarGLSurfaceView beyondarGLSurfaceView) {
         float x = motionEvent.getX();

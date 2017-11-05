@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
 
-import com.example.carlos.wumpusproject.GraphDrawActivity;
+import com.example.carlos.wumpusproject.activity.GraphDrawActivity;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
 
-    /** Nombres de columnas de la tabla. */
+    /** Nombres de columnas de la tabla. Representan el esquema de la tabla.*/
     private static final String TABLE_NAME = "Aristas";
     private static final String ID = "ID";
     private static final String Name = "GraphName";
@@ -153,24 +153,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Escribe el archivo a almacenamiento interno, de forma privada, es decir solo es visible para
-     * esta aplicacion.
+     * Escribe el archivo a almacenamiento interno, de forma pública, es decir es visible para
+     * esta aplicacion y para el usuario.
      */
-    public void grafoComoArchivo(String nombre, Context context) {
+    public void grafoComoArchivo(String nombre) {
         Cursor cursor = this.getTuples(nombre);
- /*       try {
-            FileOutputStream stream =  context.openFileOutput(nombre+".txt", Context.MODE_WORLD_READABLE);
-            while ( cursor.moveToNext() ){
-                String hilera = cursor.getInt(2) + "-" + cursor.getInt(3) + "\n";
-                stream.write( hilera.getBytes() );
-            }
-            stream.close();
-        }catch (FileNotFoundException e){
-            System.out.println("File not found");
-        }catch (IOException e){
-            System.out.println("IO exception");
-        }
-        */
         File almacenamiento = Environment.getExternalStorageDirectory();
         File directorio = new File(almacenamiento.getAbsolutePath() + "/WumpusApp/");
         directorio.mkdirs();
@@ -197,9 +184,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     /**
      * Recrea un grafo representado como archivo.
-     * @param nombre El nombre con el que se va a guardar el grafo.
+     * @param nombre El nombre del archivo asociado al grafo en almacenamiento interno.
      */
-    public void leerArchivoComoGrafo(String nombre, Context context){
+    public void leerArchivoComoGrafo(String nombre){
         File almacenamiento = Environment.getExternalStorageDirectory();
         File directorio = new File(almacenamiento.getAbsolutePath() + "/bluetooth/");
         File file = new File(directorio, nombre+".txt");

@@ -1,5 +1,6 @@
-package com.example.carlos.wumpusproject;
+package com.example.carlos.wumpusproject.activity;
 
+import com.example.carlos.wumpusproject.R;
 import com.example.carlos.wumpusproject.utils.Config;
 import com.example.carlos.wumpusproject.utils.DataBaseHelper;
 import com.example.carlos.wumpusproject.utils.DrawingCanvas;
@@ -15,11 +16,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
-import java.util.ArrayList;
+
 import java.util.List;
 
 /**
- * Clase de se encarga de graphdraw activity.
+ * Clase de se encarga de ya sea dibujar el grafo, compartirlo, recibirlo o escoger alguno en la libreria.
  */
 
 public class GraphDrawActivity extends AppCompatActivity implements View.OnClickListener {

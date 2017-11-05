@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blanco"
-    tools:context="com.example.carlos.wumpusproject.GraphDrawActivity">
+    tools:context="com.example.carlos.wumpusproject.activity.GraphDrawActivity">
 
     <view
         android:id="@+id/drawingCanvas"

@@ -16,15 +16,14 @@ import java.util.Vector;
  * Created by carlos on 26/10/17.
  */
 
-// TODO
 @SuppressLint("SdCardPath")
 public class CustomWorldHelper {
     public static final int LIST_TYPE_EXAMPLE_1 = 1;
 
-    private World sharedWorld;
-    private List<GeoObject> geoObjects;
+    private World sharedWorld; // Representa el ambiente o entorno del juego.
+    private List<GeoObject> geoObjects; // Lista de objetos que actualmente se muestran en la camara
 
-    private List<Vector> coordCuevas;
+    private List<Vector> coordCuevas; // Coordenadas de cuevas
 
     public CustomWorldHelper(){
         geoObjects = new ArrayList<>();
@@ -87,7 +86,8 @@ public class CustomWorldHelper {
     }
 
     /**
-     *
+     * Refresca la camara cada vez que el usuario cambia de una cueva a otra, para mostrar rotulos
+     * sobre las nuevas cuevas adyacentes y borrar los rotulos viejo.
      * @param coordenadasAdyacentes
      */
     public void updateObjects(List<Pair> coordenadasAdyacentes){

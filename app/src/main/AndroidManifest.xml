@@ -25,17 +25,17 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GraphDrawActivity" />
-        <activity android:name=".GrafosRegulares" />
-        <activity android:name=".BluetoothActivity" />
-        <activity android:name=".MapsActivity" />
+        <activity android:name=".activity.GraphDrawActivity" />
+        <activity android:name=".utils.GrafosRegulares" />
+        <activity android:name=".activity.BluetoothActivity" />
+        <activity android:name=".activity.MapsActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

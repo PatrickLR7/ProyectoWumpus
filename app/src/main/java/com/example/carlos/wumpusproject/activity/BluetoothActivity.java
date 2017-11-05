@@ -1,4 +1,4 @@
-package com.example.carlos.wumpusproject;
+package com.example.carlos.wumpusproject.activity;
 
 import android.Manifest;
 import android.app.Activity;
@@ -14,9 +14,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
-import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,14 +28,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.carlos.wumpusproject.R;
 import com.example.carlos.wumpusproject.utils.DataBaseHelper;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +53,7 @@ public class BluetoothActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) { /* Inicializa todas las variables requeridas. */
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bluetooth);
+        setContentView(com.example.carlos.wumpusproject.R.layout.activity_bluetooth);
         dataPath=(EditText)findViewById(R.id.FilePath);
         buttonopenDailog= (Button) findViewById(R.id.opendailog);
         send=(Button)findViewById(R.id.sendBtooth);
@@ -313,7 +307,7 @@ public class BluetoothActivity extends AppCompatActivity {
                             }
                         }
                         if(!encontrado){
-                            dbManager.grafoComoArchivo(hilera, BluetoothActivity.this);
+                            dbManager.grafoComoArchivo(hilera);
                             archCreados.add(hilera);
                             path = (Environment.getExternalStorageDirectory().getPath() + "/WumpusApp/" + hilera + ".txt");
                         } else {
@@ -342,7 +336,7 @@ public class BluetoothActivity extends AppCompatActivity {
         if (pos > 0) {
             nom = nom.substring(0, pos);
         }
-        dbManager.leerArchivoComoGrafo(nom, BluetoothActivity.this);
+        dbManager.leerArchivoComoGrafo(nom);
         msjRecibido();
     }
 

@@ -1,4 +1,4 @@
-package com.example.carlos.wumpusproject;
+package com.example.carlos.wumpusproject.utils;
 
 import android.content.Context;
 import android.media.MediaPlayer;
@@ -7,6 +7,7 @@ import android.widget.Toast;
 import android.os.Vibrator;
 import android.os.VibrationEffect;
 
+import com.example.carlos.wumpusproject.R;
 import com.example.carlos.wumpusproject.utils.Config;
 import com.example.carlos.wumpusproject.utils.Grafo;
 
@@ -15,21 +16,29 @@ import java.util.List;
 
 import static android.content.Context.VIBRATOR_SERVICE;
 
+/**
+ * Clase que representa una instancia de la partida que esta actualmente llevandose a cabo
+ */
 public class Jugar
 {
-    private Grafo tablero;
-    private List<Integer> tiposCueva;
-    private int flechasRestantes = 5;
-    private int cuevaActual = -1; //Posición actual del jugador
+    private Grafo tablero; // Laberinto de juego
+    private List<Integer> tiposCueva; // Tipos de las cuevas
+    private int flechasRestantes; //Numero de flechas restantes
+    private int cuevaActual; //Posición actual del jugador
     private Context context; //Contexto necesario para llamar varias funcionalidades del teléfono
     private Vibrator v; //Vibra el dispositivo
     private MediaPlayer mp; //Hace un efecto de sonido
     private List<Integer> caminoCuevas;
 
+    /**
+     * Constructor de la clase, recibe el contexto de la actividad que lo crea.
+     * @param con: Contexto invocador.
+     */
     public Jugar(Context con) //Recibe el tablero con el que se va a jugar
     {
         context = con;
         tablero = Config.laberinto;
+        flechasRestantes = Config.NUM_FLECHAS;
         tiposCueva = Config.tiposDeCuevas;
         v = (Vibrator)context.getSystemService(VIBRATOR_SERVICE); //Vibrador que se usa después
         mp = MediaPlayer.create(context, R.raw.batsound); //Inicializa el efecto de sonido
@@ -38,6 +47,10 @@ public class Jugar
         Config.caminoDeCuevas = caminoCuevas;
     }
 
+    /**
+     * Ubica al jugador en el laberinto.
+     * @return La ubicacion.
+     */
     public int posicionarJugador()
     {
         int pos = -1;
@@ -47,6 +60,9 @@ public class Jugar
         return pos;
     }
 
+    /**
+     * Metodo usado para mostrar indicios basandose en la posicion actual del jugador en el laberinto
+     */
     public void mostrarIndicios()
     {
         List<Integer> vecinos = tablero.obtenerVecinos(cuevaActual);
@@ -89,6 +105,10 @@ public class Jugar
         }
     }
 
+    /**
+     * Metodo que permite lanzar una flecha y verificar si en ella se encuentra el Wumpus.
+     * @param numCueva: La cueva hacia la que se dirige la flecha.
+     */
     public void lanzarFlecha(int numCueva)
     {
         flechasRestantes--;
@@ -103,11 +123,17 @@ public class Jugar
         }
     }
 
+    /**
+     * Metodo para manejar el caso en que el usuario se quede sin flechas.
+     */
     public void sinFlechas()
     {
         //Avisarle al usuario que perdió por quedarse sin flechas
     }
 
+    /**
+     * Metodo para manejar el caso en que el usuario haya exitosamente matado al Wumpus.
+     */
     public void victoria()
     {
         //Mostrar pantalla con Wumpus atravesado

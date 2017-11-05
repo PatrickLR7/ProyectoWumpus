@@ -1,5 +1,7 @@
-package com.example.carlos.wumpusproject;
+package com.example.carlos.wumpusproject.utils;
 
+import com.example.carlos.wumpusproject.R;
+import com.example.carlos.wumpusproject.activity.MapsActivity;
 import com.example.carlos.wumpusproject.utils.Config;
 import com.example.carlos.wumpusproject.utils.Grafo;
 
@@ -9,17 +11,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
-import java.util.ArrayList;
-import java.util.List;
 
 public class GrafosRegulares extends AppCompatActivity implements View.OnClickListener {
 
-    ImageButton tetraedro;
-    ImageButton octaedro;
-    ImageButton cubo;
-    ImageButton icosaedro;
-    ImageButton dodecaedro;
+    /*
+     * Botones de los diferentes poliedros regulares.
+     */
+    private ImageButton tetraedro;
+    private ImageButton octaedro;
+    private ImageButton cubo;
+    private ImageButton icosaedro;
+    private ImageButton dodecaedro;
 
+    /**
+     * Metodo que se llama al despeglar actividad en el dispositivo.
+     * @param savedInstanceState: Antigua instancia guardada de esta actividad.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,10 +44,14 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
         dodecaedro.setOnClickListener(this);
     }
 
+    /**
+     * Metodo llamado al clickear sobre un poliedro regular, este lo construye y lo guarda en la clase
+     * encargada de la configuracion.
+     * @param v:
+     */
     @Override
     public void onClick(View v){
         Grafo laberinto = null;
-        List<Integer> tipos = null;
         switch(v.getId()){
             case R.id.Tetraedro:
                 Toast.makeText(this, "Su laberinto tiene 4 cuevas", Toast.LENGTH_LONG).show();

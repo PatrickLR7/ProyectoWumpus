@@ -1,4 +1,4 @@
-package com.example.carlos.wumpusproject;
+package com.example.carlos.wumpusproject.activity;
 
 import android.Manifest;
 import android.content.Context;
@@ -16,6 +16,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.carlos.wumpusproject.R;
 import com.example.carlos.wumpusproject.beyondAR.SimpleCamera;
 import com.example.carlos.wumpusproject.utils.Config;
 import com.example.carlos.wumpusproject.utils.Grafo;
