@@ -1,6 +1,5 @@
 package com.example.carlos.wumpusproject;
 
-import android.*;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
@@ -45,25 +44,20 @@ import java.util.List;
 public class BluetoothActivity extends AppCompatActivity {
     private static final int RECORD_REQUEST_CODE = 1;
     //Create Objects-------------------------------------------------------
-    Button buttonopenDailog, buttonUp, send, btnLaberinto, btnRecibido;
-    TextView textFolder;
-    EditText dataPath;
-    static final int CUSTOM_DIALOG_ID = 0;
-    ListView dialog_ListView;
-    File root, fileroot, curFolder;
-    private List<String> fileList = new ArrayList<String>();
-    private static final int DISCOVER_DURATION = 300;
-    private static final int REQUEST_BLU = 1;
-    BluetoothAdapter btAdatper = BluetoothAdapter.getDefaultAdapter();
-    String path = "";
-    private String[] vectorNombres;
-    private DataBaseHelper dbManager;
-    private ArrayList<String> archCreados;
-    String pathRecibido = "";
+    Button buttonopenDailog, send, btnLaberinto, btnRecibido; //Botones para el layout.
+    EditText dataPath; //Muestra el texto del laberinto recibido.
+    private static final int DISCOVER_DURATION = 300; //Duración durante la cuál el dispositivo será visible por medio de bluetooth.
+    private static final int REQUEST_BLU = 1; //Código de respuesta cuando se activa el permiso para el bluetooth.
+    BluetoothAdapter btAdatper = BluetoothAdapter.getDefaultAdapter(); //Obtiene el adaptador de bluetooth por defecto.
+    String path = ""; //ruta del laberinto seleccionado para enviar.
+    private String[] vectorNombres; //nombres de los laberintos que están guardados en la biblioteca.
+    private DataBaseHelper dbManager; //utilizado para manejar la biblioteca con laberintos.
+    private ArrayList<String> archCreados; //nombres de los laberintos que se enviarán por bluetooth que ya tienen un archivo creado para enviar.
+    String pathRecibido = ""; //ruta del laberinto recibido, para guardarlo en la biblioteca.
 
     //---------------------------------------------------------------
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) { /* Inicializa todas las variables requeridas. */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth);
         dataPath=(EditText)findViewById(R.id.FilePath);
@@ -81,31 +75,16 @@ public class BluetoothActivity extends AppCompatActivity {
         if (hasPerm != PackageManager.PERMISSION_GRANTED) {
             makeRequest();
         }
-        /*buttonopenDailog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dataPath.setText("");
-                showDialog(CUSTOM_DIALOG_ID);
-            }
-        });
-        */
-
-        root = new File(Environment.getExternalStorageDirectory().getAbsolutePath());
-        curFolder = root;
-       /* send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendViaBluetooth();
-            }
-        });
-        */
     }
 
+    /*solicita permiso para escribir en el almacenamiento del celular, es necesario para
+    * guardar los laberintos recibidos. */
     protected void makeRequest() {
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
     }
 
+    /* Muestra un mensaje cuando se acepta el permiso o cuando no es aceptado.*/
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
@@ -124,89 +103,13 @@ public class BluetoothActivity extends AppCompatActivity {
 
     }
 
-   @Override
-    protected Dialog onCreateDialog(int id) {
-        Dialog dialog = null;
-        switch (id) {
-            case CUSTOM_DIALOG_ID:
-                dialog = new Dialog(BluetoothActivity.this);
-                dialog.setContentView(R.layout.dialoglayout);
-                dialog.setTitle("File Selector");
-                dialog.setCancelable(true);
-                dialog.setCanceledOnTouchOutside(true);
-                textFolder = (TextView) dialog.findViewById(R.id.folder);
-                buttonUp = (Button) dialog.findViewById(R.id.up);
-                buttonUp.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ListDir(curFolder.getParentFile());
-                    }
-                });
-                dialog_ListView = (ListView) dialog.findViewById(R.id.dialoglist);
-                dialog_ListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        File selected = new File(fileList.get(position));
-                        if (selected.isDirectory()) {
-                            ListDir(selected);
-                        } else if (selected.isFile()) {
-                            getselectedFile(selected);
-                        } else {
-                            dismissDialog(CUSTOM_DIALOG_ID);
-                        }
-                    }
-                });
-                break;
-        }
-        return dialog;
-    }
-
-
-    @Override
-    protected void onPrepareDialog(int id, Dialog dialog) {
-        super.onPrepareDialog(id, dialog);
-        switch (id) {
-            case CUSTOM_DIALOG_ID:
-                ListDir(curFolder);
-                break;
-        }
-    }
-
-    public void getselectedFile(File f){
-        dataPath.setText(f.getAbsolutePath());
-        fileList.clear();
-        dismissDialog(CUSTOM_DIALOG_ID);
-    }
-
-
-    public void ListDir(File f) {
-        if (f.equals(root)) {
-            buttonUp.setEnabled(false);
-        } else {
-            buttonUp.setEnabled(true);
-        }
-        curFolder = f;
-        textFolder.setText(f.getAbsolutePath());
-        dataPath.setText(f.getAbsolutePath());
-        File[] files = f.listFiles();
-        fileList.clear();
-
-        for (File file : files) {
-            fileList.add(file.getPath());
-        }
-        ArrayAdapter<String> directoryList = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, fileList);
-        dialog_ListView.setAdapter(directoryList);
-    }
-
-
-
-    //exit to application---------------------------------------------------------------------------
+    //Utilizado para salir del activity de bluetooth.
     public void exit(View V) {
         //btAdatper.disable();
         Toast.makeText(getApplicationContext(),"Saliendo de Bluetooth",Toast.LENGTH_LONG).show();
         finish(); }
 
-    //Method for send file via bluetooth------------------------------------------------------------
+    //Método que se ejecuta cuando se envía un archivo por bluetooth (se activa con el boton enviar del layout).
     public void sendViaBluetooth(View v) {
         if(!dataPath.equals(null)){
         if (btAdatper == null) {
@@ -219,24 +122,27 @@ public class BluetoothActivity extends AppCompatActivity {
         }
     }
 
+    /*Activa el bluetooth y hace al dispositivo visible por 300 segundos.*/
     public void enableBluetooth() {
         Intent discoveryIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
         discoveryIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, DISCOVER_DURATION);
         startActivityForResult(discoveryIntent, REQUEST_BLU);
     }
 
-    public void getFile(View v) { /// obtiene la ubicación del archivo.
+    /*Abre el almacenamiento del smartphone para seleccionar un archivo. */
+    public void getFile(View v) {
         Intent mediaIntent = new Intent(Intent.ACTION_GET_CONTENT);
-        mediaIntent.setType("*/*"); //set mime type as per requirement
-        startActivityForResult(mediaIntent, 1001);
+        mediaIntent.setType("*/*"); //establece el tipo de archivo que se va a seleccionar.
+        startActivityForResult(mediaIntent, 1001); //El código 1001 se maneja en el método onActivityResult.
     }
 
+    /* Obtiene la ruta de un archivo seleccionado. */
     public static String getPath(final Context context, final Uri uri) {
         final boolean isKitKatOrAbove = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
 
-        // DocumentProvider
+        // Proveedor de Documentos.
         if (isKitKatOrAbove && DocumentsContract.isDocumentUri(context, uri)) {
-            // ExternalStorageProvider
+            // Proveedor del Almacenamiento Externo.
             if (isExternalStorageDocument(uri)) {
                 final String docId = DocumentsContract.getDocumentId(uri);
                 final String[] split = docId.split(":");
@@ -249,11 +155,11 @@ public class BluetoothActivity extends AppCompatActivity {
                 // TODO handle non-primary volumes
             }
         }
-        // MediaStore (and general)
+        // MediaStore (Archivos multimedia).
         else if ("content".equalsIgnoreCase(uri.getScheme())) {
             return getDataColumn(context, uri, null, null);
         }
-        // File
+        // Archivo general.
         else if ("file".equalsIgnoreCase(uri.getScheme())) {
             return uri.getPath();
         }
@@ -262,14 +168,14 @@ public class BluetoothActivity extends AppCompatActivity {
     }
 
     /**
-     * Get the value of the data column for this Uri. This is useful for
-     * MediaStore Uris, and other file-based ContentProviders.
+     * Obtiene el valor de la columna de datos para este Uri. Es útil para uris
+     * de la MediaStore y otros proveedores de contenido basados en archivos.
      *
-     * @param context       The context.
-     * @param uri           The Uri to query.
-     * @param selection     (Optional) Filter used in the query.
-     * @param selectionArgs (Optional) Selection arguments used in the query.
-     * @return The value of the _data column, which is typically a file path.
+     * @param context       El contexto.
+     * @param uri           El uri a consultar.
+     * @param selection     (Optional) Filtro utilizado en la consulta.
+     * @param selectionArgs (Optional) Argumentos de selección usados en la consulta.
+     * @return El valor de la columna de datos, que típicamente es una ruta de archivo.
      */
     public static String getDataColumn(Context context, Uri uri, String selection,
                                        String[] selectionArgs) {
@@ -296,16 +202,18 @@ public class BluetoothActivity extends AppCompatActivity {
 
 
     /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is ExternalStorageProvider.
+     * @param uri El Uri a revisar.
+     * @return Si la autoridad del Uri es "ExternalStorageProvider".
      */
     public static boolean isExternalStorageDocument(Uri uri) {
         return "com.android.externalstorage.documents".equals(uri.getAuthority());
     }
 
-    //Override method for sending data via bluetooth availability--------------------------
+    //Método que se encarga de manejar los códigos de respuesta del activity.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        /* Si el código de respuesta es DISCOVER_DURATION ejecuta lo necesario para enviar
+         * el archivo mediante bluetooth. */
         if (resultCode == DISCOVER_DURATION && requestCode == REQUEST_BLU) {
             Intent i = new Intent();
             i.setAction(Intent.ACTION_SEND);
@@ -332,7 +240,7 @@ public class BluetoothActivity extends AppCompatActivity {
                         break;
                     }
                 }
-                //CHECK BLUETOOTH available or not------------------------------------------------
+                //Revisa si el bluetooth está disponible o no.
                 if (!found) {
                     Toast.makeText(this, "No se ha encontrado Bluetooth", Toast.LENGTH_LONG).show();
                 } else {
@@ -341,6 +249,8 @@ public class BluetoothActivity extends AppCompatActivity {
                     startActivity(i);
                 }
             }
+            //Si el código de respuesta es 1001, guarda la ruta del archivo en la variable pathRecibido.
+            //Se utiliza en la parte de guardar en la biblioteca un laberinto recibido por bluetooth.
         } else if (requestCode == 1001 && resultCode == Activity.RESULT_OK) {
             Uri uriPath = data.getData();
             Log.d("", "Video URI= " + uriPath);
@@ -352,10 +262,11 @@ public class BluetoothActivity extends AppCompatActivity {
         }
 
         else {
-            Toast.makeText(this, "Bluetooth se ha cancelado", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Bluetooth se ha cancelado", Toast.LENGTH_LONG).show(); //Se ejecuta cuando se cancela bluetooth.
         }
     }
 
+    /* Permite elegir un laberinto de la biblioteca para enviar. */
     public void elegirLaberinto(View view){
         List<String> nombresGrafos = dbManager.obtenerNombresDeGrafos();
         vectorNombres = GraphDrawActivity.listAsStringArray(nombresGrafos);
@@ -375,7 +286,7 @@ public class BluetoothActivity extends AppCompatActivity {
 
 
     /**
-     * Muestra un mensaje con el archivo seleccionado desde la base de datos.
+     * Muestra un mensaje con el archivo seleccionado desde la base de datos (laberinto de la biblioteca).
      *
      * @param hilera:
      */
@@ -404,12 +315,8 @@ public class BluetoothActivity extends AppCompatActivity {
                         if(!encontrado){
                             dbManager.grafoComoArchivo(hilera, BluetoothActivity.this);
                             archCreados.add(hilera);
-                            //path = (getFilesDir().getAbsolutePath() + "/" + hilera + ".txt");
-                            //h = hilera;
                             path = (Environment.getExternalStorageDirectory().getPath() + "/WumpusApp/" + hilera + ".txt");
                         } else {
-                            //path = (getFilesDir().getAbsolutePath() + "/" + hilera + ".txt");
-                            //h = hilera;
                             path = (Environment.getExternalStorageDirectory().getPath() + "/WumpusApp/" + hilera + ".txt");
                         }
 
@@ -426,6 +333,7 @@ public class BluetoothActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
+    /* Guarda un laberinto recibido por bluetooth en la biblioteca. */
     public void guardarEnBiblioteca(View view){
         String nom;
         File file = new File(pathRecibido);
@@ -438,6 +346,7 @@ public class BluetoothActivity extends AppCompatActivity {
         msjRecibido();
     }
 
+    /* Muestra un mensaje cuando el laberinto recibido por bluetooth se activa o guarda en la biblioteca. */
     public void msjRecibido(){
         final EditText nombre = new EditText(this);
         AlertDialog alertDialog = new AlertDialog.Builder(this)
