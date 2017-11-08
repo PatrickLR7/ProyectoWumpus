@@ -79,7 +79,7 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
 
     /**
      * Metodo para manejar si el usuario toca un geo objeto presente en la camara.
-     * @param arrayList: Lista de los geo objetos presentes.
+     * @param arrayList: Lista de los geo objetos presentes. El primer elemento es el objeto que ha sido clickeado.
      */
     @Override
     public void onClickBeyondarObject(ArrayList<BeyondarObject> arrayList) {
@@ -133,4 +133,8 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
                 break;
         }
     }
+
+
+
+
 }

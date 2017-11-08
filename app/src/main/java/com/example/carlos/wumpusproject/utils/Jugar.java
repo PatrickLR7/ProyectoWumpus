@@ -139,5 +139,9 @@ public class Jugar
         //Mostrar pantalla con Wumpus atravesado
     }
 
+    public void actualizarCuevaActual(int nuevaCueva){
+        this.cuevaActual = nuevaCueva;
+    }
+
 
 }
