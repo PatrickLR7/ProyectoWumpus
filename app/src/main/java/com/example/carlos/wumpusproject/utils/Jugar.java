@@ -112,7 +112,7 @@ public class Jugar
     public void lanzarFlecha(int numCueva)
     {
         flechasRestantes--;
-        if(tiposCueva.get(numCueva) == 1)
+        if(tiposCueva.get(numCueva) == 1) // Wumpus esta en la cueva
             victoria();
         else
         {
@@ -138,4 +138,6 @@ public class Jugar
     {
         //Mostrar pantalla con Wumpus atravesado
     }
+
+
 }

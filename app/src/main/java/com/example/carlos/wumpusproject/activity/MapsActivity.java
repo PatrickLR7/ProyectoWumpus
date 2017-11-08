@@ -208,11 +208,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
        tiposDeCuevas = new ArrayList<>(tamGrafo);
 
        for (int x = 0; x < tamGrafo ; x++) {
-
            if (laberinto.presenteEnElGrafo(x)) {
-
                int tipo = (int) (Math.random() * 5);
-
                if (tipo == 4 && !personaje) {
                    //x--;
                    tiposDeCuevas.add(4);

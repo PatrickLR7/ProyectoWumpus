@@ -19,6 +19,7 @@ import com.beyondar.android.world.BeyondarObject;
 import com.beyondar.android.world.World;
 import com.example.carlos.wumpusproject.R;
 import com.example.carlos.wumpusproject.utils.Config;
+import com.example.carlos.wumpusproject.utils.Jugar;
 
 import java.util.ArrayList;
 import java.util.Vector;
@@ -29,6 +30,7 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
     private World mWorld;
     private CustomWorldHelper customWorldHelper;
     private Vector<Double> coordenadasIniciales;
+    private Jugar jugar;
 
     /** Llamado cuando se crea la actividad. */
     @Override
@@ -60,8 +62,7 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
         mBeyondarFragment.setPullCloserDistance(0); // Para acercar un poco los objetos que están muy lejos
         mBeyondarFragment.setWorld(mWorld);
 
-        //BeyondarLocationManager.enable();
-
+        BeyondarLocationManager.enable();
 
         //Permitimos que BeyondAR actualice automáticamente la posición del mundo con respecto al usuario
         BeyondarLocationManager.addWorldLocationUpdate(mWorld);
@@ -72,6 +73,8 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
 
         // We also can see the Frames per seconds
         mBeyondarFragment.showFPS(true);
+
+        jugar = new Jugar(this);
     }
 
     /**
@@ -80,7 +83,7 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
      */
     @Override
     public void onClickBeyondarObject(ArrayList<BeyondarObject> arrayList) {
-        Toast.makeText(this, "Clicked on: " + arrayList.get(0).getName(), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Ha clickeado: " + arrayList.get(0).getName(), Toast.LENGTH_LONG).show();
     }
 
     /**
