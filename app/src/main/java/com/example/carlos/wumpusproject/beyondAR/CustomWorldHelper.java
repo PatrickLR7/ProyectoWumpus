@@ -6,6 +6,7 @@ import com.beyondar.android.world.GeoObject;
 import com.beyondar.android.world.World;
 import com.example.carlos.wumpusproject.R;
 import com.example.carlos.wumpusproject.utils.Config;
+import com.example.carlos.wumpusproject.utils.Grafo;
 import com.example.carlos.wumpusproject.utils.Pair;
 
 import java.util.ArrayList;
@@ -22,8 +23,8 @@ public class CustomWorldHelper {
 
     private World sharedWorld; // Representa el ambiente o entorno del juego.
     private List<GeoObject> geoObjects; // Lista de objetos que actualmente se muestran en la camara
-
-    private List<Vector> coordCuevas; // Coordenadas de cuevas
+    private Grafo grafo;
+    private List< Vector<Double> > coordCuevas; // Coordenadas de cuevas
 
     public CustomWorldHelper(){
         geoObjects = new ArrayList<>();
@@ -32,10 +33,9 @@ public class CustomWorldHelper {
     /**
      * Genera el mundo donde se juega en caso de que no haya sido generado anteriormente.
      * @param context: Actividad desde donde se llama.
-     * @param coordenada: Coordenadas iniciales de ubicacion.
-     * @return
+     * @return el mundo creado
      */
-   public World generateObjects(Context context, Pair coordenada) {
+   public World generateObjects(Context context, Vector<Double> coordenadaInicial) {
         if (sharedWorld != null) {
             return sharedWorld;
         }
@@ -48,39 +48,9 @@ public class CustomWorldHelper {
 
         // User position (you can change it using the GPS listeners form Android
         // API)
-        //sharedWorld.setGeoPosition(coordenada.getX(), coordenada.getY());
+        sharedWorld.setGeoPosition(coordenadaInicial.get(0), coordenadaInicial.get(1));
         coordCuevas = Config.coordenadasCuevas;
-       sharedWorld.setGeoPosition(9.937977, -84.051858);
-       GeoObject go1 = new GeoObject(1);
-       go1.setGeoPosition(9.937977, -84.051858);
-       go1.setName("Cueva1");
-       go1.setImageResource(R.drawable.cueva1);
-       GeoObject go2 = new GeoObject(2);
-       go2.setGeoPosition(9.937942, -84.051847);
-       go2.setName("Cueva2");
-       go1.setImageResource(R.drawable.cueva1);
-       GeoObject go3 = new GeoObject(3);
-       go3.setGeoPosition(9.937898, -84.051889);
-       go3.setName("Cueva3");
-       go3.setImageResource(R.drawable.cueva1);
-       GeoObject go4 = new GeoObject(3);
-       go4.setGeoPosition(9.937914, -84.051800);
-       go4.setName("Cueva3");
-       go4.setImageResource(R.drawable.cueva1);
-        // Is it also possible to load the image asynchronously form internet
-       /*
-        GeoObject go2 = new GeoObject(2L);
-       go2.setGeoPosition(41.90518966360719d, 2.56582424468222d);
-               go2.setImageUri("http://beyondar.github.io/beyondar/images/logo_512.png");
-        go2.setName("Online image");
-        */
-
-        // sharedWorld.addBeyondarObject(go2, LIST_TYPE_EXAMPLE_1);
-
-       sharedWorld.addBeyondarObject(go1);
-       sharedWorld.addBeyondarObject(go2);
-       sharedWorld.addBeyondarObject(go3);
-       sharedWorld.addBeyondarObject(go4);
+        grafo = Config.laberinto;
 
         return sharedWorld;
     }
@@ -88,22 +58,25 @@ public class CustomWorldHelper {
     /**
      * Refresca la camara cada vez que el usuario cambia de una cueva a otra, para mostrar rotulos
      * sobre las nuevas cuevas adyacentes y borrar los rotulos viejo.
-     * @param coordenadasAdyacentes
+     * @param nodo: nodo actual
      */
-    public void updateObjects(List<Pair> coordenadasAdyacentes){
-        for (int i = 0; i < geoObjects.size(); i++) {
-            sharedWorld.remove( geoObjects.get(i) ); // Removes previous objects
+    public void updateObjects(int nodo){
+        for (int i = 0; i < geoObjects.size(); i++) { // Removes previous objects
+            sharedWorld.remove( geoObjects.get(i) );
         }
         geoObjects.clear();
 
-        for (int i = 0; i < coordenadasAdyacentes.size(); i++) {
-            GeoObject go1 = new GeoObject(1L);
-            Pair coordenada = coordenadasAdyacentes.get(i);
-            go1.setGeoPosition(coordenada.getX(), coordenada.getY());
-            go1.setImageResource(R.drawable.rotulo_direccion);
-            go1.setName("Cave " + i);
-            geoObjects.add(go1);
-            sharedWorld.addBeyondarObject(go1);
+        List<Integer> adyacentes = grafo.obtenerVecinos(nodo);
+        for (int i = 0; i < coordCuevas.size(); i++) {
+            if ( adyacentes.contains(i) ) { // Si nodo es adyacente
+                GeoObject go1 = new GeoObject(i);
+                Vector<Double> coordenada = coordCuevas.get(i);
+                go1.setGeoPosition(coordenada.get(0), coordenada.get(1));
+                go1.setImageResource(R.drawable.rotulo_direccion);
+                go1.setName("Cave " + i);
+                geoObjects.add(go1);
+                sharedWorld.addBeyondarObject(go1);
+            }
         }
 
     }

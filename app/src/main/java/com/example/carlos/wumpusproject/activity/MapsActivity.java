@@ -143,7 +143,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private final LocationListener locationListenerNetwork = new LocationListener() {
         public void onLocationChanged(Location location) { //cuando se cambia de posición se activa
-
             // Toast.makeText(getApplicationContext(), "prueba", Toast.LENGTH_SHORT).show();
             if (contadorMarcas == 0) {
                 longitudeNetwork = location.getLongitude();
@@ -159,8 +158,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 });
             }
         }
-
-
 
         @Override
         public void onStatusChanged(String s, int i, Bundle bundle) {}
@@ -206,87 +203,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         contadorMarcas++;
     }
 
-    /**
-     * Define los tipos de las cuevas; es decir, si hay pozos o murcielagos.
-     * Se usaran los siguientes numeros:
-     * 0 -> cueva Libre.
-     * 1 -> cueva con Wumpus.
-     * 2 -> cueva con pozo.
-     * 3 -> cueva con murcielagos.
-     * 4 -> cueva inicial del personaje.
-     */
-   /** public void generarTiposDeCuevas() {
-        tiposDeCuevas = new ArrayList<>(tamGrafo);
-        for (int x = 0; x < tamGrafo ; x++) {
-            int tipo = (int) (Math.random() * 3);
-           switch (tipo){
-               case 0: tiposDeCuevas.add(0);
-                    break;
-                case 1: tiposDeCuevas.add(2);
-                    break;
-                default:tiposDeCuevas.add(3);
-                    break;
-            }
-        }
-        posInicialJugador = (int) (Math.random() * tamGrafo); // No se puede crear el personaje en nodos inexistentes(sin aristas).
-                                                                //De los 9 nodos que hay, solo se puede crear el personaje en 4 de ellos en el caso del tetrahedro
-        posInicialWumpus = (int) (Math.random() * tamGrafo);
-        tiposDeCuevas.add(posInicialJugador, 4);
-        tiposDeCuevas.add(posInicialWumpus, 1);
-        Config.tiposDeCuevas = tiposDeCuevas;
-    }
-    */
-
-
-
    public void generarPersonaje() { //Se escoge un nodo aleatorio para emplazar al personaje y asi despues generar el grafo apartir de esa posición
-
-
-
-
        boolean personaje = false;
        tiposDeCuevas = new ArrayList<>(tamGrafo);
 
        for (int x = 0; x < tamGrafo ; x++) {
 
-           if (laberinto.presenteEnElGrafo(x) == true) {
+           if (laberinto.presenteEnElGrafo(x)) {
 
                int tipo = (int) (Math.random() * 5);
 
-               if (tipo == 4 && personaje == false) {
+               if (tipo == 4 && !personaje) {
                    //x--;
                    tiposDeCuevas.add(4);
                    personaje = true;
                    posInicialJugador = x;
                }
-
            }else{
-
                tiposDeCuevas.add(-1);
            }
-
        }
-
-
        Config.tiposDeCuevas = tiposDeCuevas;
-
-
    }
 
-
     public void crearMapMarks() { // Se crean marks en el mapa a partir de la posición del personaje(usuario)
-
-
        // tetrahedro();
-
-
         //9.93 ECCI
         //-84.05 ECCI
         //radio: 5 mts
-
-
         //this.generarTiposDeCuevas();
-
         generarPersonaje();
 
         int nodoInicial = 0;
@@ -327,7 +272,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     filas = pairDistancia.getX();
                     columnas = pairDistancia.getY();
 
-
                     System.out.println("x: " + nodo + " pair: " + pairNodo.getX() + "," + pairNodo.getY() + " pairdis" + pairDistancia.getX() + "," + pairDistancia.getY()  );
                     Vector<Double> coordenada = new Vector<>();
                     coordenada.add( latitudeNetwork - distancia * filas);
@@ -346,22 +290,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //}
     }
 
-
-
-
     public void tetrahedro(){ // tetrahedro con coordenadas fijas en la ECCI para pruebas
-
         for (int nodo = 0; nodo < 3; nodo++) {
-
             agregarMarca(9.937977,-84.051858);
             agregarMarca(9.937942,-84.051847);
             agregarMarca(9.937898,-84.051889);
             agregarMarca(9.937914,-84.051800);
-
         }
-
-
-
     }
 
 
@@ -369,11 +304,4 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Intent i = new Intent(getApplicationContext(), SimpleCamera.class);
         startActivity(i);
     }
-
-
-
-
-
-
-
 }

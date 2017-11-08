@@ -20,8 +20,8 @@ public class Config {
     public static List<Integer> tiposDeCuevas; // Guarda los tipos de cuevas asociados.
     public static List<Integer> caminoDeCuevas; // Guarda el camino de cuevas  que el usuario lleva en su recorrido.
     public static GoogleMap map; // Guarda el mapa de juego.
-    public static List<Vector> coordenadasCuevas; // Guarda las coordenadas asociadas a cada cueva en el mapa.
-    public static Pair coordenadasIniciales; // Guarda las coordenadas iniciales del jugador
+    public static List< Vector<Double> > coordenadasCuevas; // Guarda las coordenadas asociadas a cada cueva en el mapa.
+    public static Vector<Double> coordenadasIniciales; // Guarda las coordenadas iniciales del jugador
     public static double latUsuario, lonUsuario; // Guardan las coordenadas actuales del jugador
     public static double distancia = 5.0; // Distancia entre cuevas adyacentes
 

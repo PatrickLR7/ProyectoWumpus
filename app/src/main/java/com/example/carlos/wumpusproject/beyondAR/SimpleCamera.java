@@ -1,34 +1,34 @@
 package com.example.carlos.wumpusproject.beyondAR;
 
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.Window;
 import android.widget.Toast;
 
 import com.beyondar.android.fragment.BeyondarFragmentSupport;
+import com.beyondar.android.util.location.BeyondarLocationManager;
 import com.beyondar.android.view.BeyondarGLSurfaceView;
 import com.beyondar.android.view.OnClickBeyondarObjectListener;
-import com.beyondar.android.view.OnTouchBeyondarViewListener;
 import com.beyondar.android.world.BeyondarObject;
 import com.beyondar.android.world.World;
 import com.example.carlos.wumpusproject.R;
 import com.example.carlos.wumpusproject.utils.Config;
-import com.example.carlos.wumpusproject.utils.Pair;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Vector;
 
-public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarObjectListener, OnTouchBeyondarViewListener{
+public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarObjectListener{
 
     private BeyondarFragmentSupport mBeyondarFragment;
     private World mWorld;
     private CustomWorldHelper customWorldHelper;
-    private Pair coordenadasIniciales;
+    private Vector<Double> coordenadasIniciales;
 
     /** Llamado cuando se crea la actividad. */
     @Override
@@ -48,10 +48,27 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
         mBeyondarFragment = (BeyondarFragmentSupport) getSupportFragmentManager().findFragmentById(
                 R.id.beyondarFragment);
 
+        BeyondarLocationManager.setLocationManager((LocationManager) this.getSystemService(Context.LOCATION_SERVICE));
+
         // We create the world and fill it ...
         mWorld = customWorldHelper.generateObjects(this, coordenadasIniciales);
-        // ... and send it to the fragment
+
+        /* Parametros para variar la distancia de los objetos TODO cambiar parametros */
+        mBeyondarFragment.setMaxDistanceToRender(3000); // Asigno distancia máxima de renderización de objetos
+        mBeyondarFragment.setDistanceFactor(4); // El factor de distancia de objetos (más cerca entre mayor valor)
+        mBeyondarFragment.setPushAwayDistance(0); // Para alejar un poco los objetos que están muy cerca
+        mBeyondarFragment.setPullCloserDistance(0); // Para acercar un poco los objetos que están muy lejos
         mBeyondarFragment.setWorld(mWorld);
+
+        //BeyondarLocationManager.enable();
+
+
+        //Permitimos que BeyondAR actualice automáticamente la posición del mundo con respecto al usuario
+        BeyondarLocationManager.addWorldLocationUpdate(mWorld);
+
+        // Le pasamos el LocationManager al BeyondarLocationManager.
+        BeyondarLocationManager
+                .setLocationManager((LocationManager) getSystemService(Context.LOCATION_SERVICE));
 
         // We also can see the Frames per seconds
         mBeyondarFragment.showFPS(true);
@@ -64,46 +81,6 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
     @Override
     public void onClickBeyondarObject(ArrayList<BeyondarObject> arrayList) {
         Toast.makeText(this, "Clicked on: " + arrayList.get(0).getName(), Toast.LENGTH_LONG).show();
-    }
-
-    /**
-     * Metodo mas general para manejar el contacto con los geo objetos.
-     * @param motionEvent
-     * @param beyondarGLSurfaceView
-     */
-    @Override
-    public void onTouchBeyondarView(MotionEvent motionEvent, BeyondarGLSurfaceView beyondarGLSurfaceView) {
-        float x = motionEvent.getX();
-        float y = motionEvent.getY();
-
-        ArrayList<BeyondarObject> geoObjects = new ArrayList<BeyondarObject>();
-
-        // This method call is better to don't do it in the UI thread!
-        // This method is also available in the BeyondarFragment
-        mBeyondarFragment.getBeyondarObjectsOnScreenCoordinates(x, y, geoObjects);
-
-        String textEvent = "";
-        switch (motionEvent.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                textEvent = "Event type ACTION_DOWN: ";
-                break;
-            case MotionEvent.ACTION_UP:
-                textEvent = "Event type ACTION_UP: ";
-                break;
-            case MotionEvent.ACTION_MOVE:
-                textEvent = "Event type ACTION_MOVE: ";
-                break;
-            default:
-                break;
-        }
-
-        Iterator<BeyondarObject> iterator = geoObjects.iterator();
-        while (iterator.hasNext()) {
-            BeyondarObject geoObject = iterator.next();
-            // ...
-            // Do something
-            // ...
-        }
     }
 
     /**
@@ -125,7 +102,6 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
      * @return verdadero si android del dispositivo es mayor a Lollipop, en caso contrario falso
      */
     private boolean askPermissions() {
-
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
             return true;
         }
