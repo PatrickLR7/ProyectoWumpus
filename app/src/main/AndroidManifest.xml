@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.GraphDrawActivity" />
-        <activity android:name=".utils.GrafosRegulares" />
+        <activity android:name=".activity.GrafosRegulares" />
         <activity android:name=".activity.BluetoothActivity" />
         <activity android:name=".activity.MapsActivity" />
 

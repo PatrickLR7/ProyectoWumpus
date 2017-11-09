@@ -75,6 +75,7 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
         mBeyondarFragment.showFPS(true);
 
         jugar = new Jugar(this);
+        jugar.mostrarIndicios();
     }
 
     /**

@@ -10,7 +10,6 @@ import android.widget.Button;
 
 import com.example.carlos.wumpusproject.R;
 import com.example.carlos.wumpusproject.utils.Config;
-import com.example.carlos.wumpusproject.utils.GrafosRegulares;
 
 /**
  * Clase de main activity.

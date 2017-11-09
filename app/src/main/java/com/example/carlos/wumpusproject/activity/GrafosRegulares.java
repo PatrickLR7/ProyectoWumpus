@@ -1,4 +1,4 @@
-package com.example.carlos.wumpusproject.utils;
+package com.example.carlos.wumpusproject.activity;
 
 import com.example.carlos.wumpusproject.R;
 import com.example.carlos.wumpusproject.activity.MapsActivity;
@@ -178,8 +178,5 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
 
         Intent i = new Intent(getApplicationContext(), MapsActivity.class);
         startActivity(i);
-
-        //Emplazar emplazar = new Emplazar();
-        //emplazar.crearMapMarks();
     }
 }
