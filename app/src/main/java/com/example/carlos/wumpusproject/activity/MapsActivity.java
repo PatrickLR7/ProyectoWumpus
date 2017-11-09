@@ -1,4 +1,4 @@
-package com.example.carlos.wumpusproject.activity;
+package com.example.carlos.wumpusproject;
 
 import android.Manifest;
 import android.content.Context;
@@ -16,7 +16,6 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.carlos.wumpusproject.R;
 import com.example.carlos.wumpusproject.beyondAR.SimpleCamera;
 import com.example.carlos.wumpusproject.utils.Config;
 import com.example.carlos.wumpusproject.utils.Grafo;
@@ -35,12 +34,12 @@ import java.util.Vector;
  * Clase de la activity maps.
  */
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback { // Clase para manejar el emplzamiento y visualización con google maps
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     LocationManager locationManager;
     /** Variables pra latitud y longitud. */
-    double longitudeNetwork = 0, latitudeNetwork = 0;
+
     private int contadorMarcas = 0;
 
     private Grafo laberinto = Config.laberinto;
@@ -52,6 +51,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private double distancia = Config.distancia;
 
     private Vector<Vector<Double>> coordenadasCuevas;
+
+    private boolean primera = true;
 
 
     @Override
@@ -70,12 +71,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
     }
 
-    protected void makeRequest() { // se piden los permisos
+    protected void makeRequest() {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) { //Se verifican los permisos
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         if(requestCode == 1){
             for(int i = 0, len = permissions.length; i < len; i++){
                 if(grantResults[i] == PackageManager.PERMISSION_GRANTED){
@@ -93,7 +94,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /**
      * Revisa si el gps del dispositivo está activo.
      */
-    private boolean checkLocation() { // Se verifican los permisos
+    private boolean checkLocation() {
         if (!(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)))
             showAlert();
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
@@ -102,7 +103,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /**
      * Muestra una alerta de que el gps del dispositivo está o no activado.
      */
-    private void showAlert() { // Mensaje para habilitar la ubicación de la app
+    private void showAlert() {
         final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("Enable Location")
                 .setMessage("Su ubicación esta desactivada.\npor favor active su ubicación " +
@@ -125,7 +126,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /**
      * Metodo que actuliza las coordenadas actuales del jugador.
      */
-    public void toggleNetworkUpdates() { // se verifican los permisos del usuario de la app y se ponen parametros de tiempo y distancia para detectar coordenadas
+    public void toggleNetworkUpdates() {
         if (!checkLocation())
             return;
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -138,26 +139,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 20 * 1000, 10, locationListenerNetwork);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 1, locationListenerNetwork);
+        //locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER,  );
     }
 
     private final LocationListener locationListenerNetwork = new LocationListener() {
-        public void onLocationChanged(Location location) { //cuando se cambia de posición se activa
-            // Toast.makeText(getApplicationContext(), "prueba", Toast.LENGTH_SHORT).show();
-            if (contadorMarcas == 0) {
-                longitudeNetwork = location.getLongitude();
-                latitudeNetwork = location.getLatitude();
+        public void onLocationChanged(Location location) {
+           // Toast.makeText(getApplicationContext(), "prueba", Toast.LENGTH_SHORT).show();
+            if (location.getLongitude() != 0 && location.getLatitude() != 0 && primera) {
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        agregarMarca(latitudeNetwork, longitudeNetwork);
-                        Toast.makeText(MapsActivity.this, "Marcador creado", Toast.LENGTH_SHORT).show();
-                        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(latitudeNetwork, longitudeNetwork)));
-                    }
-                });
+                primera = false;
+                    Config.lonUsuario = location.getLongitude();
+                    Config.latUsuario = location.getLatitude();
+
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                           // agregarMarca(latitudeNetwork, longitudeNetwork);
+                          //  Toast.makeText(MapsActivity.this, "Marcador creado", Toast.LENGTH_SHORT).show();
+                            mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(Config.latUsuario,  Config.lonUsuario)));
+                        }
+                    });
+
+                    crearMapMarks();
+
             }
         }
+
+
 
         @Override
         public void onStatusChanged(String s, int i, Bundle bundle) {}
@@ -179,7 +189,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * installed Google Play services and returned to the app.
      */
     @Override
-    public void onMapReady(GoogleMap googleMap) { //genera el mapa
+    public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -188,62 +198,119 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         tamGrafo = laberinto.getDimensionMatriz();
         coordenadasCuevas = new Vector<>();
 
-        crearMapMarks();
+       // if(latitudeNetwork != 0 && longitudeNetwork != 0) {
+       //     crearMapMarks();
+       // }
     }
 
-    public void agregarMarca(double lat, double lon) { // con la lat y lon se genera un mark en el mapa
+    public void agregarMarca(double lat, double lon) {
         LatLng temp = new LatLng(lat, lon);
         mMap.addMarker(new MarkerOptions().position(temp).title("Marker in " + lat + ", " + lon + " (Cueva " + contadorMarcas + ")"));
 
-        if (contadorMarcas == 0) {
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(temp, 20));
-        }
+
 
         Toast.makeText(MapsActivity.this, "Marcador agregado", Toast.LENGTH_SHORT).show();
         contadorMarcas++;
     }
 
-   public void generarPersonaje() { //Se escoge un nodo aleatorio para emplazar al personaje y asi despues generar el grafo apartir de esa posición
+    /**
+     * Define los tipos de las cuevas; es decir, si hay pozos o murcielagos.
+     * Se usaran los siguientes numeros:
+     * 0 -> cueva Libre.
+     * 1 -> cueva con Wumpus.
+     * 2 -> cueva con pozo.
+     * 3 -> cueva con murcielagos.
+     * 4 -> cueva inicial del personaje.
+     */
+   /** public void generarTiposDeCuevas() {
+        tiposDeCuevas = new ArrayList<>(tamGrafo);
+        for (int x = 0; x < tamGrafo ; x++) {
+            int tipo = (int) (Math.random() * 3);
+           switch (tipo){
+               case 0: tiposDeCuevas.add(0);
+                    break;
+                case 1: tiposDeCuevas.add(2);
+                    break;
+                default:tiposDeCuevas.add(3);
+                    break;
+            }
+        }
+        posInicialJugador = (int) (Math.random() * tamGrafo); // no se puede crear el personaje en nodos inexistentes.
+                                                                //De los 9 nodos que hay solo en 4 se puede crear el personaje en 4 de ellos
+        posInicialWumpus = (int) (Math.random() * tamGrafo);
+        tiposDeCuevas.add(posInicialJugador, 4);
+        tiposDeCuevas.add(posInicialWumpus, 1);
+        Config.tiposDeCuevas = tiposDeCuevas;
+    }
+    */
+
+
+
+   public void generarPersonaje() {
+
+
+
+
        boolean personaje = false;
        tiposDeCuevas = new ArrayList<>(tamGrafo);
 
        for (int x = 0; x < tamGrafo ; x++) {
-           if (laberinto.presenteEnElGrafo(x)) {
+
+           if (laberinto.presenteEnElGrafo(x) == true) {
+
                int tipo = (int) (Math.random() * 5);
-               if (tipo == 4 && !personaje) {
+
+               if (tipo == 4 && personaje == false) {
                    //x--;
                    tiposDeCuevas.add(4);
                    personaje = true;
                    posInicialJugador = x;
                }
+
            }else{
+
                tiposDeCuevas.add(-1);
            }
+
        }
+
+
        Config.tiposDeCuevas = tiposDeCuevas;
+
+
    }
 
-    public void crearMapMarks() { // Se crean marks en el mapa a partir de la posición del personaje(usuario)
+
+    public void crearMapMarks() {
+
        // tetrahedro();
-        //9.93 ECCI
-        //-84.05 ECCI
+
+
+        //9.93
+        //-84.05
         //radio: 5 mts
+
+
+
+
+
+
         //this.generarTiposDeCuevas();
+
         generarPersonaje();
 
         int nodoInicial = 0;
 
-        for (int x = 0; x < tamGrafo; x++) { //se  busca el nodo inicial y se le asignan las coordenadas del usuario
-
+        for (int x = 0; x < tamGrafo; x++) {
             Vector<Double> coordenada = new Vector<>();
             if (x == posInicialJugador) {
-                coordenada.add(latitudeNetwork);//usuario
-                coordenada.add(longitudeNetwork);//usuario
+                coordenada.add(Config.lonUsuario);//usuario
+                coordenada.add(Config.latUsuario);//usuario
                 coordenadasCuevas.add(x, coordenada);
                 nodoInicial = x;
-                System.out.println("x: " + x + "lat: " + latitudeNetwork + "lon: " + longitudeNetwork);
+                System.out.println("x: " + x + "lat: " + Config.latUsuario + "lon: " + Config.lonUsuario);
 
-                agregarMarca(latitudeNetwork,longitudeNetwork);                                                                 //generar marcador
+                agregarMarca(Config.latUsuario,Config.lonUsuario);                                                                 //generar marcador
 
             } else {
                 coordenada.add(0.0);
@@ -257,9 +324,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         int filas, columnas;
 
-        for (int nodo = 0; nodo < tamGrafo; nodo++) { // se crean las marks y se guardan las coordenadas de cada nodo
-            if (nodo != nodoInicial) { // debe ser diferente del inicial porque el inicial tenìa las coordenadas del usuario
-                if (laberinto.presenteEnElGrafo(nodo)) { // Se verifica que el nodo sea parte del grafo
+        for (int nodo = 0; nodo < tamGrafo; nodo++) {
+            if (nodo != nodoInicial) {
+                if (laberinto.presenteEnElGrafo(nodo)) {
                     Pair pairNodo = new Pair(0,0);
                     pairNodo = laberinto.obtenerFilaColumna(nodo);
 
@@ -269,10 +336,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     filas = pairDistancia.getX();
                     columnas = pairDistancia.getY();
 
+
                     System.out.println("x: " + nodo + " pair: " + pairNodo.getX() + "," + pairNodo.getY() + " pairdis" + pairDistancia.getX() + "," + pairDistancia.getY()  );
                     Vector<Double> coordenada = new Vector<>();
-                    coordenada.add( latitudeNetwork - distancia * filas);
-                    coordenada.add( longitudeNetwork + distancia * columnas);
+                    coordenada.add( Config.latUsuario - distancia * filas);
+                    coordenada.add( Config.lonUsuario + distancia * columnas);
                     coordenadasCuevas.setElementAt(coordenada, nodo);
 
                     agregarMarca(coordenadasCuevas.get(nodo).get(0), coordenadasCuevas.get(nodo).get(1));
@@ -287,18 +355,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //}
     }
 
-    public void tetrahedro(){ // tetrahedro con coordenadas fijas en la ECCI para pruebas
+
+
+
+    public void tetrahedro(){
+
         for (int nodo = 0; nodo < 3; nodo++) {
+
             agregarMarca(9.937977,-84.051858);
             agregarMarca(9.937942,-84.051847);
             agregarMarca(9.937898,-84.051889);
             agregarMarca(9.937914,-84.051800);
+
         }
+
+
+
     }
 
 
-    public void startAR(View v){ // Se inicia el activity de Realidad aumentada
+    public void startAR(View v){
         Intent i = new Intent(getApplicationContext(), SimpleCamera.class);
         startActivity(i);
     }
+
+
+
+
+
+
+
 }

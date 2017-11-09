@@ -152,7 +152,8 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
                 laberinto.addArista(39,49);
                 laberinto.addArista(39,52);
                 laberinto.addArista(43,44);
-                laberinto.addArista(44,98);
+                laberinto.addArista(43,98);
+                laberinto.addArista(44,56);
                 laberinto.addArista(47,49);
                 laberinto.addArista(47,57);
                 laberinto.addArista(49,61);
