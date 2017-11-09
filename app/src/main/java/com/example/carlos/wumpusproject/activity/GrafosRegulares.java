@@ -2,6 +2,7 @@ package com.example.carlos.wumpusproject.activity;
 
 import com.example.carlos.wumpusproject.R;
 import com.example.carlos.wumpusproject.activity.MapsActivity;
+import com.example.carlos.wumpusproject.beyondAR.SimpleCamera;
 import com.example.carlos.wumpusproject.utils.Config;
 import com.example.carlos.wumpusproject.utils.Grafo;
 

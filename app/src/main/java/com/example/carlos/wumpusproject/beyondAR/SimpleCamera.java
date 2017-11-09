@@ -78,6 +78,12 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
         jugar.mostrarIndicios();
     }
 
+    public void cambioDeCueva(int nuevaCueva){
+        customWorldHelper.updateObjects(nuevaCueva);
+        jugar.actualizarCuevaActual(nuevaCueva);
+        jugar.mostrarIndicios();
+    }
+
     /**
      * Metodo para manejar si el usuario toca un geo objeto presente en la camara.
      * @param arrayList: Lista de los geo objetos presentes. El primer elemento es el objeto que ha sido clickeado.
@@ -106,10 +112,7 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
      * @return verdadero si android del dispositivo es mayor a Lollipop, en caso contrario falso
      */
     private boolean askPermissions() {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
-            return true;
-        }
-        return false;
+        return Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1;
     }
 
     /**

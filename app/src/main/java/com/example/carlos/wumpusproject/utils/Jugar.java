@@ -66,7 +66,6 @@ public class Jugar
     public void mostrarIndicios()
     {
         List<Integer> vecinos = tablero.obtenerVecinos(cuevaActual);
-        caminoCuevas.add(cuevaActual);
         int vecinoActual;
         int tipo;
         for(int i = 0; i < vecinos.size(); i++)
@@ -89,7 +88,7 @@ public class Jugar
                         }
                         else
                         {
-                            v.vibrate(150);
+                            v.vibrate(500);
                         }
                     }
                     else //Si no puede vibrar, muestra un mensaje
@@ -139,9 +138,12 @@ public class Jugar
         //Mostrar pantalla con Wumpus atravesado
     }
 
+    /**
+     * Actualiza el numero de cueva
+     * @param nuevaCueva: La cueva a la que el jugador ha llegado
+     */
     public void actualizarCuevaActual(int nuevaCueva){
         this.cuevaActual = nuevaCueva;
+        caminoCuevas.add(cuevaActual);
     }
-
-
 }

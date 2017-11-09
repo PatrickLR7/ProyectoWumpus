@@ -7,7 +7,6 @@ import com.beyondar.android.world.World;
 import com.example.carlos.wumpusproject.R;
 import com.example.carlos.wumpusproject.utils.Config;
 import com.example.carlos.wumpusproject.utils.Grafo;
-import com.example.carlos.wumpusproject.utils.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,16 +66,15 @@ public class CustomWorldHelper {
         geoObjects.clear();
 
         List<Integer> adyacentes = grafo.obtenerVecinos(nodo);
-        for (int i = 0; i < coordCuevas.size(); i++) {
-            if ( adyacentes.contains(i) ) { // Si nodo es adyacente
-                GeoObject go1 = new GeoObject(i);
-                Vector<Double> coordenada = coordCuevas.get(i);
-                go1.setGeoPosition(coordenada.get(0), coordenada.get(1));
-                go1.setImageResource(R.drawable.rotulo_direccion);
-                go1.setName("Cave " + i);
-                geoObjects.add(go1);
-                sharedWorld.addBeyondarObject(go1);
-            }
+        for (int i = 0; i < adyacentes.size(); i++) {
+            int nodoVecino = adyacentes.get(i);
+            GeoObject go1 = new GeoObject(nodoVecino);
+            Vector<Double> coordenada = coordCuevas.get(nodoVecino);
+            go1.setGeoPosition(coordenada.get(0), coordenada.get(1));
+            go1.setImageResource(R.drawable.rotulo_direccion);
+            go1.setName("Cave " + i);
+            geoObjects.add(go1);
+            sharedWorld.addBeyondarObject(go1);
         }
 
     }

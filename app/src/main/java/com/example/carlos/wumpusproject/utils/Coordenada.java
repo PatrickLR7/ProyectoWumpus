@@ -21,4 +21,14 @@ public class Coordenada {
     public double getLongitud(){
         return longitud;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean esIgual = obj instanceof Coordenada;
+        if (esIgual){
+            Coordenada coordenada = (Coordenada) obj;
+            esIgual = latitud == coordenada.latitud && longitud == coordenada.longitud;
+        }
+        return esIgual;
+    }
 }
