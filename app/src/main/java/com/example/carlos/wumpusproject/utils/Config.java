@@ -23,7 +23,7 @@ public class Config {
     public static List< Vector<Double> > coordenadasCuevas; // Guarda las coordenadas asociadas a cada cueva en el mapa.
     public static Vector<Double> coordenadasIniciales; // Guarda las coordenadas iniciales del jugador
     public static double latUsuario, lonUsuario; // Guardan las coordenadas actuales del jugador
-    public static double distancia = 5.0; // Distancia entre cuevas adyacentes
+    public static double distancia = 0.00013; // Distancia entre cuevas adyacentes
 
     public static final int NUM_FLECHAS = 5; // Numero de flechas al inicio del juego
 

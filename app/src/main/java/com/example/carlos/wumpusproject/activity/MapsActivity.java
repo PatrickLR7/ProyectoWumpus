@@ -21,6 +21,7 @@ import com.example.carlos.wumpusproject.beyondAR.SimpleCamera;
 import com.example.carlos.wumpusproject.utils.Config;
 import com.example.carlos.wumpusproject.utils.Grafo;
 import com.example.carlos.wumpusproject.utils.Pair;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -160,6 +161,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                            // agregarMarca(latitudeNetwork, longitudeNetwork);
                           //  Toast.makeText(MapsActivity.this, "Marcador creado", Toast.LENGTH_SHORT).show();
                             mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(Config.latUsuario,  Config.lonUsuario)));
+                            CameraUpdate zoom=CameraUpdateFactory.zoomTo(20);
+                            mMap.animateCamera(zoom);
+
                         }
                     });
 
