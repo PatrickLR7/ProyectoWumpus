@@ -3,6 +3,7 @@
     <string name="labyrinthText">Dibuje el laberinto, para ello una los puntos.\nToque dos puntos distintos para unirlos.
         Si toca un boton por error, vuelvalo a tocar para evitar unirlo a otro. Para deshacer un camino, toque los puntos que
         lo forman. ¡Buena suerte!</string>
+    <string name="restart">Volver al menú</string>
     <string name="title_activity_labirynth_draw">LabirynthDraw</string>
     <string name="graphDrawFinished">Finalizar</string>
     <string name="title_activity_maps">Map</string>
