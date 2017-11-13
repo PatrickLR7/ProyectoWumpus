@@ -8,8 +8,6 @@ import android.os.Vibrator;
 import android.os.VibrationEffect;
 
 import com.example.carlos.wumpusproject.R;
-import com.example.carlos.wumpusproject.utils.Config;
-import com.example.carlos.wumpusproject.utils.Grafo;
 
 import java.util.ArrayList;
 import java.util.List;

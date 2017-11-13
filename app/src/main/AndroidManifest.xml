@@ -53,6 +53,7 @@
             android:required="true" />
 
         <activity android:name=".beyondAR.SimpleCamera" />
+        <service android:name="utils.GeofenceTransitionIntentService"/>
     </application>
 
 </manifest>
