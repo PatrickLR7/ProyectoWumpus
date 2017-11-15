@@ -63,7 +63,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
 
         PackageManager pm = getBaseContext().getPackageManager();
-        int hasPerm1 = pm.checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION, getBaseContext().getPackageName());
+        int hasPerm1 = pm.checkPermission(Manifest.permission.ACCESS_FINE_LOCATION, getBaseContext().getPackageName());
         if (hasPerm1 != PackageManager.PERMISSION_GRANTED) {
             makeRequest();
         }
@@ -74,7 +74,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     protected void makeRequest() {
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
     }
 
     @Override
@@ -131,7 +131,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void toggleNetworkUpdates() {
         if (!checkLocation())
             return;
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -309,8 +309,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (int x = 0; x < tamGrafo; x++) {
             Vector<Double> coordenada = new Vector<>();
             if (x == posInicialJugador) {
-                coordenada.add(Config.lonUsuario);//usuario
+
                 coordenada.add(Config.latUsuario);//usuario
+                coordenada.add(Config.lonUsuario);//usuario
+
+               // coordenada.add(9.938043);
+               // coordenada.add(-84.051999);
                 coordenadasCuevas.add(x, coordenada);
                 nodoInicial = x;
                 System.out.println("x: " + x + "lat: " + Config.latUsuario + "lon: " + Config.lonUsuario);
