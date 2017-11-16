@@ -7,10 +7,6 @@ import java.util.List;
 import java.util.Vector;
 
 /**
- * Created by carlos on 11/10/17.
- */
-
-/**
  * Clase usada para guardar las diferentes escogencias de configuracion escogidas por el usuario.
  * La idea es mantenerlas de forma publica para poder acceder a ellas desde cualquier otra clase o
  * actividad.
@@ -24,8 +20,8 @@ public class Config {
     public static List< Vector<Double> > coordenadasCuevas; // Guarda las coordenadas asociadas a cada cueva en el mapa.
     public static Vector<Double> coordenadasIniciales; // Guarda las coordenadas iniciales del jugador
     public static double latUsuario, lonUsuario; // Guardan las coordenadas actuales del jugador
-    public static double distancia = 0.00002; // Distancia entre cuevas adyacentes 0.000006 1Metro
-    public static float radioCuevas = 300; // Radio de cada objeto geofence
+    public static double distancia = 0.00002; // Distancia entre cuevas adyacentes
+    public static float radioCuevas = 5; // Radio de cada objeto geofence
     public static int tiempoExpiracion = 60*60*1000; // Tiempo en milisegundos
     public static SimpleCamera camera; // Actividad de la camara, esta debe reaccionar ante los cambios en entrada y salida a Geofences
 
