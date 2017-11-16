@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button emplazar;
 
     private Button arrows;
+    private Button well;
+    private Button wumpus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +38,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         poliedro.setOnClickListener(this);
         laberinto = (Button) findViewById(R.id.LabIrregButton);
         laberinto.setOnClickListener(this);
+
         arrows = (Button) findViewById(R.id.pruebaArrows);
         arrows.setOnClickListener(this);
+        well = (Button) findViewById(R.id.pruebaWell);
+        well.setOnClickListener(this);
+        wumpus = (Button) findViewById(R.id.pruebaWumpus);
+        wumpus.setOnClickListener(this);
     }
 
     @Override
@@ -49,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(getApplicationContext(), GrafosRegulares.class);
                 startActivity(intent);
                 break;
-
             case R.id.LabIrregButton:
                 Config.labEsRegular = false;
                 intent = new Intent(getApplicationContext(), GraphDrawActivity.class);
@@ -59,6 +65,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(getApplicationContext(), GameOverArrows.class);
                 startActivity(intent);
                 break;
+            case R.id.pruebaWell:
+                intent = new Intent(getApplicationContext(), GameOverWell.class);
+                startActivity(intent);
+                break;
+            case R.id.pruebaWumpus:
+                intent = new Intent(getApplicationContext(), GameOverWumpus.class);
+                startActivity(intent);
+                break;
         }
     }
 
@@ -66,7 +80,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void makeRequest() {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
     }
-
-
 
 }

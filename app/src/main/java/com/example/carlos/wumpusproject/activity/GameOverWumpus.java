@@ -12,13 +12,12 @@ import android.widget.MediaController;
 import android.widget.VideoView;
 
 import com.example.carlos.wumpusproject.R;
-import com.google.android.gms.games.Game;
 
 /**
- * Created by b55519 on 13/11/2017.
+ * Created by b55519 on 16/11/2017.
  */
 
-public class GameOverArrows extends AppCompatActivity implements View.OnClickListener
+public class GameOverWumpus extends AppCompatActivity implements View.OnClickListener
 {
     private Button menu;
 
@@ -28,16 +27,16 @@ public class GameOverArrows extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.gameover_arrows);
+        setContentView(R.layout.gameover_wumpus);
 
         //Configura el botón
-        menu = (Button) findViewById(R.id.buttonRestart2);
+        menu = (Button) findViewById(R.id.buttonRestart1);
         menu.setOnClickListener(this);
 
         //Prepara el video
-        VideoView videoview = findViewById(R.id.videoArrows);
+        VideoView videoview = findViewById(R.id.videoWumpus);
         videoview.requestFocus();
-        Uri video = Uri.parse("android.resource://com.example.carlos.wumpusproject/raw/arrows2");
+        Uri video = Uri.parse("android.resource://com.example.carlos.wumpusproject/raw/wumpus2");
         videoview.setVideoURI(video);
         videoview.setMediaController(new MediaController(this));
         videoview.start();
@@ -48,7 +47,7 @@ public class GameOverArrows extends AppCompatActivity implements View.OnClickLis
     {
         switch (view.getId())
         {
-            case R.id.buttonRestart2:
+            case R.id.buttonRestart1:
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(i);
                 break;
