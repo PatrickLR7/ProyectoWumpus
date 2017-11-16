@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /** Boton que muestra el layout de emplazar el laberinto. */
     private Button emplazar;
 
+    private Button arrows;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +36,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         poliedro.setOnClickListener(this);
         laberinto = (Button) findViewById(R.id.LabIrregButton);
         laberinto.setOnClickListener(this);
-
+        arrows = (Button) findViewById(R.id.pruebaArrows);
+        arrows.setOnClickListener(this);
     }
 
     @Override
@@ -52,9 +55,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(getApplicationContext(), GraphDrawActivity.class);
                 startActivity(intent);
                 break;
-
-
-
+            case R.id.pruebaArrows:
+                intent = new Intent(getApplicationContext(), GameOverArrows.class);
+                startActivity(intent);
+                break;
         }
     }
 
