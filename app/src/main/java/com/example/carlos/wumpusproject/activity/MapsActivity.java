@@ -52,7 +52,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private int posInicialWumpus;
     private double distancia = Config.distancia;
 
-    private Vector<Vector<Double>> coordenadasCuevas;
+    private List<Vector<Double>> coordenadasCuevas;
 
     private boolean primera = true;
 
@@ -62,6 +62,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        coordenadasCuevas = new ArrayList<>();
         PackageManager pm = getBaseContext().getPackageManager();
         int hasPerm1 = pm.checkPermission(Manifest.permission.ACCESS_FINE_LOCATION, getBaseContext().getPackageName());
         if (hasPerm1 != PackageManager.PERMISSION_GRANTED) {
@@ -151,10 +152,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             if (location.getLongitude() != 0 && location.getLatitude() != 0 && primera) {
 
                 primera = false;
-                    Config.lonUsuario = location.getLongitude();
-                    Config.latUsuario = location.getLatitude();
-
-
+                    //Config.lonUsuario = location.getLongitude();
+                    //Config.latUsuario = location.getLatitude();
+                Config.lonUsuario =-84.052001;
+                Config.latUsuario = 9.937921;
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -311,11 +312,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             if (x == posInicialJugador) {
 
                 coordenada.add(Config.latUsuario);//usuario
-                coordenada.add(Config.lonUsuario);//usuario
+                 coordenada.add(Config.lonUsuario);//usuario
 
-               // coordenada.add(9.938043);
-               // coordenada.add(-84.051999);
+               // coordenada.add(9.937921);
+               // coordenada.add(-84.052001);
                 coordenadasCuevas.add(x, coordenada);
+                Config.coordenadasIniciales = coordenada;
+
                 nodoInicial = x;
                 System.out.println("x: " + x + "lat: " + Config.latUsuario + "lon: " + Config.lonUsuario);
 
@@ -350,7 +353,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     Vector<Double> coordenada = new Vector<>();
                     coordenada.add( Config.latUsuario - distancia * filas);
                     coordenada.add( Config.lonUsuario + distancia * columnas);
-                    coordenadasCuevas.setElementAt(coordenada, nodo);
+                    coordenadasCuevas.set(nodo, coordenada);
 
                     agregarMarca(coordenadasCuevas.get(nodo).get(0), coordenadasCuevas.get(nodo).get(1));
                 }
@@ -362,6 +365,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
               //  agregarMarca(coordenadasCuevas.get(i).get(0), coordenadasCuevas.get(i).get(1));
          //   }
         //}
+
+        Config.coordenadasCuevas = coordenadasCuevas;
     }
 
 

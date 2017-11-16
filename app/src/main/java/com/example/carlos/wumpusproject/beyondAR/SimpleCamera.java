@@ -3,14 +3,17 @@ package com.example.carlos.wumpusproject.beyondAR;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.widget.Toast;
 
@@ -28,14 +31,16 @@ import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingClient;
 import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarObjectListener{
+public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarObjectListener, OnCompleteListener<Void>{
 
     private BeyondarFragmentSupport mBeyondarFragment;
     private World mWorld;
@@ -45,6 +50,13 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
     private GeofencingClient mGeofencingClient;
     private List<Geofence> mGeofenceList;
     private PendingIntent mGeofencePendingIntent;
+    /**
+     * Tracks whether the user requested to add or remove geofences, or to do neither.
+     */
+    private enum PendingGeofenceTask {
+        ADD, REMOVE, NONE
+    }
+    private PendingGeofenceTask mPendingGeofenceTask = PendingGeofenceTask.NONE;
 
     private Boolean location;
     private Boolean camera;
@@ -158,7 +170,8 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
                             // Failed to add geofences
                             Toast.makeText(camera, "Error al agregar Geofences!", Toast.LENGTH_LONG).show();
                         }
-                    });
+                    })
+                    .addOnCompleteListener(this);
         } catch (SecurityException e){
             Toast.makeText(camera, "Error por falta de permisos de ubicacion!", Toast.LENGTH_LONG).show();
         }
@@ -220,6 +233,39 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
                     //se crea bien
                 }
                 break;
+        }
+    }
+
+    /**
+     * Stores whether geofences were added ore removed in {@link SharedPreferences};
+     *
+     * @param added Whether geofences were added or removed.
+     */
+    private void updateGeofencesAdded(boolean added) {
+        PreferenceManager.getDefaultSharedPreferences(this)
+                .edit()
+                .putBoolean("com.example.carlos.wumpusproject" + ".GEOFENCES_ADDED_KEY", added)
+                .apply();
+    }
+
+    /**
+     * Returns true if geofences were added, otherwise false.
+     */
+    private boolean getGeofencesAdded() {
+        return PreferenceManager.getDefaultSharedPreferences(this).getBoolean(
+                "com.example.carlos.wumpusproject" + ".GEOFENCES_ADDED_KEY", false);
+    }
+
+    @Override
+    public void onComplete(@NonNull Task<Void> task) {
+        mPendingGeofenceTask = PendingGeofenceTask.NONE;
+        if (task.isSuccessful()) {
+            updateGeofencesAdded(!getGeofencesAdded());
+
+            Toast.makeText(this, "Geofence Agregados", Toast.LENGTH_SHORT).show();
+        } else {
+            // Get the status code for the error and log it using a user-friendly message.
+            Toast.makeText(this, "Geofence Error", Toast.LENGTH_SHORT).show();
         }
     }
 }
