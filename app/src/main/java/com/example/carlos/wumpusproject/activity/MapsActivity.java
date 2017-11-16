@@ -322,7 +322,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 nodoInicial = x;
                 System.out.println("x: " + x + "lat: " + Config.latUsuario + "lon: " + Config.lonUsuario);
 
-                agregarMarca(Config.latUsuario,Config.lonUsuario);                                                                 //generar marcador
+               // agregarMarca(Config.latUsuario,Config.lonUsuario);                                                                 //generar marcador
 
             } else {
                 coordenada.add(0.0);

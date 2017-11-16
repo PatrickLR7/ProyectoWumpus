@@ -25,38 +25,22 @@ import com.beyondar.android.world.BeyondarObject;
 import com.beyondar.android.world.World;
 import com.example.carlos.wumpusproject.R;
 import com.example.carlos.wumpusproject.utils.Config;
-import com.example.carlos.wumpusproject.utils.GeofenceTransitionIntentService;
+
 import com.example.carlos.wumpusproject.utils.Jugar;
-import com.google.android.gms.location.Geofence;
-import com.google.android.gms.location.GeofencingClient;
-import com.google.android.gms.location.GeofencingRequest;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarObjectListener, OnCompleteListener<Void>{
+public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarObjectListener{
 
     private BeyondarFragmentSupport mBeyondarFragment;
     private World mWorld;
     private CustomWorldHelper customWorldHelper;
     private Vector<Double> coordenadasIniciales;
     private Jugar jugar;
-    private GeofencingClient mGeofencingClient;
-    private List<Geofence> mGeofenceList;
-    private PendingIntent mGeofencePendingIntent;
-    /**
-     * Tracks whether the user requested to add or remove geofences, or to do neither.
-     */
-    private enum PendingGeofenceTask {
-        ADD, REMOVE, NONE
-    }
-    private PendingGeofenceTask mPendingGeofenceTask = PendingGeofenceTask.NONE;
+
 
     private Boolean location;
     private Boolean camera;
@@ -95,6 +79,8 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
 
         BeyondarLocationManager.enable();
 
+        mWorld.onResume();
+
         //Permitimos que BeyondAR actualice automáticamente la posición del mundo con respecto al usuario
         BeyondarLocationManager.addWorldLocationUpdate(mWorld);
 
@@ -105,77 +91,27 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
         // We also can see the Frames per seconds
         mBeyondarFragment.showFPS(true);
 
-        mGeofencingClient = LocationServices.getGeofencingClient(this);
-        mGeofenceList = new ArrayList<>();
+       // mGeofencingClient = LocationServices.getGeofencingClient(this);
+       // mGeofenceList = new ArrayList<>();
 
         List< Vector<Double> > coordenadasCuevas = Config.coordenadasCuevas;
         for (int i = 0; i < coordenadasCuevas.size(); ++i) {
             Vector<Double> coord = coordenadasCuevas.get(i);
             if (!(coord.get(0) == 0 && coord.get(1) == 0)) {
-                mGeofenceList.add(new Geofence.Builder()
-                        // Set the request ID of the geofence. This is a string to identify this geofence.
-                        .setRequestId(i + "")
 
-                        .setCircularRegion( coord.get(0),
-                                coord.get(1),
-                                Config.radioCuevas
-                        )
-                        .setExpirationDuration(Config.tiempoExpiracion)
-                        .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER |
-                                Geofence.GEOFENCE_TRANSITION_EXIT)
-                        .build());
+                mWorld = customWorldHelper.generateObjects(this, coord);
+
+               // mWorld.addBeyondarObject();
+
+
             }
         }
 
-        this.addGeofences();
 
         // jugar = new Jugar(this);
         // jugar.mostrarIndicios();
     }
 
-    private GeofencingRequest getGeofencingRequest() {
-        GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
-        builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER);
-        builder.addGeofences(mGeofenceList);
-        return builder.build();
-    }
-
-    private PendingIntent getGeofencePendingIntent() {
-        // Reuse the PendingIntent if we already have it.
-        if (mGeofencePendingIntent != null) {
-            return mGeofencePendingIntent;
-        }
-        Intent intent = new Intent(this, GeofenceTransitionIntentService.class);
-        // We use FLAG_UPDATE_CURRENT so that we get the same pending intent back when
-        // calling addGeofences() and removeGeofences().
-        mGeofencePendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.
-                FLAG_UPDATE_CURRENT);
-        return mGeofencePendingIntent;
-    }
-
-    public void addGeofences(){
-        final SimpleCamera camera = this;
-        try {
-            mGeofencingClient.addGeofences(getGeofencingRequest(), getGeofencePendingIntent())
-                    .addOnSuccessListener(this, new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            // Geofences added
-                            Toast.makeText(camera, "Geofences agregados!", Toast.LENGTH_LONG).show();
-                        }
-                    })
-                    .addOnFailureListener(this, new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            // Failed to add geofences
-                            Toast.makeText(camera, "Error al agregar Geofences!", Toast.LENGTH_LONG).show();
-                        }
-                    })
-                    .addOnCompleteListener(this);
-        } catch (SecurityException e){
-            Toast.makeText(camera, "Error por falta de permisos de ubicacion!", Toast.LENGTH_LONG).show();
-        }
-    }
 
 
     public void cambioDeCueva(int nuevaCueva){
@@ -236,36 +172,5 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
         }
     }
 
-    /**
-     * Stores whether geofences were added ore removed in {@link SharedPreferences};
-     *
-     * @param added Whether geofences were added or removed.
-     */
-    private void updateGeofencesAdded(boolean added) {
-        PreferenceManager.getDefaultSharedPreferences(this)
-                .edit()
-                .putBoolean("com.example.carlos.wumpusproject" + ".GEOFENCES_ADDED_KEY", added)
-                .apply();
-    }
 
-    /**
-     * Returns true if geofences were added, otherwise false.
-     */
-    private boolean getGeofencesAdded() {
-        return PreferenceManager.getDefaultSharedPreferences(this).getBoolean(
-                "com.example.carlos.wumpusproject" + ".GEOFENCES_ADDED_KEY", false);
-    }
-
-    @Override
-    public void onComplete(@NonNull Task<Void> task) {
-        mPendingGeofenceTask = PendingGeofenceTask.NONE;
-        if (task.isSuccessful()) {
-            updateGeofencesAdded(!getGeofencesAdded());
-
-            Toast.makeText(this, "Geofence Agregados", Toast.LENGTH_SHORT).show();
-        } else {
-            // Get the status code for the error and log it using a user-friendly message.
-            Toast.makeText(this, "Geofence Error", Toast.LENGTH_SHORT).show();
-        }
-    }
 }
