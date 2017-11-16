@@ -108,9 +108,9 @@ public class Jugar
      * Metodo que permite lanzar una flecha y verificar si en ella se encuentra el Wumpus.
      * @param numCueva: La cueva hacia la que se dirige la flecha.
      */
-    public void lanzarFlecha(int numCueva)
-    {
+    public void lanzarFlecha(int numCueva) {
         flechasRestantes--;
+
         if(tiposCueva.get(numCueva) == 1) // Wumpus esta en la cueva
             victoria();
         else

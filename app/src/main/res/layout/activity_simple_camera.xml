@@ -23,22 +23,21 @@
             android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.82"
+            android:layout_weight="0.71"
             android:text="                                     " />
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/flechasR"
             android:layout_width="wrap_content"
             android:layout_height="27dp"
-            android:layout_weight="0.05"
-            android:text="5" />
+            android:layout_weight="0.06" />
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="46dp"
-            android:layout_height="20dp"
-            app:srcCompat="@drawable/flecha"
-            android:layout_weight="0.04" />
+            android:layout_height="27dp"
+            android:layout_weight="0.19"
+            app:srcCompat="@drawable/flecha" />
 
     </LinearLayout>
 </FrameLayout>
