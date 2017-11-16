@@ -12,10 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-/**
- * Created by carlos on 26/10/17.
- */
-
 @SuppressLint("SdCardPath")
 public class CustomWorldHelper {
     public static final int LIST_TYPE_EXAMPLE_1 = 1;
