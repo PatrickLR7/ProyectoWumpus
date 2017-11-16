@@ -99,20 +99,20 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
             Vector<Double> coord = coordenadasCuevas.get(i);
             if (!(coord.get(0) == 0 && coord.get(1) == 0)) {
 
-                mWorld = customWorldHelper.generateObjects(this, coord);
+                //mWorld = customWorldHelper.generateObjects(this, coord);
 
-               // mWorld.addBeyondarObject();
+               // BeyondarObject obj = new BeyondarObject();
+               // obj.setImageResource();
+               // mWorld.addBeyondarObject(obj);
+
 
 
             }
         }
 
 
-        // jugar = new Jugar(this);
-        // jugar.mostrarIndicios();
+        //cambioDeCueva(Config.cuevaInicial);
     }
-
-
 
     public void cambioDeCueva(int nuevaCueva){
         customWorldHelper.updateObjects(nuevaCueva);

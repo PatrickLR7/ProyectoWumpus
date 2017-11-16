@@ -77,5 +77,6 @@ public class CustomWorldHelper {
             sharedWorld.addBeyondarObject(go1);
         }
 
+
     }
 }

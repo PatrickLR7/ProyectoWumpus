@@ -21,9 +21,11 @@ public class Config {
     public static Vector<Double> coordenadasIniciales; // Guarda las coordenadas iniciales del jugador
     public static double latUsuario, lonUsuario; // Guardan las coordenadas actuales del jugador
     public static double distancia = 0.00002; // Distancia entre cuevas adyacentes
+    public static int cuevaInicial;
     public static float radioCuevas = 5; // Radio de cada objeto geofence
     public static int tiempoExpiracion = 60*60*1000; // Tiempo en milisegundos
     public static SimpleCamera camera; // Actividad de la camara, esta debe reaccionar ante los cambios en entrada y salida a Geofences
+
 
     public static final int NUM_FLECHAS = 5; // Numero de flechas al inicio del juego
 
