@@ -47,10 +47,10 @@ public class CustomWorldHelper {
 
                 GeoObject go1 = new GeoObject();
                 go1.setGeoPosition(Config.coordenadasCuevas.get(i).get(0), Config.coordenadasCuevas.get(i).get(1));
-                go1.setImageResource(R.drawable.cuevaracamara);
+                go1.setImageResource(R.drawable.cuevacamara1);
                 go1.setName("Cueva " + i);
                 sharedWorld.addBeyondarObject(go1);
-                Config.listaGeoObj.add(go1);
+            //    Config.listaGeoObj.add(go1);
             }
         }
 

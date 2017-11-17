@@ -13,31 +13,74 @@
         android:layout_height="match_parent"
         tools:layout="@layout/layoutcamera"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:weightSum="1">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.71"
-            android:text="                                     " />
+            android:orientation="vertical"
+            android:weightSum="1"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true">
 
-        <TextView
-            android:id="@+id/flechasR"
-            android:layout_width="wrap_content"
-            android:layout_height="27dp"
-            android:layout_weight="0.06" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="46dp"
-            android:layout_height="27dp"
-            android:layout_weight="0.19"
-            app:srcCompat="@drawable/flecha" />
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|top"
+                android:background="@drawable/radar_bg_small">
 
-    </LinearLayout>
+                <com.beyondar.android.plugin.radar.RadarView
+                    android:id="@+id/radarView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/radar_north_small" />
+            </FrameLayout>
+
+            <SeekBar
+                android:id="@+id/seekBar4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/textViewMax"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:id="@+id/linearLayout">
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.71"
+                android:text="               " />
+
+            <TextView
+                android:id="@+id/flechasR"
+                android:layout_width="wrap_content"
+                android:layout_height="27dp"
+                android:layout_weight="0.06" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="46dp"
+                android:layout_height="27dp"
+                android:layout_weight="0.19"
+                app:srcCompat="@drawable/flecha" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
 </FrameLayout>

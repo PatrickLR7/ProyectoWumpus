@@ -35,7 +35,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarObjectListener{
+
+//RADAR
+import android.graphics.Color;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.view.Window;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.SeekBar.OnSeekBarChangeListener;
+import com.beyondar.android.plugin.radar.RadarView;
+import com.beyondar.android.plugin.radar.RadarWorldPlugin;
+//RADAR
+
+public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarObjectListener, OnSeekBarChangeListener{
 
     private BeyondarFragmentSupport mBeyondarFragment;
     private World mWorld;
@@ -43,9 +56,16 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
     private Vector<Double> coordenadasIniciales;
     private Jugar jugar;
 
-
     private Boolean location;
     private Boolean camera;
+
+    //RADAR
+    private RadarView mRadarView;
+    private RadarWorldPlugin mRadarPlugin;
+    private SeekBar mSeekBarMaxDistance;
+    private TextView mTextviewMaxDistance;
+    TextView flechasRestantes;
+    //RADAR
 
     /** Llamado cuando se crea la actividad. */
     @Override
@@ -68,6 +88,7 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
                 R.id.beyondarFragment);
 
         BeyondarLocationManager.setLocationManager((LocationManager) this.getSystemService(Context.LOCATION_SERVICE));
+
 
         // We create the world and fill it ...
         mWorld = customWorldHelper.generateObjects(this, coordenadasIniciales);
@@ -100,18 +121,38 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
         for (int i = 0; i < coordenadasCuevas.size(); ++i) {
             Vector<Double> coord = coordenadasCuevas.get(i);
             if (!(coord.get(0) == 0 && coord.get(1) == 0)) {
-
                 //mWorld = customWorldHelper.generateObjects(this, coord);
-
-
-
-
-
             }
         }
 
-        Toast.makeText(this, "Distancia" + Config.listaGeoObj.get(0).getDistanceFromUser(), Toast.LENGTH_LONG).show();
+        flechasRestantes = (TextView) findViewById(R.id.flechasR);
+        flechasRestantes.setText("" + Config.NUM_FLECHAS);
 
+        //RADAR
+        mTextviewMaxDistance = (TextView) findViewById(R.id.textViewMax);
+        mSeekBarMaxDistance = (SeekBar) findViewById(R.id.seekBar4);
+        mRadarView = (RadarView) findViewById(R.id.radarView);
+        // Create the Radar plugin
+        mRadarPlugin = new RadarWorldPlugin(this);
+        // set the radar view in to our radar plugin
+        mRadarPlugin.setRadarView(mRadarView);
+        // Set how far (in meters) we want to display in the view
+        mRadarPlugin.setMaxDistance(100);
+        // We can customize the color of the items
+        mRadarPlugin.setListColor(CustomWorldHelper.LIST_TYPE_EXAMPLE_1, Color.RED);
+        // and also the size
+        mRadarPlugin.setListDotRadius(CustomWorldHelper.LIST_TYPE_EXAMPLE_1, 3);
+        // add the plugin
+        mWorld.addPlugin(mRadarPlugin);
+        // We also can see the Frames per seconds
+        mBeyondarFragment.showFPS(true);
+        mSeekBarMaxDistance.setOnSeekBarChangeListener(this);
+        mSeekBarMaxDistance.setMax(300);
+        mSeekBarMaxDistance.setProgress(23);
+        mRadarPlugin.setMaxDistance(45);
+        //RADAR
+
+        //Toast.makeText(this, "Distancia" + Config.listaGeoObj.get(0).getDistanceFromUser(), Toast.LENGTH_LONG).show();
 
         //cambioDeCueva(Config.cuevaInicial);
     }
@@ -174,5 +215,26 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
         }
     }
 
+    //RADAR
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        if (mRadarPlugin == null)
+            return;
+        if (seekBar == mSeekBarMaxDistance) {
+            // float value = ((float) progress/(float) 10000);
+            mTextviewMaxDistance.setText("Max distance Value: " + progress);
+            mRadarPlugin.setMaxDistance(progress);
+        }
+    }
 
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
+    }
+    //RADAR
 }
