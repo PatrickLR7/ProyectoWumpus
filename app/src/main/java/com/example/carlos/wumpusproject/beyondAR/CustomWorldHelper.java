@@ -40,6 +40,12 @@ public class CustomWorldHelper {
         // The user can set the default bitmap. This is useful if you are
         // loading images form Internet and the connection get lost
         sharedWorld.setDefaultImage(R.drawable.wumpuslogogreen);
+        for (int i = 0; i < Config.coordenadasCuevas.size(); i++) {
+            GeoObject go1 = new GeoObject();
+            go1.setGeoPosition(Config.coordenadasCuevas.get(i).get(0), Config.coordenadasCuevas.get(i).get(1));
+            go1.setImageResource(R.drawable.cuevaracamara);
+            go1.setName("Cueva " + i);
+        }
 
         // User position (you can change it using the GPS listeners form Android
         // API)
