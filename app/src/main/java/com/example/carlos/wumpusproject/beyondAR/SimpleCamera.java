@@ -18,10 +18,12 @@ import android.view.Window;
 import android.widget.Toast;
 
 import com.beyondar.android.fragment.BeyondarFragmentSupport;
+import com.beyondar.android.sensor.BeyondarSensorManager;
 import com.beyondar.android.util.location.BeyondarLocationManager;
 import com.beyondar.android.view.BeyondarGLSurfaceView;
 import com.beyondar.android.view.OnClickBeyondarObjectListener;
 import com.beyondar.android.world.BeyondarObject;
+import com.beyondar.android.world.GeoObject;
 import com.beyondar.android.world.World;
 import com.example.carlos.wumpusproject.R;
 import com.example.carlos.wumpusproject.utils.Config;
@@ -101,14 +103,14 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
 
                 //mWorld = customWorldHelper.generateObjects(this, coord);
 
-               // BeyondarObject obj = new BeyondarObject();
-               // obj.setImageResource();
-               // mWorld.addBeyondarObject(obj);
+
 
 
 
             }
         }
+
+        Toast.makeText(this, "Distancia" + Config.listaGeoObj.get(0).getDistanceFromUser(), Toast.LENGTH_LONG).show();
 
 
         //cambioDeCueva(Config.cuevaInicial);
