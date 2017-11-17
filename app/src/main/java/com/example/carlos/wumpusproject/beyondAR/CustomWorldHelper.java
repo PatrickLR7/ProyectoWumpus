@@ -45,11 +45,12 @@ public class CustomWorldHelper {
             go1.setGeoPosition(Config.coordenadasCuevas.get(i).get(0), Config.coordenadasCuevas.get(i).get(1));
             go1.setImageResource(R.drawable.cuevaracamara);
             go1.setName("Cueva " + i);
+            sharedWorld.addBeyondarObject(go1);
         }
 
         // User position (you can change it using the GPS listeners form Android
         // API)
-        sharedWorld.setGeoPosition(coordenadaInicial.get(0), coordenadaInicial.get(1));
+        sharedWorld.setGeoPosition(Config.coordenadasIniciales.get(0), Config.coordenadasIniciales.get(1));
         coordCuevas = Config.coordenadasCuevas;
         grafo = Config.laberinto;
 
