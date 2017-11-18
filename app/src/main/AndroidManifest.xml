@@ -38,6 +38,7 @@
         <activity android:name=".activity.BluetoothActivity" />
         <activity android:name=".activity.MapsActivity" />
         <activity android:name=".activity.GameOverArrows" />
+        <activity android:name=".activity.GameOverVictory" />
         <activity android:name=".activity.GameOverWell" />
         <activity android:name=".activity.GameOverWumpus" />
 

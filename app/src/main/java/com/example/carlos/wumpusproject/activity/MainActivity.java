@@ -25,8 +25,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button emplazar;
 
     private Button arrows;
+    private Button victory;
     private Button well;
     private Button wumpus;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         arrows = (Button) findViewById(R.id.pruebaArrows);
         arrows.setOnClickListener(this);
+        victory = (Button) findViewById(R.id.pruebaVictory);
+        victory.setOnClickListener(this);
         well = (Button) findViewById(R.id.pruebaWell);
         well.setOnClickListener(this);
         wumpus = (Button) findViewById(R.id.pruebaWumpus);
@@ -63,6 +67,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.pruebaArrows:
                 intent = new Intent(getApplicationContext(), GameOverArrows.class);
+                startActivity(intent);
+                break;
+            case R.id.pruebaVictory:
+                intent = new Intent(getApplicationContext(), GameOverVictory.class);
                 startActivity(intent);
                 break;
             case R.id.pruebaWell:

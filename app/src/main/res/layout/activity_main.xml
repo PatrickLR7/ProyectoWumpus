@@ -87,6 +87,13 @@
                     android:text="Pozo" />
 
                 <Button
+                    android:id="@+id/pruebaVictory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Victoria" />
+
+                <Button
                     android:id="@+id/pruebaWumpus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
