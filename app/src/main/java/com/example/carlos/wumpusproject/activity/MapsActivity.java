@@ -152,10 +152,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             if (location.getLongitude() != 0 && location.getLatitude() != 0 && primera) {
 
                 primera = false;
-                    //Config.lonUsuario = location.getLongitude();
-                    //Config.latUsuario = location.getLatitude();
-                Config.lonUsuario =-84.052001;
-                Config.latUsuario = 9.937921;
+                    Config.lonUsuario = location.getLongitude();
+                    Config.latUsuario = location.getLatitude();
+                //Config.lonUsuario =-84.052001;
+                //Config.latUsuario = 9.937921;
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

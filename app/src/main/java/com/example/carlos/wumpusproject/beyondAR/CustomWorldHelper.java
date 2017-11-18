@@ -50,7 +50,7 @@ public class CustomWorldHelper {
                 go1.setImageResource(R.drawable.cuevaracamara);
                 go1.setName("Cueva " + i);
                 sharedWorld.addBeyondarObject(go1);
-                Config.listaGeoObj.add(go1);
+                //Config.listaGeoObj.add(go1);
             }
         }
 
