@@ -4,6 +4,7 @@ import com.beyondar.android.world.GeoObject;
 import com.example.carlos.wumpusproject.beyondAR.SimpleCamera;
 import com.google.android.gms.maps.GoogleMap;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -26,7 +27,7 @@ public class Config {
     public static float radioCuevas = 5; // Radio de cada objeto geofence
     public static int tiempoExpiracion = 60*60*1000; // Tiempo en milisegundos
     public static SimpleCamera camera; // Actividad de la camara, esta debe reaccionar ante los cambios en entrada y salida a Geofences
-    public static List<GeoObject> listaGeoObj;
+    public static ArrayList<GeoObject> listaGeoObj;
     public static Boolean primera = false;
 
     public static final int NUM_FLECHAS = 5; // Numero de flechas al inicio del juego

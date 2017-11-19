@@ -11,9 +11,11 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 
@@ -23,6 +25,7 @@ import com.beyondar.android.util.location.BeyondarLocationManager;
 import com.beyondar.android.view.BeyondarGLSurfaceView;
 import com.beyondar.android.view.OnClickBeyondarObjectListener;
 import com.beyondar.android.world.BeyondarObject;
+import com.beyondar.android.world.BeyondarObjectList;
 import com.beyondar.android.world.GeoObject;
 import com.beyondar.android.world.World;
 import com.example.carlos.wumpusproject.R;
@@ -34,6 +37,7 @@ import com.example.carlos.wumpusproject.utils.Jugar;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
+import android.os.Handler;
 
 //RADAR
     import android.graphics.Color;
@@ -58,6 +62,8 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
 
     private Boolean location;
     private Boolean camera;
+
+    private TextView textCuevaAct;
 
     //RADAR
     private RadarView mRadarView;
@@ -88,7 +94,6 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
         mBeyondarFragment = (BeyondarFragmentSupport) getSupportFragmentManager().findFragmentById(
                 R.id.beyondarFragment);
 
-        BeyondarLocationManager.setLocationManager((LocationManager) this.getSystemService(Context.LOCATION_SERVICE));
 
         // We create the world and fill it ...
         mWorld = customWorldHelper.generateObjects(this, coordenadasIniciales);
@@ -100,19 +105,23 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
         mBeyondarFragment.setPullCloserDistance(0); // Para acercar un poco los objetos que están muy lejos
         mBeyondarFragment.setWorld(mWorld);
 
-        BeyondarLocationManager.enable();
+
 
         mWorld.onResume();
 
-        //Permitimos que BeyondAR actualice automáticamente la posición del mundo con respecto al usuario
-        BeyondarLocationManager.addWorldLocationUpdate(mWorld);
 
         // Le pasamos el LocationManager al BeyondarLocationManager.
-        BeyondarLocationManager
-                .setLocationManager((LocationManager) getSystemService(Context.LOCATION_SERVICE));
+        BeyondarLocationManager.setLocationManager((LocationManager) getSystemService(Context.LOCATION_SERVICE));
+        //Permitimos que BeyondAR actualice automáticamente la posición del mundo con respecto al usuario
+        BeyondarLocationManager.addWorldLocationUpdate(mWorld);
+        //Asigna la posicion inicial del usuario a uno de los geoObjetos en el mundo.
+        //BeyondarLocationManager.addGeoObjectLocationUpdate((GeoObject)mWorld.getBeyondarObjectList(0).get(Config.cuevaInicial));
+        //Activa los servicios de ubicacion para el ayudante BeyondarLocationManager.
+        BeyondarLocationManager.enable();
 
         // We also can see the Frames per seconds
-        mBeyondarFragment.showFPS(true);
+        //mBeyondarFragment.showFPS(true);
+        mBeyondarFragment.setOnClickBeyondarObjectListener(this);
 
        // mGeofencingClient = LocationServices.getGeofencingClient(this);
        // mGeofenceList = new ArrayList<>();
@@ -162,7 +171,9 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
                 mRadarPlugin.setMaxDistance(45);
                 //RADAR
 
-
+                textCuevaAct = (TextView) findViewById(R.id.textNumCueva);
+                numCuevaActual();
+                //hiloNumCueva();
     }
 
     public void cambioDeCueva(int nuevaCueva){
@@ -177,7 +188,12 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
      */
     @Override
     public void onClickBeyondarObject(ArrayList<BeyondarObject> arrayList) {
-        Toast.makeText(this, "Ha clickeado: " + arrayList.get(0).getName(), Toast.LENGTH_LONG).show();
+        Toast toast1 =  Toast.makeText(this, "Cueva: " + arrayList.get(0).getName(), Toast.LENGTH_SHORT);
+        View customT = toast1.getView();
+        customT.setBackgroundColor(ContextCompat.getColor(this, R.color.cafeOscuro));
+        TextView t = customT.findViewById(android.R.id.message);
+        t.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
+        toast1.show();
     }
 
     /**
@@ -245,5 +261,55 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
 
      }
      //RADAR
+
+    //Para el BeyondarLocationManager
+    @Override
+    protected void onResume(){
+        // Enable GPS
+        super.onResume();
+        BeyondarLocationManager.enable();
+    }
+
+    @Override
+    protected void onPause(){
+        // Disable GPS
+        super.onPause();
+        BeyondarLocationManager.disable();
+    }
+    //Para el BeyondarLocationManager
+
+
+    /*
+     * Utilizado para indicarle al usuario el numero de la cueva en la que se encuentra.
+     */
+    public void numCuevaActual(){
+        BeyondarObjectList listaObjetos = mWorld.getBeyondarObjectList(0);
+        double distancia;
+        for(int i = 0; i < listaObjetos.size(); i++){
+            distancia = listaObjetos.get(i).getDistanceFromUser();
+            if(distancia <= 5){
+                textCuevaAct.setText(listaObjetos.get(i).getName());
+            }else{
+                textCuevaAct.setText("-");
+            }
+        }
+
+    }
+
+    /*
+    *  Corre el metodo numCuevaActual cada 10 segundos para actualizar el numero de cueva segun la posicion del usuario.
+    */
+    public void hiloNumCueva(){
+        final Handler ha = new Handler();
+        ha.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                //call function
+                numCuevaActual();
+                ha.postDelayed(this, 10000);
+            }
+        }, 10000);
+    }
 
 }

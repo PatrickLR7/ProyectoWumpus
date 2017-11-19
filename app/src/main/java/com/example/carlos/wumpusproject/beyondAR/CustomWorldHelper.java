@@ -17,7 +17,7 @@ public class CustomWorldHelper {
     public static final int LIST_TYPE_EXAMPLE_1 = 1;
 
     private World sharedWorld; // Representa el ambiente o entorno del juego.
-    private List<GeoObject> geoObjects; // Lista de objetos que actualmente se muestran en la camara
+    private ArrayList<GeoObject> geoObjects; // Lista de objetos que actualmente se muestran en la camara
     private Grafo grafo;
     private List< Vector<Double> > coordCuevas; // Coordenadas de cuevas
 
@@ -41,18 +41,27 @@ public class CustomWorldHelper {
         // loading images form Internet and the connection get lost
         sharedWorld.setDefaultImage(R.drawable.wumpuslogogreen);
 
-
+        int n = 1;
+        int cInicial = 0;
         for (int i = 0; i < Config.coordenadasCuevas.size(); i++) {
             if (!(Config.coordenadasCuevas.get(i).get(0) == 0 && Config.coordenadasCuevas.get(i).get(1)  == 0)) {
 
                 GeoObject go1 = new GeoObject();
                 go1.setGeoPosition(Config.coordenadasCuevas.get(i).get(0), Config.coordenadasCuevas.get(i).get(1));
                 go1.setImageResource(R.drawable.cuevaracamara);
-                go1.setName("Cueva " + i);
+                go1.setName("" + n);
                 sharedWorld.addBeyondarObject(go1);
-                //Config.listaGeoObj.add(go1);
+                geoObjects.add(go1);
+                if(Config.coordenadasCuevas.get(i).get(0) == Config.coordenadasIniciales.get(0) && Config.coordenadasCuevas.get(i).get(1) == Config.coordenadasIniciales.get(1)){
+                    cInicial = n;
+                    Config.cuevaInicial = cInicial;
+                }
+                n++;
             }
+
         }
+
+        Config.listaGeoObj = geoObjects;
 
         // User position (you can change it using the GPS listeners form Android
         // API)
@@ -88,4 +97,9 @@ public class CustomWorldHelper {
 
 
     }
+
+    public ArrayList<GeoObject> obtenerListaGeoObjetos(){
+        return geoObjects;
+    }
+
 }

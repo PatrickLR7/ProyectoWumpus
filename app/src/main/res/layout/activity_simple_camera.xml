@@ -20,10 +20,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:weightSum="1"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true">
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical"
+            android:weightSum="1">
 
 
             <FrameLayout
@@ -54,33 +54,59 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="1"
-            android:id="@+id/linearLayout">
+            android:weightSum="1">
 
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.71"
-                android:text="               " />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.06">
 
-            <TextView
-                android:id="@+id/flechasR"
-                android:layout_width="wrap_content"
-                android:layout_height="27dp"
-                android:layout_weight="0.06" />
+                <ImageView
+                    android:id="@+id/iconoCueva"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/cuevaraicono" />
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="46dp"
-                android:layout_height="27dp"
-                android:layout_weight="0.19"
-                app:srcCompat="@drawable/flecha" />
+                <TextView
+                    android:id="@+id/textNumCueva"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/iconoCueva"
+                    android:text="-" />
+
+                <TextView
+                    android:id="@+id/flechasR"
+                    android:layout_width="30dp"
+                    android:layout_height="27dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_toStartOf="@+id/imageView2"
+                    android:layout_weight="0.06" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="100dp"
+                    android:layout_height="27dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_weight="0.19"
+                    app:srcCompat="@drawable/flecha" />
+
+            </RelativeLayout>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtCueActual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/linearLayout"
+            android:text="CuevaActual" />
     </RelativeLayout>
 
 </FrameLayout>
