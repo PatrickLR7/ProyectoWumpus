@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Build;
+import android.os.Debug;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -31,12 +32,17 @@ import com.beyondar.android.world.World;
 import com.example.carlos.wumpusproject.R;
 import com.example.carlos.wumpusproject.utils.Config;
 
+import com.example.carlos.wumpusproject.utils.Grafo;
 import com.example.carlos.wumpusproject.utils.Jugar;
 
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import android.os.Handler;
 
 //RADAR
@@ -73,6 +79,8 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
     TextView flechasRestantes;
     //RADAR
 
+    private GeoObject user;
+    private Grafo grafo;
 
     /** Llamado cuando se crea la actividad. */
     @Override
@@ -109,15 +117,22 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
 
         mWorld.onResume();
 
+        grafo = Config.laberinto;
 
-        // Le pasamos el LocationManager al BeyondarLocationManager.
-        BeyondarLocationManager.setLocationManager((LocationManager) getSystemService(Context.LOCATION_SERVICE));
+        // Agregamos la posición del usuario al mundo de beyondAR.
+        user = new GeoObject(1000l);
+        user.setGeoPosition(mWorld.getLatitude(), mWorld.getLongitude());
+        user.setImageResource(R.drawable.bat);
+        user.setName("Posicion del usuario");
+        mWorld.addBeyondarObject(user);
         //Permitimos que BeyondAR actualice automáticamente la posición del mundo con respecto al usuario
         BeyondarLocationManager.addWorldLocationUpdate(mWorld);
-        //Asigna la posicion inicial del usuario a uno de los geoObjetos en el mundo.
-        //BeyondarLocationManager.addGeoObjectLocationUpdate((GeoObject)mWorld.getBeyondarObjectList(0).get(Config.cuevaInicial));
+        //Asigna la posicion inicial del usuario al GeoObjeto correspondiente.
+        BeyondarLocationManager.addGeoObjectLocationUpdate(user);
+        // Le pasamos el LocationManager al BeyondarLocationManager.
+        BeyondarLocationManager.setLocationManager((LocationManager) getSystemService(Context.LOCATION_SERVICE));
         //Activa los servicios de ubicacion para el ayudante BeyondarLocationManager.
-        BeyondarLocationManager.enable();
+        //BeyondarLocationManager.enable();
 
         // We also can see the Frames per seconds
         //mBeyondarFragment.showFPS(true);
@@ -172,7 +187,7 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
                 //RADAR
 
                 textCuevaAct = (TextView) findViewById(R.id.textNumCueva);
-                numCuevaActual();
+                  numCuevaActual();
                 //hiloNumCueva();
     }
 
@@ -282,24 +297,33 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
     /*
      * Utilizado para indicarle al usuario el numero de la cueva en la que se encuentra.
      */
-    public void numCuevaActual(){
+    public int numCuevaActual(){
         BeyondarObjectList listaObjetos = mWorld.getBeyondarObjectList(0);
         double distancia;
-        for(int i = 0; i < listaObjetos.size(); i++){
-            distancia = listaObjetos.get(i).getDistanceFromUser();
-            if(distancia <= 5){
-                textCuevaAct.setText(listaObjetos.get(i).getName());
-            }else{
-                textCuevaAct.setText("-");
+        GeoObject gObjeto;
+        int res = -1;
+        boolean actualizado = false;
+        for(int i = 0; i < listaObjetos.size() && !actualizado; i++){
+            gObjeto = (GeoObject) listaObjetos.get(i);
+            if(!(gObjeto.getName().equals("Posicion del usuario"))){
+                 distancia = gObjeto.calculateDistanceMeters(user);
+                if(distancia <= 5){
+                    textCuevaAct.setText(listaObjetos.get(i).getName());
+                    res = i;
+                    actualizado = true;
+                }else{
+                    textCuevaAct.setText("-");
+                }
             }
         }
-
+        return res;
     }
 
     /*
     *  Corre el metodo numCuevaActual cada 10 segundos para actualizar el numero de cueva segun la posicion del usuario.
     */
     public void hiloNumCueva(){
+        /*
         final Handler ha = new Handler();
         ha.postDelayed(new Runnable() {
 
@@ -310,6 +334,38 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
                 ha.postDelayed(this, 10000);
             }
         }, 10000);
+        */
+
+        ScheduledExecutorService scheduler =
+                Executors.newSingleThreadScheduledExecutor();
+
+        scheduler.scheduleAtFixedRate
+                (new Runnable() {
+                    public void run() {
+                        // call service
+                        numCuevaActual();
+                    }
+                }, 0, 5, TimeUnit.SECONDS);
+    }
+
+    /**
+     * Metodo para poner cuevas adyacentes visibles y las demas no
+     * Utiliza la lista de objetos del mundo mWorld
+     */
+    public void actualizarCuevasAdyacentes(int nodo){
+        BeyondarObjectList listita = mWorld.getBeyondarObjectList(0);
+        for (int i = 0; i < listita.size(); i++) {
+            listita.get(i).setVisible(false);
+        }
+
+        List<Integer> adyacentes = grafo.obtenerVecinos(nodo);
+        listita.get(nodo).setVisible(true);
+        for (int i = 0; i < adyacentes.size(); i++) {
+            int nodoVecino = adyacentes.get(i);
+            listita.get(nodoVecino).setVisible(true);
+            listita.get(nodoVecino).setImageResource(R.drawable.cuevaracamara);
+
+        }
     }
 
 }
