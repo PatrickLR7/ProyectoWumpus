@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -62,6 +63,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+
+
         coordenadasCuevas = new ArrayList<>();
         PackageManager pm = getBaseContext().getPackageManager();
         int hasPerm1 = pm.checkPermission(Manifest.permission.ACCESS_FINE_LOCATION, getBaseContext().getPackageName());
@@ -72,6 +75,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
+
+
     }
 
     protected void makeRequest() {
@@ -149,6 +156,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private final LocationListener locationListenerNetwork = new LocationListener() {
         public void onLocationChanged(Location location) {
            // Toast.makeText(getApplicationContext(), "prueba", Toast.LENGTH_SHORT).show();
+
+
+
             if (location.getLongitude() != 0 && location.getLatitude() != 0 && primera) {
 
                 primera = false;
@@ -207,6 +217,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
        // if(latitudeNetwork != 0 && longitudeNetwork != 0) {
        //     crearMapMarks();
        // }
+
+
     }
 
     public void agregarMarca(double lat, double lon) {

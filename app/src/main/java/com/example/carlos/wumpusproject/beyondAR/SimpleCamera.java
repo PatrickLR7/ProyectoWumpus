@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Debug;
@@ -57,7 +58,7 @@ import android.os.Handler;
     import com.beyondar.android.plugin.radar.RadarWorldPlugin;
 //RADAR
 
-public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarObjectListener, OnSeekBarChangeListener{
+public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarObjectListener, OnSeekBarChangeListener, android.location.LocationListener{
 
     private BeyondarFragmentSupport mBeyondarFragment;
     private World mWorld;
@@ -82,11 +83,24 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
     private GeoObject user;
     private Grafo grafo;
 
+
+
+    Location mLastLocation;
+
+
+
+
+
+
     /** Llamado cuando se crea la actividad. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Config.camera = this;
+
+
+
+
 
         String Permiso[] = {"android.permission.CAMERA", "android.permission.ACCESS_FINE_LOCATION"};
         // Start home activity
@@ -130,9 +144,12 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
         //Asigna la posicion inicial del usuario al GeoObjeto correspondiente.
         BeyondarLocationManager.addGeoObjectLocationUpdate(user);
         // Le pasamos el LocationManager al BeyondarLocationManager.
-        BeyondarLocationManager.setLocationManager((LocationManager) getSystemService(Context.LOCATION_SERVICE));
+        BeyondarLocationManager.setLocationManager((LocationManager) getSystemService(Context.LOCATION_SERVICE) );
         //Activa los servicios de ubicacion para el ayudante BeyondarLocationManager.
         //BeyondarLocationManager.enable();
+
+
+
 
         // We also can see the Frames per seconds
         //mBeyondarFragment.showFPS(true);
@@ -367,5 +384,44 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
 
         }
     }
+
+
+
+
+    @Override
+    public void onLocationChanged(Location location) {
+      //  Log.e(TAG, "onLocationChanged: " + location);
+        mLastLocation.set(location);
+        numCuevaActual();
+    }
+
+
+
+
+    @Override
+    public void onProviderDisabled(String provider) {
+       // Log.e(TAG, "onProviderDisabled: " + provider);
+    }
+
+
+
+
+
+    @Override
+    public void onProviderEnabled(String provider) {
+       // Log.e(TAG, "onProviderEnabled: " + provider);
+    }
+
+
+
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+       // Log.e(TAG, "onStatusChanged: " + provider);
+    }
+
+
+
+
 
 }
