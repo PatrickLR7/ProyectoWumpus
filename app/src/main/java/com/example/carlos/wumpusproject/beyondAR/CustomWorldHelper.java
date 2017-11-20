@@ -2,6 +2,8 @@ package com.example.carlos.wumpusproject.beyondAR;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.support.annotation.NonNull;
+
 import com.beyondar.android.world.GeoObject;
 import com.beyondar.android.world.World;
 import com.example.carlos.wumpusproject.R;
@@ -9,7 +11,11 @@ import com.example.carlos.wumpusproject.utils.Config;
 import com.example.carlos.wumpusproject.utils.Grafo;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.Vector;
 
 @SuppressLint("SdCardPath")
@@ -21,8 +27,18 @@ public class CustomWorldHelper {
     private Grafo grafo;
     private List< Vector<Double> > coordCuevas; // Coordenadas de cuevas
 
+    private HashMap mapeoOriginalANombre; //Mapea el número de cueva original a nombres de los objetos de BeyondAR
+    private HashMap mapeoNombreAOriginal; //Mapea nombres de los objetos de BeyondAR a el número de cueva original
+
     public CustomWorldHelper(){
         geoObjects = new ArrayList<>();
+
+        mapeoOriginalANombre = new HashMap<>();
+        mapeoNombreAOriginal = new HashMap<>();
+
+
+
+
     }
 
     /**
@@ -53,13 +69,21 @@ public class CustomWorldHelper {
                 sharedWorld.addBeyondarObject(go1);
                 geoObjects.add(go1);
                 if(Config.coordenadasCuevas.get(i).get(0) == Config.coordenadasIniciales.get(0) && Config.coordenadasCuevas.get(i).get(1) == Config.coordenadasIniciales.get(1)){
-                    cInicial = n;
+                    cInicial = i;
                     Config.cuevaInicial = cInicial;
                 }
+
+                mapeoOriginalANombre.put(i, n);
+                mapeoNombreAOriginal.put(n, i);
+
                 n++;
+
             }
 
         }
+
+        Config.mapOriginalANombre = mapeoOriginalANombre;
+       Config.mapNombreAOriginal = mapeoNombreAOriginal;
 
         Config.listaGeoObj = geoObjects;
 

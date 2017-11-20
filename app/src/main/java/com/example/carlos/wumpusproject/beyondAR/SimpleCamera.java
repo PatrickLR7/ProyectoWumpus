@@ -38,7 +38,9 @@ import com.example.carlos.wumpusproject.utils.Jugar;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -57,6 +59,8 @@ import android.os.Handler;
     import com.beyondar.android.plugin.radar.RadarView;
     import com.beyondar.android.plugin.radar.RadarWorldPlugin;
 //RADAR
+
+
 
 public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarObjectListener, OnSeekBarChangeListener, android.location.LocationListener{
 
@@ -84,7 +88,8 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
     private Grafo grafo;
 
 
-
+    private HashMap mapeoOriginalANombre; //Mapea el número de cueva original a nombres de los objetos de BeyondAR
+    private HashMap mapeoNombreAOriginal; //Mapea nombres de los objetos de BeyondAR a el número de cueva original
     Location mLastLocation;
 
 
@@ -97,8 +102,6 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Config.camera = this;
-
-
 
 
 
@@ -181,8 +184,8 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
                 flechasRestantes = (TextView) findViewById(R.id.flechasR);
                 flechasRestantes.setText("" + Config.NUM_FLECHAS);
 
-                        //RADAR
-                                mTextviewMaxDistance = (TextView) findViewById(R.id.textViewMax);
+                //RADAR
+                mTextviewMaxDistance = (TextView) findViewById(R.id.textViewMax);
                 mSeekBarMaxDistance = (SeekBar) findViewById(R.id.seekBar4);
                 mRadarView = (RadarView) findViewById(R.id.radarView);
                 // Create the Radar plugin
@@ -203,6 +206,8 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
                 mRadarPlugin.setMaxDistance(45);
                 //RADAR
 
+                mapeoOriginalANombre = Config.mapOriginalANombre;
+                mapeoNombreAOriginal = Config.mapNombreAOriginal;
                 textCuevaAct = (TextView) findViewById(R.id.textNumCueva);
                   numCuevaActual();
                 //hiloNumCueva();
@@ -326,13 +331,17 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
                  distancia = gObjeto.calculateDistanceMeters(user);
                 if(distancia <= 5){
                     textCuevaAct.setText(listaObjetos.get(i).getName());
-                    res = i;
+                    res = Integer.parseInt(gObjeto.getName());
                     actualizado = true;
                 }else{
                     textCuevaAct.setText("-");
                 }
             }
         }
+
+        int cuevaActual = (Integer) mapeoNombreAOriginal.get(res);
+        actualizarCuevasAdyacentes(cuevaActual);
+
         return res;
     }
 
@@ -370,17 +379,21 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
      * Utiliza la lista de objetos del mundo mWorld
      */
     public void actualizarCuevasAdyacentes(int nodo){
+
         BeyondarObjectList listita = mWorld.getBeyondarObjectList(0);
         for (int i = 0; i < listita.size(); i++) {
+
             listita.get(i).setVisible(false);
         }
 
         List<Integer> adyacentes = grafo.obtenerVecinos(nodo);
-        listita.get(nodo).setVisible(true);
-        for (int i = 0; i < adyacentes.size(); i++) {
-            int nodoVecino = adyacentes.get(i);
-            listita.get(nodoVecino).setVisible(true);
-            listita.get(nodoVecino).setImageResource(R.drawable.cuevaracamara);
+        int n = (Integer) mapeoOriginalANombre.get(nodo);
+        listita.get(n).setVisible(false);
+        for (int ii = 0; ii < adyacentes.size(); ii++) {
+            int nodoVecino = adyacentes.get(ii);
+            int m = (Integer) mapeoOriginalANombre.get(nodoVecino);
+            listita.get(m).setVisible(true);
+            listita.get(m).setImageResource(R.drawable.cuevaracamara);
 
         }
     }
