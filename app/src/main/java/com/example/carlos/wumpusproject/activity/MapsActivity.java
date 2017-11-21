@@ -179,11 +179,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     });
 
                     crearMapMarks();
-
             }
         }
-
-
 
         @Override
         public void onStatusChanged(String s, int i, Bundle bundle) {}
@@ -262,107 +259,64 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
     */
 
-
-
    public void generarPersonaje() {
-
-
-
-
        boolean personaje = false;
        tiposDeCuevas = new ArrayList<>(tamGrafo);
-
        for (int x = 0; x < tamGrafo ; x++) {
-
-           if (laberinto.presenteEnElGrafo(x) == true) {
-
+           if (laberinto.presenteEnElGrafo(x)) {
                int tipo = (int) (Math.random() * 5);
-
-               if (tipo == 4 && personaje == false) {
+               if (tipo == 4 && !personaje) {
                    //x--;
                    tiposDeCuevas.add(4);
                    personaje = true;
                    posInicialJugador = x;
                }
-
            }else{
-
                tiposDeCuevas.add(-1);
            }
-
        }
-
-
        Config.tiposDeCuevas = tiposDeCuevas;
-
-
    }
 
-
     public void crearMapMarks() {
-
        // tetrahedro();
-
-
         //9.93
         //-84.05
         //radio: 5 mts
-
-
-
-
-
-
         //this.generarTiposDeCuevas();
-
         generarPersonaje();
-
         int nodoInicial = 0;
-
         for (int x = 0; x < tamGrafo; x++) {
             Vector<Double> coordenada = new Vector<>();
             if (x == posInicialJugador) {
-
                 coordenada.add(Config.latUsuario);//usuario
-                 coordenada.add(Config.lonUsuario);//usuario
-
+                coordenada.add(Config.lonUsuario);//usuario
                // coordenada.add(9.937921);
                // coordenada.add(-84.052001);
                 coordenadasCuevas.add(x, coordenada);
                 Config.coordenadasIniciales = coordenada;
-
                 nodoInicial = x;
-
                 Config.cuevaInicial = nodoInicial;
-
                 System.out.println("x: " + x + "lat: " + Config.latUsuario + "lon: " + Config.lonUsuario);
-
-                agregarMarca(Config.latUsuario,Config.lonUsuario);                                                                 //generar marcador
-
+                agregarMarca(Config.latUsuario,Config.lonUsuario);     //generar marcador
             } else {
                 coordenada.add(0.0);
                 coordenada.add(0.0);
                 coordenadasCuevas.add(x, coordenada);
             }
         }
-
-        boolean encontrado = false;
         Pair pairInicial = laberinto.obtenerFilaColumna(nodoInicial);
-
         int filas, columnas;
-
         for (int nodo = 0; nodo < tamGrafo; nodo++) {
             if (nodo != nodoInicial) {
                 if (laberinto.presenteEnElGrafo(nodo)) {
                     Pair pairNodo = new Pair(0,0);
                     pairNodo = laberinto.obtenerFilaColumna(nodo);
-
                     Pair pairDistancia = new Pair(0,0);
-                     pairDistancia = pairNodo.restarPares(pairInicial);
+                    pairDistancia = pairNodo.restarPares(pairInicial);
 
                     filas = pairDistancia.getX();
                     columnas = pairDistancia.getY();
-
 
                     System.out.println("x: " + nodo + " pair: " + pairNodo.getX() + "," + pairNodo.getY() + " pairdis" + pairDistancia.getX() + "," + pairDistancia.getY()  );
                     Vector<Double> coordenada = new Vector<>();
@@ -374,44 +328,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             }
         }
-
        // for (int i = 0; i < tamGrafo ; i++) { // Recorre coordenadasCuevas y hace Marks
          //   if( (coordenadasCuevas.get(i).get(0) != 0.0 ) && (coordenadasCuevas.get(i).get(1) != 0.0 ) ) { //los nodos no presentes en el grafo tienen coor 0.0
               //  agregarMarca(coordenadasCuevas.get(i).get(0), coordenadasCuevas.get(i).get(1));
          //   }
         //}
-
         Config.coordenadasCuevas = coordenadasCuevas;
     }
 
-
-
-
     public void tetrahedro(){
-
         for (int nodo = 0; nodo < 3; nodo++) {
-
             agregarMarca(9.937977,-84.051858);
             agregarMarca(9.937942,-84.051847);
             agregarMarca(9.937898,-84.051889);
             agregarMarca(9.937914,-84.051800);
-
         }
-
-
-
     }
-
 
     public void startAR(View v){
         Intent i = new Intent(getApplicationContext(), SimpleCamera.class);
         startActivity(i);
     }
-
-
-
-
-
-
-
 }

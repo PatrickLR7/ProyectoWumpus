@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.beyondar.android.fragment.BeyondarFragmentSupport;
@@ -52,9 +53,6 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
     private Vector<Double> coordenadasIniciales;
     private Jugar jugar;
 
-    private Boolean location;
-    private Boolean camera;
-
     private TextView textCuevaAct;
 
     //RADAR
@@ -63,7 +61,9 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
     private SeekBar mSeekBarMaxDistance;
     private TextView mTextviewMaxDistance;
 
-    TextView flechasRestantes;
+    private TextView flechasRestantes;
+    private Button lanzarFlechaBoton;
+    private boolean lanzandoFlecha;
 
     private GeoObject user;
     private Grafo grafo;
@@ -74,8 +74,6 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Config.camera = this;
-
         String Permiso[] = {"android.permission.CAMERA", "android.permission.ACCESS_FINE_LOCATION"};
         // Start home activity
         requestPermission(Permiso, 1);
@@ -143,8 +141,25 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
 
         */
         //cambioDeCueva(Config.cuevaInicial);
-        flechasRestantes = (TextView) findViewById(R.id.flechasR);
-        flechasRestantes.setText("" + Config.NUM_FLECHAS);
+        lanzandoFlecha = false;
+        flechasRestantes = findViewById(R.id.flechasR);
+        flechasRestantes.setText("" + Config.numFlechas);
+        lanzarFlechaBoton = findViewById(R.id.lanzaFlechaBoton);
+        lanzarFlechaBoton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String mensaje;
+                if (lanzandoFlecha){
+                    lanzandoFlecha = false;
+                    mensaje = "Lanzar flecha desactivado";
+                }
+                else {
+                    lanzandoFlecha = true;
+                    mensaje = "Lanzar flecha activado";
+                }
+                Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         //RADAR
         mTextviewMaxDistance = (TextView) findViewById(R.id.textViewMax);
@@ -185,15 +200,18 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
      */
     @Override
     public void onClickBeyondarObject(ArrayList<BeyondarObject> arrayList) {
-        Toast toast1 =  Toast.makeText(this, "Cueva: " + arrayList.get(0).getName(), Toast.LENGTH_SHORT);
-        View customT = toast1.getView();
-        customT.setBackgroundColor(ContextCompat.getColor(this, R.color.cafeOscuro));
-        TextView t = customT.findViewById(android.R.id.message);
-        t.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
-        toast1.show();
-
-        //Lanzar Flecha
-
+        if (lanzandoFlecha){
+            int numCueva = (int) arrayList.get(0).getId(); //TODO revisar si el id se guarda y se castea bien
+            this.lanzarFlecha(numCueva);
+        }
+        else {
+            Toast toast1 = Toast.makeText(this, "Cueva: " + arrayList.get(0).getName(), Toast.LENGTH_SHORT);
+            View customT = toast1.getView();
+            customT.setBackgroundColor(ContextCompat.getColor(this, R.color.cafeOscuro));
+            TextView t = customT.findViewById(android.R.id.message);
+            t.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
+            toast1.show();
+        }
     }
 
     /**
@@ -229,8 +247,8 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case 1:
-                camera = this.checkSelfPermission(android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
-                location = this.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+                boolean camera = this.checkSelfPermission(android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
+                boolean location = this.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
                 if (location && camera) {
                     //se crea bien
                 }
@@ -380,9 +398,7 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
         Intent intent = new Intent(getApplicationContext(), AnimacionFlecha.class);
         startActivity(intent);
         jugar.lanzarFlecha(cueva);
-    }
-
-    public void actualizarFlechas() {
-        flechasRestantes.setText("" + Config.NUM_FLECHAS);
+        String numActualFlechas = "" + Config.numFlechas;
+        flechasRestantes.setText(numActualFlechas);
     }
 }

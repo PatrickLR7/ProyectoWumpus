@@ -76,7 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/iconoCueva"
+                    android:layout_below="@id/txtCueActual"
                     android:text="-" />
 
                 <TextView
@@ -84,29 +84,37 @@
                     android:layout_width="30dp"
                     android:layout_height="27dp"
                     android:layout_alignParentTop="true"
-                    android:layout_toStartOf="@+id/imageView2"
-                    android:layout_weight="0.06" />
+                    android:layout_toStartOf="@+id/Flecha"
+                    />
 
                 <ImageView
-                    android:id="@+id/imageView2"
+                    android:id="@+id/Flecha"
                     android:layout_width="100dp"
                     android:layout_height="27dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
-                    android:layout_weight="0.19"
                     app:srcCompat="@drawable/flecha" />
+
+                <Button
+                    android:id="@+id/lanzaFlechaBoton"
+                    android:layout_width="80sp"
+                    android:layout_height="35sp"
+                    android:layout_below="@id/Flecha"
+                    android:layout_alignParentEnd="true"
+                    android:text="Lanzar"/>
+
+                <TextView
+                    android:id="@+id/txtCueActual"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/iconoCueva"
+                    android:text="CuevaActual" />
 
             </RelativeLayout>
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/txtCueActual"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/linearLayout"
-            android:text="CuevaActual" />
     </RelativeLayout>
 
 </FrameLayout>

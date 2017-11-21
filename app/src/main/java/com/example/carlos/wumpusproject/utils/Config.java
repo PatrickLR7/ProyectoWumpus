@@ -26,18 +26,8 @@ public class Config {
     public static double latUsuario, lonUsuario; // Guardan las coordenadas actuales del jugador
     public static double distancia = 0.000109; // 20 metros Distancia entre cuevas adyacentes .000006 => 1 Metro
     public static int cuevaInicial;
-    public static float radioCuevas = 5; // Radio de cada objeto geofence
-    public static int tiempoExpiracion = 60*60*1000; // Tiempo en milisegundos
-    public static SimpleCamera camera; // Actividad de la camara, esta debe reaccionar ante los cambios en entrada y salida a Geofences
     public static ArrayList<GeoObject> listaGeoObj;
-    public static Boolean primera = false;
     public static HashMap mapOriginalANombre;
     public static HashMap mapNombreAOriginal;
-
-
-
-    public static int NUM_FLECHAS = 5; // Numero de flechas del jugador
-
-    // Numero de filas y columnas para grafos irregulares
-    public static int numFilas = 6, numColumnas = 6;
+    public static int numFlechas = 5; // Numero de flechas del jugador
 }

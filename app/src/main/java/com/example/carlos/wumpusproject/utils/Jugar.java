@@ -36,7 +36,7 @@ public class Jugar extends AppCompatActivity {
     public Jugar(Context con) {
         context = con;
         tablero = Config.laberinto;
-        flechasRestantes = Config.NUM_FLECHAS;
+        flechasRestantes = Config.numFlechas;
         tiposCueva = Config.tiposDeCuevas;
         v = (Vibrator)context.getSystemService(VIBRATOR_SERVICE); // Vibrador
         mp = MediaPlayer.create(context, R.raw.batsound); // Efecto de sonido
@@ -110,7 +110,7 @@ public class Jugar extends AppCompatActivity {
                 Toast.makeText(context, "El wumpus no estaba en esa cueva", Toast.LENGTH_LONG).show();
             }
         }
-        Config.NUM_FLECHAS = flechasRestantes;
+        Config.numFlechas = flechasRestantes;
     }
 
     /**

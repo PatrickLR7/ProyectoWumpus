@@ -35,10 +35,6 @@ public class CustomWorldHelper {
 
         mapeoOriginalANombre = new HashMap<>();
         mapeoNombreAOriginal = new HashMap<>();
-
-
-
-
     }
 
     /**
@@ -58,11 +54,11 @@ public class CustomWorldHelper {
         sharedWorld.setDefaultImage(R.drawable.wumpuslogogreen);
 
         int n = 1;
-        int cInicial = 0;
+        int cInicial;
         for (int i = 0; i < Config.coordenadasCuevas.size(); i++) {
             if (!(Config.coordenadasCuevas.get(i).get(0) == 0 && Config.coordenadasCuevas.get(i).get(1)  == 0)) {
 
-                GeoObject go1 = new GeoObject();
+                GeoObject go1 = new GeoObject(i);
                 go1.setGeoPosition(Config.coordenadasCuevas.get(i).get(0), Config.coordenadasCuevas.get(i).get(1));
                 go1.setImageResource(R.drawable.cuevaracamara);
                 go1.setName("" + n);
@@ -83,7 +79,7 @@ public class CustomWorldHelper {
         }
 
         Config.mapOriginalANombre = mapeoOriginalANombre;
-       Config.mapNombreAOriginal = mapeoNombreAOriginal;
+        Config.mapNombreAOriginal = mapeoNombreAOriginal;
 
         Config.listaGeoObj = geoObjects;
 
