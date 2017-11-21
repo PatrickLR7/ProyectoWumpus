@@ -45,6 +45,30 @@ public class Jugar extends AppCompatActivity {
         Config.caminoDeCuevas = caminoCuevas;
     }
 
+
+    public void asignarTiposCuevas() {
+
+        tiposDeCuevas = new ArrayList<>(tamGrafo);
+
+        for (int x = 0; x < Config.tiposCuevas.size ; x++) {
+            if (laberinto.presenteEnElGrafo(x)) {
+                int tipo = (int) (Math.random() * 5);
+
+                if (tipo != 4 && !personaje) {
+                    //x--;
+                    tiposDeCuevas.add(4);
+                    personaje = true;
+                    posInicialJugador = x;
+                }
+            }else{
+                tiposDeCuevas.add(-1);
+            }
+        }
+        Config.tiposDeCuevas = tiposDeCuevas;
+    }
+
+
+
     /**
      * Ubica al jugador en el laberinto.
      * @return La ubicacion.
