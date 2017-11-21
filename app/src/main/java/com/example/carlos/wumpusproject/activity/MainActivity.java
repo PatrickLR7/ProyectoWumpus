@@ -1,13 +1,10 @@
 package com.example.carlos.wumpusproject.activity;
 
-import android.Manifest;
 import android.content.Intent;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
 import com.example.carlos.wumpusproject.R;
 import com.example.carlos.wumpusproject.utils.Config;
 
@@ -21,14 +18,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button poliedro;
     /** Boton que muestra el layout de drawingcanvas. */
     private Button laberinto;
-    /** Boton que muestra el layout de emplazar el laberinto. */
-    private Button emplazar;
 
     private Button arrows;
     private Button victory;
     private Button well;
     private Button wumpus;
-
+    private Button lanzar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,10 +78,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
-
-
-    protected void makeRequest() {
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-    }
-
 }

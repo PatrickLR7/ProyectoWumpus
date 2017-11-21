@@ -36,7 +36,7 @@ public class Config {
 
 
 
-    public static final int NUM_FLECHAS = 5; // Numero de flechas al inicio del juego
+    public static int NUM_FLECHAS = 5; // Numero de flechas del jugador
 
     // Numero de filas y columnas para grafos irregulares
     public static int numFilas = 6, numColumnas = 6;
