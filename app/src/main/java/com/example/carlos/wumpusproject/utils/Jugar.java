@@ -116,7 +116,8 @@ public class Jugar extends AppCompatActivity {
     /**
      * Metodo usado para mostrar indicios basandose en la posicion actual del jugador en el laberinto
      */
-    public void mostrarIndicios() {
+    public void mostrarIndicios(int cActual) {
+        cuevaActual = cActual;
         List<Integer> vecinos = tablero.obtenerVecinos(cuevaActual);
         int vecinoActual;
         int tipo;

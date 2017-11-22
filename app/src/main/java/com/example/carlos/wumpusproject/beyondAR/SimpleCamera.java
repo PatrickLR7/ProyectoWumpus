@@ -31,6 +31,7 @@ import com.example.carlos.wumpusproject.utils.Grafo;
 import com.example.carlos.wumpusproject.utils.Jugar;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 import java.util.concurrent.Executors;
@@ -69,6 +70,9 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
     private Grafo grafo;
 
     private Location mLastLocation;
+
+    private HashMap mapeoOriginalANombre; //Mapea el número de cueva original a nombres de los objetos de BeyondAR
+    private HashMap mapeoNombreAOriginal; //Mapea nombres de los objetos de BeyondAR a el número de cueva original
 
     /** Llamado cuando se crea la actividad. */
     @Override
@@ -183,15 +187,17 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
         mRadarPlugin.setMaxDistance(45);
         //RADAR
 
+        mapeoOriginalANombre = Config.mapOriginalANombre;
+        mapeoNombreAOriginal = Config.mapNombreAOriginal;
+
         textCuevaAct = (TextView) findViewById(R.id.textNumCueva);
         numCuevaActual();
-        //hiloNumCueva();
     }
 
     public void cambioDeCueva(int nuevaCueva){
         customWorldHelper.updateObjects(nuevaCueva);
         jugar.actualizarCuevaActual(nuevaCueva);
-        jugar.mostrarIndicios();
+        jugar.mostrarIndicios(nuevaCueva);
     }
 
     /**
@@ -316,36 +322,13 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
                 }
             }
         }
+
+        int cuevaActual = (Integer) mapeoNombreAOriginal.get(res);
+        actualizarCuevasAdyacentes(cuevaActual);
+        jugar.mostrarIndicios(cuevaActual);
         return res;
     }
 
-    /*
-    *  Corre el metodo numCuevaActual cada 10 segundos para actualizar el numero de cueva segun la posicion del usuario.
-    */
-    public void hiloNumCueva(){
-        /*
-        final Handler ha = new Handler();
-        ha.postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                //call function
-                numCuevaActual();
-                ha.postDelayed(this, 10000);
-            }
-        }, 10000);
-        */
-
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-
-        scheduler.scheduleAtFixedRate
-                (new Runnable() {
-                    public void run() {
-                        // call service
-                        numCuevaActual();
-                    }
-                }, 0, 5, TimeUnit.SECONDS);
-    }
 
     /**
      * Metodo para poner cuevas adyacentes visibles y las demas no
@@ -358,13 +341,14 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
         }
 
         List<Integer> adyacentes = grafo.obtenerVecinos(nodo);
-        listita.get(nodo).setVisible(true);
-        for (int i = 0; i < adyacentes.size(); i++) {
-            int nodoVecino = adyacentes.get(i);
-            listita.get(nodoVecino).setVisible(true);
-            listita.get(nodoVecino).setImageResource(R.drawable.cuevaracamara);
-
-        }
+        int n = (Integer) mapeoOriginalANombre.get(nodo);
+                listita.get(n).setVisible(false);
+                for (int ii = 0; ii < adyacentes.size(); ii++) {
+                    int nodoVecino = adyacentes.get(ii);
+                    int m = (Integer) mapeoOriginalANombre.get(nodoVecino);
+                    listita.get(m).setVisible(true);
+                    listita.get(m).setImageResource(R.drawable.cuevaracamara);
+         }
     }
 
     @Override
