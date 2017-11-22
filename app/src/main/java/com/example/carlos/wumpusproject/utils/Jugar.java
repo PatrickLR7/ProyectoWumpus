@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Vibrator;
 import android.os.VibrationEffect;
@@ -65,12 +68,14 @@ public class Jugar extends AppCompatActivity {
 
                 }else {
 
-                    if(i == tiposCueva.size() - 1 && wumpus == false){  // Si recorrio el vector sin agregar un wumpus entonces se realiza otra vez el for
 
-                        i = -1;
-
-                    }
                 }
+            }
+
+            if(i == tiposCueva.size() - 1 && wumpus == false){  // Si recorrio el vector sin agregar un wumpus entonces se realiza otra vez el for
+
+                i = -1;
+
             }
 
         }
@@ -120,34 +125,58 @@ public class Jugar extends AppCompatActivity {
         cuevaActual = cActual;
         List<Integer> vecinos = tablero.obtenerVecinos(cuevaActual);
         int vecinoActual;
-        int tipo;
-        for (int i = 0; i < vecinos.size(); i++) {
-            vecinoActual = vecinos.get(i);
-            tipo = tiposCueva.get(vecinoActual);
-            switch (tipo) {
-                case 1:
-                    //Mensaje diciendo que hay wumpus
-                    Toast.makeText(context, "Hay un desagradable olor a wumpus", Toast.LENGTH_LONG).show();
-                    break;
-                case 2:
-                    //Pozo vibra
-                    if (v.hasVibrator()) //Verifica que el dispositivo tiene la capacidad de vibrar
-                    {
-                        if (Build.VERSION.SDK_INT >= 26) //La vibración se maneja distinto según el SDK
+        int tipo = tiposCueva.get(cuevaActual);
+
+        if(tipo == 1){
+
+            this.muerte();
+
+        }else if(tipo == 2){
+
+            this.pozo();
+
+        }else{
+
+
+            for (int i = 0; i < vecinos.size(); i++) {
+                vecinoActual = vecinos.get(i);
+                tipo = tiposCueva.get(vecinoActual);
+                switch (tipo) {
+
+                    case 1:
+                        //Mensaje diciendo que hay wumpus
+                        Toast.makeText(context, "Hay un desagradable olor a wumpus", Toast.LENGTH_LONG).show();
+
+                   /* Toast toast1 = Toast.makeText(context, "El Wumpus esta cerca! ", Toast.LENGTH_LONG);
+                    View customT = toast1.getView();
+                    customT.setBackgroundColor(context.getColor(getApplicationContext(), R.color.red));
+                    TextView t = customT.findViewById(android.R.id.message);
+                    t.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
+                    toast1.show();
+                    */
+                        break;
+
+                    case 2:
+                        //Pozo vibra
+                        if (v.hasVibrator()) //Verifica que el dispositivo tiene la capacidad de vibrar
                         {
-                            v.vibrate(VibrationEffect.createOneShot(150, VibrationEffect.DEFAULT_AMPLITUDE));
-                        } else {
-                            v.vibrate(500);
+                            if (Build.VERSION.SDK_INT >= 26) //La vibración se maneja distinto según el SDK
+                            {
+                                v.vibrate(VibrationEffect.createOneShot(150, VibrationEffect.DEFAULT_AMPLITUDE));
+                            } else {
+                                v.vibrate(500);
+                            }
+                        } else //Si no puede vibrar, muestra un mensaje
+                        {
+                            Toast.makeText(context, "Se siente una brisa fría", Toast.LENGTH_LONG).show();
                         }
-                    } else //Si no puede vibrar, muestra un mensaje
-                    {
-                        Toast.makeText(context, "Se siente una brisa fría", Toast.LENGTH_LONG).show();
-                    }
-                    break;
-                case 3:
-                    //Murciélagos con efecto de sonido
-                    mp.start();
-                    break;
+                        break;
+
+                    case 3:
+                        //Murciélagos con efecto de sonido
+                        mp.start();
+                        break;
+                }
             }
         }
     }
@@ -165,6 +194,7 @@ public class Jugar extends AppCompatActivity {
                 sinFlechas();
             } else {
                 Toast.makeText(context, "El wumpus no estaba en esa cueva", Toast.LENGTH_LONG).show();
+
             }
         }
         Config.numFlechas = flechasRestantes;
@@ -174,17 +204,44 @@ public class Jugar extends AppCompatActivity {
      * Metodo para manejar el caso en que el usuario se quede sin flechas.
      */
     public void sinFlechas() {
-        Intent intent = new Intent(this, GameOverArrows.class);
-        startActivity(intent);
+
+       // Intent intent = new Intent(this, GameOverArrows.class);
+       // startActivity(intent);
+        Config.sinFlechas = true;
+
+
     }
 
     /**
      * Metodo para manejar el caso en que el usuario haya exitosamente matado al Wumpus.
      */
     public void victoria() {
-        Intent intent = new Intent(getApplicationContext(), GameOverVictory.class);
-        startActivity(intent);
+        //Intent intent = new Intent(context, GameOverVictory.class);
+       // startActivity(intent);
+        Config.wumpus = true;
+
     }
+
+    /**
+     * Metodo para manejar el caso en que el usuario se lo coma el Wumpus.
+     */
+    public void muerte() {
+
+        Config.muerte = true;
+
+    }
+
+
+    /**
+     * Metodo para manejar el caso en que el usuario cayó en el pozo.
+     */
+    public void pozo() {
+
+        Config.pozo = true;
+
+    }
+
+
 
     /**
      * Actualiza el numero de cueva

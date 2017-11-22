@@ -26,6 +26,10 @@ import com.beyondar.android.world.World;
 
 import com.example.carlos.wumpusproject.R;
 import com.example.carlos.wumpusproject.activity.AnimacionFlecha;
+import com.example.carlos.wumpusproject.activity.GameOverArrows;
+import com.example.carlos.wumpusproject.activity.GameOverVictory;
+import com.example.carlos.wumpusproject.activity.GameOverWell;
+import com.example.carlos.wumpusproject.activity.GameOverWumpus;
 import com.example.carlos.wumpusproject.utils.Config;
 import com.example.carlos.wumpusproject.utils.Grafo;
 import com.example.carlos.wumpusproject.utils.Jugar;
@@ -52,7 +56,7 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
     private World mWorld;
     private CustomWorldHelper customWorldHelper;
     private Vector<Double> coordenadasIniciales;
-    private Jugar jugar;
+    //private Jugar jugar;
 
     private TextView textCuevaAct;
 
@@ -86,7 +90,7 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
 
         setContentView(R.layout.activity_simple_camera);
         customWorldHelper = new CustomWorldHelper();
-        jugar = new Jugar(this);
+        //jugar = new Jugar(this);
         coordenadasIniciales = Config.coordenadasIniciales;
 
         mBeyondarFragment = (BeyondarFragmentSupport) getSupportFragmentManager().findFragmentById(R.id.beyondarFragment);
@@ -156,10 +160,12 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
                 if (lanzandoFlecha){
                     lanzandoFlecha = false;
                     mensaje = "Lanzar flecha desactivado";
+                    lanzarFlechaBoton.setBackgroundColor(Color.GRAY);
                 }
                 else {
                     lanzandoFlecha = true;
                     mensaje = "Lanzar flecha activado";
+                    lanzarFlechaBoton.setBackgroundColor(Color.GREEN);
                 }
                 Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_SHORT).show();
             }
@@ -191,13 +197,20 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
         mapeoNombreAOriginal = Config.mapNombreAOriginal;
 
         textCuevaAct = (TextView) findViewById(R.id.textNumCueva);
+
+        Config.wumpus = false;
+        Config.sinFlechas = false;
+        Config.muerte = false;
+        Config.pozo = false;
+
+
         numCuevaActual();
     }
 
     public void cambioDeCueva(int nuevaCueva){
         customWorldHelper.updateObjects(nuevaCueva);
-        jugar.actualizarCuevaActual(nuevaCueva);
-        jugar.mostrarIndicios(nuevaCueva);
+        Config.jugar.actualizarCuevaActual(nuevaCueva);
+        Config.jugar.mostrarIndicios(nuevaCueva);
     }
 
     /**
@@ -209,6 +222,14 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
         if (lanzandoFlecha){
             int numCueva = (int) arrayList.get(0).getId(); //TODO revisar si el id se guarda y se castea bien
             this.lanzarFlecha(numCueva);
+
+            if(Config.wumpus == true){
+                this.wumpus();
+            }else if(Config.sinFlechas == true){
+
+                this.sinFlechas();
+            }
+
         }
         else {
             Toast toast1 = Toast.makeText(this, "Cueva: " + arrayList.get(0).getName(), Toast.LENGTH_SHORT);
@@ -309,25 +330,43 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
         GeoObject gObjeto;
         int res = -1;
         boolean actualizado = false;
+
+
+
         for(int i = 0; i < listaObjetos.size() && !actualizado; i++){
             gObjeto = (GeoObject) listaObjetos.get(i);
             if(!(gObjeto.getName().equals("Posicion del usuario"))){
                  distancia = gObjeto.calculateDistanceMeters(user);
-                if(distancia <= 5){
+                if(distancia <= 10){
                     textCuevaAct.setText(listaObjetos.get(i).getName());
                     res =  Integer.parseInt(gObjeto.getName());
                     actualizado = true;
                 }else{
                     textCuevaAct.setText("-");
+                    actualizado = false;
                 }
             }
         }
 
-        if(actualizado = true){
+        if(actualizado == true){
             int cuevaActual = (Integer) mapeoNombreAOriginal.get(res);
+
+
             actualizarCuevasAdyacentes(cuevaActual);
+            Config.jugar.mostrarIndicios(cuevaActual);
         }
-        //jugar.mostrarIndicios(cuevaActual);
+
+        if(Config.muerte == true){
+
+            this.muerte();
+
+        }else if(Config.pozo == true){
+
+            this.pozo();
+
+        }
+
+
         return res;
     }
 
@@ -387,8 +426,36 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
     public void lanzarFlecha(int cueva) {
         Intent intent = new Intent(getApplicationContext(), AnimacionFlecha.class);
         startActivity(intent);
-        jugar.lanzarFlecha(cueva);
+        Config.jugar.lanzarFlecha(cueva);
         String numActualFlechas = "" + Config.numFlechas;
         flechasRestantes.setText(numActualFlechas);
     }
+
+
+    public void wumpus() {
+
+        Intent intent = new Intent(getApplicationContext(), GameOverVictory.class);
+        startActivity(intent);
+
+    }
+
+    public void sinFlechas() {
+
+        Intent intent = new Intent(getApplicationContext(), GameOverArrows.class);
+        startActivity(intent);
+
+    }
+
+    public void muerte() {
+
+        Intent intent = new Intent(getApplicationContext(), GameOverWumpus.class);
+        startActivity(intent);
+    }
+
+    public void pozo() {
+
+        Intent intent = new Intent(getApplicationContext(), GameOverWell.class);
+        startActivity(intent);
+    }
+
 }

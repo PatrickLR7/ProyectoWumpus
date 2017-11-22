@@ -21,6 +21,7 @@ import com.example.carlos.wumpusproject.R;
 import com.example.carlos.wumpusproject.beyondAR.SimpleCamera;
 import com.example.carlos.wumpusproject.utils.Config;
 import com.example.carlos.wumpusproject.utils.Grafo;
+import com.example.carlos.wumpusproject.utils.Jugar;
 import com.example.carlos.wumpusproject.utils.Pair;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -260,19 +261,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     */
 
    public void generarPersonaje() {
+
        boolean personaje = false;
        tiposDeCuevas = new ArrayList<>(tamGrafo);
+       for (int i = 0; i < tamGrafo ; i++) {
+           tiposDeCuevas.add(-1);
+       }
+
        for (int x = 0; x < tamGrafo ; x++) {
            if (laberinto.presenteEnElGrafo(x)) {
                int tipo = (int) (Math.random() * 5);
                if (tipo == 4 && !personaje) {
                    //x--;
-                   tiposDeCuevas.add(4);
+                   tiposDeCuevas.set(x,4);
                    personaje = true;
                    posInicialJugador = x;
+
+               }else{
+                   tiposDeCuevas.set(x,-1);
                }
+
            }else{
-               tiposDeCuevas.add(-1);
+               tiposDeCuevas.set(x,-1);
+           }
+
+           if(x == tamGrafo-1 && personaje == false){
+
+               x = -1;
            }
        }
        Config.tiposDeCuevas = tiposDeCuevas;
@@ -346,6 +361,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void startAR(View v){
+
+        Jugar jugar = new Jugar(getApplicationContext());
+        Config.jugar = jugar;
+        Config.jugar.asignarTiposCuevas();
         Intent i = new Intent(getApplicationContext(), SimpleCamera.class);
         startActivity(i);
     }

@@ -30,4 +30,9 @@ public class Config {
     public static HashMap mapOriginalANombre;
     public static HashMap mapNombreAOriginal;
     public static int numFlechas = 5; // Numero de flechas del jugador
+    public static Jugar jugar;
+    public static Boolean wumpus = false;
+    public static Boolean sinFlechas = false;
+    public static Boolean muerte = false;
+    public static Boolean pozo = false;
 }

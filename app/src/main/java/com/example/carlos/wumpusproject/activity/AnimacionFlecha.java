@@ -21,7 +21,7 @@ public class AnimacionFlecha extends AppCompatActivity {
         setContentView(R.layout.activity_animacion_flecha);
 
         //Contador que permite entrar a ver el video y luego devolverse a la pantalla anterior.
-        new CountDownTimer(4000, 3000) {
+        new CountDownTimer(3500, 3000) {
             @Override
             public void onTick(long l) {
                 if (counter == 0) {
@@ -39,7 +39,6 @@ public class AnimacionFlecha extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                Toast.makeText(getApplicationContext(), "La flecha se lanzó.", Toast.LENGTH_SHORT).show();
                 AnimacionFlecha.super.finish();
             }
         }.start();
