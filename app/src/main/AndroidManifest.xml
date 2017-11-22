@@ -57,7 +57,10 @@
             android:required="true"
             android:value="AIzaSyBklz8wk1_tTm_yOsdMiCcReWFAFcLjCNo" />
 
-        <activity android:name=".beyondAR.SimpleCamera" />
+        <activity android:name=".beyondAR.SimpleCamera"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|keyboardHidden">
+        </activity>
         <activity android:name=".activity.AnimacionFlecha"></activity>
     </application>
 

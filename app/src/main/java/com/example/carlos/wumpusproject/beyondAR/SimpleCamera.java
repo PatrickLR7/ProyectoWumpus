@@ -315,7 +315,7 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
                  distancia = gObjeto.calculateDistanceMeters(user);
                 if(distancia <= 5){
                     textCuevaAct.setText(listaObjetos.get(i).getName());
-                    res = i;
+                    res =  Integer.parseInt(gObjeto.getName());
                     actualizado = true;
                 }else{
                     textCuevaAct.setText("-");
@@ -323,9 +323,11 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
             }
         }
 
-        int cuevaActual = (Integer) mapeoNombreAOriginal.get(res);
-        actualizarCuevasAdyacentes(cuevaActual);
-        jugar.mostrarIndicios(cuevaActual);
+        if(actualizado = true){
+            int cuevaActual = (Integer) mapeoNombreAOriginal.get(res);
+            actualizarCuevasAdyacentes(cuevaActual);
+        }
+        //jugar.mostrarIndicios(cuevaActual);
         return res;
     }
 
@@ -345,10 +347,14 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
                 listita.get(n).setVisible(false);
                 for (int ii = 0; ii < adyacentes.size(); ii++) {
                     int nodoVecino = adyacentes.get(ii);
-                    int m = (Integer) mapeoOriginalANombre.get(nodoVecino);
-                    listita.get(m).setVisible(true);
-                    listita.get(m).setImageResource(R.drawable.cuevaracamara);
-         }
+                    String m = "" + mapeoOriginalANombre.get(nodoVecino);
+                    for(int j = 0; j < listita.size(); j++){
+                        if(listita.get(j).getName().equals(m)){
+                            listita.get(j).setVisible(true);
+                            listita.get(j).setImageResource(R.drawable.cuevaracamara);
+                        }
+                    }
+                }
     }
 
     @Override
