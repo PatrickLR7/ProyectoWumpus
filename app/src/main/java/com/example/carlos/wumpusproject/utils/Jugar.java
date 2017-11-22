@@ -46,27 +46,59 @@ public class Jugar extends AppCompatActivity {
     }
 
 
+
+
+
     public void asignarTiposCuevas() {
 
-        tiposDeCuevas = new ArrayList<>(tamGrafo);
+        Boolean wumpus = false;
 
-        for (int x = 0; x < Config.tiposCuevas.size ; x++) {
-            if (laberinto.presenteEnElGrafo(x)) {
+        for (int i = 0; i < tiposCueva.size() ; i++) {
+
+            if (tablero.presenteEnElGrafo(i)) {
                 int tipo = (int) (Math.random() * 5);
 
-                if (tipo != 4 && !personaje) {
-                    //x--;
-                    tiposDeCuevas.add(4);
-                    personaje = true;
-                    posInicialJugador = x;
+                if (tipo == 1 && wumpus==false && tiposCueva.get(i) != 4 ) { //Asigna Wumpus a un nodo existente que no tenga 4(Personaje)
+
+                    tiposCueva.set(i,1);
+                    wumpus = true;
+
+                }else {
+
+                    if(i == tiposCueva.size() - 1 && wumpus == false){  // Si recorrio el vector sin agregar un wumpus entonces se realiza otra vez el for
+
+                        i = -1;
+
+                    }
                 }
-            }else{
-                tiposDeCuevas.add(-1);
+            }
+
+        }
+
+        for (int x = 0; x < tiposCueva.size() ; x++) {
+
+            if (tablero.presenteEnElGrafo(x)) {
+
+                int tipo = (int) (Math.random() * 5);
+
+                if(tiposCueva.get(x) != 4 && tiposCueva.get(x) != 1){ //Si no es la cueva del personaje o wumpus
+
+                    if (tipo != 4 && tipo != 1) {
+
+                        tiposCueva.set(x, tipo); //Si no es personaje 4 ni wumpus 1 entonces pone otro tipo al azar
+
+                    }else{ //Si estaba en grafo, no era la cueva de personaje ni wumpus pero salió 4 o 1 entonces no aumenta y vuelve a intentar otro número
+
+                        x--;
+                    }
+
+                }
+
             }
         }
-        Config.tiposDeCuevas = tiposDeCuevas;
-    }
 
+        Config.tiposDeCuevas = tiposCueva;
+    }
 
 
     /**
