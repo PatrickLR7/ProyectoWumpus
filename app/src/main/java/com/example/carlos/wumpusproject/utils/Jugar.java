@@ -127,7 +127,7 @@ public class Jugar extends AppCompatActivity {
         int vecinoActual;
         int tipo = tiposCueva.get(cuevaActual);
 
-        Toast.makeText(context, "Tipo de cueva" + tipo, Toast.LENGTH_LONG).show();
+        //Toast.makeText(context, "Tipo de cueva" + tipo, Toast.LENGTH_LONG).show();
         if(tipo == 1){
 
             this.muerte();
