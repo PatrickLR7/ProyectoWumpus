@@ -225,7 +225,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-        Toast.makeText(MapsActivity.this, "Marcador agregado", Toast.LENGTH_SHORT).show();
+
         contadorMarcas++;
     }
 
@@ -343,6 +343,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             }
         }
+        Toast.makeText(MapsActivity.this, "Cuevas emplazadas correctamente!", Toast.LENGTH_SHORT).show();
        // for (int i = 0; i < tamGrafo ; i++) { // Recorre coordenadasCuevas y hace Marks
          //   if( (coordenadasCuevas.get(i).get(0) != 0.0 ) && (coordenadasCuevas.get(i).get(1) != 0.0 ) ) { //los nodos no presentes en el grafo tienen coor 0.0
               //  agregarMarca(coordenadasCuevas.get(i).get(0), coordenadasCuevas.get(i).get(1));
