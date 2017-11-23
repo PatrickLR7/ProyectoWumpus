@@ -50,7 +50,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -94,14 +93,6 @@
                     android:layout_alignParentTop="true"
                     app:srcCompat="@drawable/flecha" />
 
-                <Button
-                    android:id="@+id/lanzaFlechaBoton"
-                    android:layout_width="80sp"
-                    android:layout_height="35sp"
-                    android:layout_below="@id/Flecha"
-                    android:layout_alignParentEnd="true"
-                    android:text="Lanzar"/>
-
                 <TextView
                     android:id="@+id/txtCueActual"
                     android:layout_width="wrap_content"
@@ -109,11 +100,16 @@
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/iconoCueva"
                     android:text="CuevaActual" />
-
             </RelativeLayout>
-
         </LinearLayout>
 
+        <Button
+            android:id="@+id/lanzaFlechaBoton"
+            android:layout_width="80sp"
+            android:layout_height="35sp"
+            android:layout_alignBottom="@+id/linearLayout"
+            android:layout_alignParentEnd="true"
+            android:text="Lanzar" />
     </RelativeLayout>
 
 </FrameLayout>

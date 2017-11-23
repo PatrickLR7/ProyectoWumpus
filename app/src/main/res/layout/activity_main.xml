@@ -77,28 +77,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Flechas" />
+                    android:text="Flechas"
+                    android:visibility="invisible"
+                    />
 
                 <Button
                     android:id="@+id/pruebaWell"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Pozo" />
+                    android:text="Pozo"
+                    android:visibility="invisible"/>
 
                 <Button
                     android:id="@+id/pruebaVictory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Victoria" />
+                    android:text="Victoria"
+                    android:visibility="invisible"
+                    />
 
                 <Button
                     android:id="@+id/pruebaWumpus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Wumpus" />
+                    android:text="Wumpus"
+                    android:visibility="invisible"
+                    />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
