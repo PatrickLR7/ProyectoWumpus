@@ -107,9 +107,10 @@
             android:id="@+id/lanzaFlechaBoton"
             android:layout_width="80sp"
             android:layout_height="35sp"
-            android:layout_alignBottom="@+id/linearLayout"
+            android:text="Lanzar"
+            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:text="Lanzar" />
+            android:layout_marginTop="28dp" />
     </RelativeLayout>
 
 </FrameLayout>

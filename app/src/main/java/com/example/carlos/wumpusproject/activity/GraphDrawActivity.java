@@ -16,13 +16,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
 import java.util.List;
 
 /**
  * Clase de se encarga de ya sea dibujar el grafo, compartirlo, recibirlo o escoger alguno en la libreria.
  */
-
 public class GraphDrawActivity extends AppCompatActivity implements View.OnClickListener {
 
     /** Guarda indice del boton previamente seleccionado en el grafo. */

@@ -1,11 +1,8 @@
 package com.example.carlos.wumpusproject.activity;
 
 import com.example.carlos.wumpusproject.R;
-import com.example.carlos.wumpusproject.activity.MapsActivity;
-import com.example.carlos.wumpusproject.beyondAR.SimpleCamera;
 import com.example.carlos.wumpusproject.utils.Config;
 import com.example.carlos.wumpusproject.utils.Grafo;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,11 +10,12 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+/**
+ * Clase que representa los laberintos regulares.
+ */
 public class GrafosRegulares extends AppCompatActivity implements View.OnClickListener {
 
-    /*
-     * Botones de los diferentes poliedros regulares.
-     */
+    /** Botones de los diferentes poliedros regulares. */
     private ImageButton tetraedro;
     private ImageButton octaedro;
     private ImageButton cubo;
@@ -48,16 +46,14 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
     /**
      * Metodo llamado al clickear sobre un poliedro regular, este lo construye y lo guarda en la clase
      * encargada de la configuracion.
-     * @param v:
      */
     @Override
-    public void onClick(View v){
+    public void onClick(View v) {
         Grafo laberinto = null;
         switch(v.getId()){
             case R.id.Tetraedro:
                 Toast.makeText(this, "Su laberinto tiene 4 cuevas", Toast.LENGTH_LONG).show();
                 laberinto = new Grafo(9);
-               // tipos = llenarCueva(4);
                 laberinto.addArista(1,4);
                 laberinto.addArista(1,6);
                 laberinto.addArista(1,8);
@@ -65,6 +61,7 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
                 laberinto.addArista(4,6);
                 laberinto.addArista(6,8);
                 break;
+
             case R.id.Octaedro:
                 Toast.makeText(this, "Su laberinto tiene 6 cuevas", Toast.LENGTH_LONG).show();
                 laberinto = new Grafo(25);
@@ -85,7 +82,6 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
             case R.id.Cubo:
                 Toast.makeText(this, "Su laberinto tiene 8 cuevas", Toast.LENGTH_LONG).show();
                 laberinto = new Grafo(16);
-               // tipos = llenarCueva(8);
                 laberinto.addArista(0,3);
                 laberinto.addArista(3,6);
                 laberinto.addArista(5,6);
@@ -98,13 +94,11 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
                 laberinto.addArista(12,15);
                 laberinto.addArista(0,12);
                 laberinto.addArista(9,12);
-
                 break;
 
             case R.id.Icosaedro:
                 Toast.makeText(this, "Su laberinto tiene 12 cuevas", Toast.LENGTH_LONG).show();
                 laberinto = new Grafo(81);
-             //   tipos = llenarCueva(12);
                 laberinto.addArista(4,72);
                 laberinto.addArista(4,47);
                 laberinto.addArista(4,40);
@@ -135,13 +129,11 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
                 laberinto.addArista(67,72);
                 laberinto.addArista(67,80);
                 laberinto.addArista(72,80);
-
                 break;
 
             case R.id.Dodecaedro:
                 Toast.makeText(this, "Su laberinto tiene 20 cuevas", Toast.LENGTH_LONG).show();
                 laberinto = new Grafo(121);
-             //   tipos = llenarCueva(20);
                 laberinto.addArista(15,26);
                 laberinto.addArista(15,43);
                 laberinto.addArista(15,53);
@@ -176,8 +168,6 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
         }
 
         Config.laberinto = laberinto;
-        // Config.tiposDeCuevas = tipos;
-
         Intent i = new Intent(getApplicationContext(), MapsActivity.class);
         startActivity(i);
     }

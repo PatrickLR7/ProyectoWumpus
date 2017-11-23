@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -16,7 +15,6 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Toast;
-
 import com.example.carlos.wumpusproject.R;
 import com.example.carlos.wumpusproject.beyondAR.SimpleCamera;
 import com.example.carlos.wumpusproject.utils.Config;
@@ -37,34 +35,36 @@ import java.util.Vector;
 /**
  * Clase de la activity maps.
  */
-
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    /** Instancia de GoogleMap. */
     private GoogleMap mMap;
+    /** Controlador de las coordenadas. */
     LocationManager locationManager;
-    /** Variables pra latitud y longitud. */
-
+    /** Contador de cuevas marcadas. */
     private int contadorMarcas = 0;
-
+    /** Laberinto en el que se juega. */
     private Grafo laberinto = Config.laberinto;
+    /** Tipos de las cuevas. */
     private List<Integer> tiposDeCuevas;
-
+    /** Cantidad de cuevas. */
     private int tamGrafo;
+    /** Posicion inicial del jugador. */
     private int posInicialJugador;
-    private int posInicialWumpus;
+    /** Distancia entre marcas. */
     private double distancia = Config.distancia;
-
+    /** Coordenadas de los marcadores que representan las cuevas. */
     private List<Vector<Double>> coordenadasCuevas;
-
+    /** Contador. */
     private boolean primera = true;
 
-
+    /**
+     * Metodo que crea el layout.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
-
 
         coordenadasCuevas = new ArrayList<>();
         PackageManager pm = getBaseContext().getPackageManager();
@@ -73,29 +73,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             makeRequest();
         }
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-
-
-
     }
 
+    /**
+     * Solicita permiso para escribir en el almacenamiento del celular
+     * Es necesario para guardar los laberintos recibidos.
+     */
     protected void makeRequest() {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
     }
 
+    /**
+     * Muestra un mensaje cuando se acepta el permiso o cuando no es aceptado.
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        if(requestCode == 1){
-            for(int i = 0, len = permissions.length; i < len; i++){
-                if(grantResults[i] == PackageManager.PERMISSION_GRANTED){
-                    //Permiso concedido
+        if (requestCode == 1) {
+            for (int i = 0, len = permissions.length; i < len; i++) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(MapsActivity.this, "Permiso concedido", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    //permiso denegado
+                } else {
                     Toast.makeText(MapsActivity.this, "Permiso denegado", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -140,6 +139,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void toggleNetworkUpdates() {
         if (!checkLocation())
             return;
+
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -150,35 +150,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 1, locationListenerNetwork);
-        //locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER,  );
     }
 
+    /**
+     * Metodo que verifica los cambios de coordenadas.
+     */
     private final LocationListener locationListenerNetwork = new LocationListener() {
+        /** Cambio en la ubicación. */
         public void onLocationChanged(Location location) {
-           // Toast.makeText(getApplicationContext(), "prueba", Toast.LENGTH_SHORT).show();
-
-
-
             if (location.getLongitude() != 0 && location.getLatitude() != 0 && primera) {
-
                 primera = false;
-                    Config.lonUsuario = location.getLongitude();
-                    Config.latUsuario = location.getLatitude();
-                //Config.lonUsuario =-84.052001;
-                //Config.latUsuario = 9.937921;
-                    runOnUiThread(new Runnable() {
+                Config.lonUsuario = location.getLongitude();
+                Config.latUsuario = location.getLatitude();
+                runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                           // agregarMarca(latitudeNetwork, longitudeNetwork);
-                          //  Toast.makeText(MapsActivity.this, "Marcador creado", Toast.LENGTH_SHORT).show();
                             mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(Config.latUsuario,  Config.lonUsuario)));
                             CameraUpdate zoom=CameraUpdateFactory.zoomTo(20);
                             mMap.animateCamera(zoom);
-
                         }
                     });
-
                     crearMapMarks();
             }
         }

@@ -10,26 +10,25 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.VideoView;
-
 import com.example.carlos.wumpusproject.R;
 
 /**
- * Created by b55519 on 16/11/2017.
+ * Clase que maneja una derrota por caida en las garas del wumpus.
  */
+public class GameOverWumpus extends AppCompatActivity implements View.OnClickListener {
 
-public class GameOverWumpus extends AppCompatActivity implements View.OnClickListener
-{
+    /** Boton menu. */
     private Button menu;
 
+    /**
+     * Metodo que crea el layout.
+     */
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.gameover_wumpus);
 
-        //Configura el botón
         menu = (Button) findViewById(R.id.buttonRestart1);
         menu.setOnClickListener(this);
 
@@ -42,11 +41,12 @@ public class GameOverWumpus extends AppCompatActivity implements View.OnClickLis
         videoview.start();
     }
 
+    /**
+     * Metodo que controla cuando se hace click en un boton.
+     */
     @Override
-    public void onClick(View view)
-    {
-        switch (view.getId())
-        {
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.buttonRestart1:
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(i);
@@ -54,11 +54,12 @@ public class GameOverWumpus extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+    /**
+     * Metodo que crea un cambio en la configuración.
+     */
     @Override
-    public void onConfigurationChanged(Configuration newConfig)
-    {
+    public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 }
