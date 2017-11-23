@@ -277,7 +277,7 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
                                     }
                                 });
                          if (listaNombres.contains(nombreUsuario)) {
-                             alerta2.setTitle("ERROR!!!");
+                             alerta2.setTitle("¡Error!");
                              alerta2.setMessage("Nombre repetido. No se ha podido guardar.");
                              alerta2.setIcon(android.R.drawable.stat_notify_error);
                          } else {
