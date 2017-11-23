@@ -24,6 +24,7 @@ import com.beyondar.android.world.BeyondarObjectList;
 import com.beyondar.android.world.GeoObject;
 import com.beyondar.android.world.World;
 
+import com.example.carlos.wumpusproject.Manifest;
 import com.example.carlos.wumpusproject.R;
 import com.example.carlos.wumpusproject.activity.AnimacionFlecha;
 import com.example.carlos.wumpusproject.activity.GameOverArrows;
@@ -124,10 +125,17 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
         BeyondarLocationManager.addGeoObjectLocationUpdate(user);
 
         // Le pasamos el LocationManager al BeyondarLocationManager.
-        BeyondarLocationManager.setLocationManager((LocationManager) getSystemService(Context.LOCATION_SERVICE) );
+        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        if (ContextCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 5, this);
+        }
+        BeyondarLocationManager.setLocationManager(locationManager);
 
         //Activa los servicios de ubicacion para el ayudante BeyondarLocationManager.
-        //BeyondarLocationManager.enable();
+        BeyondarLocationManager.enable();
 
         // We also can see the Frames per seconds
         //mBeyondarFragment.showFPS(true);
@@ -353,7 +361,9 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
 
 
             actualizarCuevasAdyacentes(cuevaActual);
+
             Config.jugar.mostrarIndicios(cuevaActual);
+
         }
 
         if(Config.muerte == true){
@@ -399,8 +409,10 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
     @Override
     public void onLocationChanged(Location location) {
       //  Log.e(TAG, "onLocationChanged: " + location);
-        mLastLocation.set(location);
-        numCuevaActual();
+        if(Config.muerte == false && Config.pozo == false && Config.wumpus == false && Config.sinFlechas == false) {
+            numCuevaActual();
+        }
+        //mLastLocation.set(location);
     }
 
     @Override

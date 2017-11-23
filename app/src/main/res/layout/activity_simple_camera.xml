@@ -75,17 +75,16 @@
                     android:id="@+id/textNumCueva"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_below="@+id/txtCueActual"
-                    android:text="-" />
+                    android:text="-"
+                    android:layout_above="@+id/txtCueActual"
+                    android:layout_toEndOf="@+id/iconoCueva" />
 
                 <TextView
                     android:id="@+id/flechasR"
-                    android:layout_width="30dp"
+                    android:layout_width="20dp"
                     android:layout_height="27dp"
                     android:layout_alignParentTop="true"
-                    android:layout_toStartOf="@+id/Flecha"
-                    />
+                    android:layout_toStartOf="@+id/Flecha" />
 
                 <ImageView
                     android:id="@+id/Flecha"
