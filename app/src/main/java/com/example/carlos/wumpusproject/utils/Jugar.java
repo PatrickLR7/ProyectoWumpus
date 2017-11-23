@@ -137,6 +137,8 @@ public class Jugar extends AppCompatActivity {
 
         }else{
 
+            Config.muerte = false;
+            Config.pozo = false;
 
             for (int i = 0; i < vecinos.size(); i++) {
                 vecinoActual = vecinos.get(i);
