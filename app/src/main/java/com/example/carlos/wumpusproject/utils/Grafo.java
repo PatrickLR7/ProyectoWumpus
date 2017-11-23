@@ -7,7 +7,6 @@ import java.util.List;
 /**
  * Grafo implementado por matriz de adyacencia
  */
-
 public class Grafo {
 
     /** Matriz que representa el grafo. */
@@ -17,12 +16,20 @@ public class Grafo {
     /** Lista de cuevas en el juego */
     private List<Integer> nodos;
 
+    /**
+     * Constructor
+     * @param tam Cantidad de nodos del grafo.
+     */
     public Grafo(int tam) {
         dimensionMatriz = tam;
         matriz = new boolean[tam][tam];
         nodos = new ArrayList<>();
     }
 
+    /**
+     * Devuelve el tamaño de la matriz del grafo.
+     * @return Tamaño de la matriz del grafo.
+     */
     public int getDimensionMatriz(){
         return dimensionMatriz;
     }
@@ -73,13 +80,6 @@ public class Grafo {
             }
         }
         return lista;
-    }
-
-    /**
-     * Obtiene los nodos del grafo
-     */
-    public List<Integer> obtenerNodos(){
-        return nodos;
     }
 
     /**

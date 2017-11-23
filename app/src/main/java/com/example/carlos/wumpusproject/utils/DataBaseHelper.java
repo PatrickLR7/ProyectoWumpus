@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
-
 import com.example.carlos.wumpusproject.activity.GraphDrawActivity;
 import java.io.*;
 import java.util.ArrayList;
@@ -15,7 +14,6 @@ import java.util.List;
 /**
  * Clase que maneja la conexion con la base de datos.
  */
-
 public class DataBaseHelper extends SQLiteOpenHelper {
 
     /** Nombres de columnas de la tabla. Representan el esquema de la tabla.*/
@@ -25,10 +23,17 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private static final String Origin = "Origin";
     private static final String Destiny = "Destiny";
 
+    /**
+     * Constructor.
+     */
     public DataBaseHelper(Context context) {
         super(context, TABLE_NAME, null, 1);
     }
 
+    /**
+     * Metodo onCreate.
+     * @param db Instancia de la base de datos
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTable = "CREATE TABLE " + TABLE_NAME + " (" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -36,6 +41,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(createTable);
     }
 
+    /**
+     * Metodo onUpgrade.
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP IF TABLE EXISTS " + TABLE_NAME);
@@ -44,7 +52,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     /**
      * Agrega elementos a la base de datos.
-     *
      * @return true si se finalizó con exito; false en caso conrario.
      */
     public boolean addData(String name, int origin, int destiny) {
@@ -55,13 +62,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         contentValues.put(Destiny, destiny);
 
         long result = db.insert(TABLE_NAME, null, contentValues);
-
         return result != -1;
     }
 
     /**
      * Returns all the names from database
-     *
      * @return Un cursor que apunta a el conjunto de tuplas asociadas a los nombres que pertenecen
      * a la base de datos.
      */
@@ -73,7 +78,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     /**
      * Obtiene todas las aristas asociados a un grafo particular.
-     *
      * @param graphName: El nombre del grafo por consultar.
      * @return Un cursor que apunta a la tabla asociado al grafo consultado.
      */
@@ -86,7 +90,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     /**
      * Inserta un grafo a la base de datos.
-     *
      * @param grafo El grafo que se va a insertar
      * @param nombre El nombre con el que se va a guardar.
      */
@@ -105,7 +108,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     /**
      * Se obtiene un grafo guardado en la base de datos.
-     *
      * @param nombreGrafo El nombre del grafo que se quiere obtener.
      * @return El grafo guardado con el nombre especificado.
      */
@@ -135,24 +137,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Vacia la tabla.
-     */
-    public void limpiarAristas(){
-        String peticion = "TRUNCATE TABLE " + TABLE_NAME;
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL(peticion);
-    }
-
-    /**
-     * Borra un elemento de la base de datos.
-     */
-    public void borrarArista(String nombre){
-        SQLiteDatabase db = this.getWritableDatabase();
-        String peticion = "DELETE FROM " + TABLE_NAME + " WHERE " + Name + " = " + nombre;
-        db.execSQL(peticion);
-    }
-
-    /**
      * Escribe el archivo a almacenamiento interno, de forma pública, es decir es visible para
      * esta aplicacion y para el usuario.
      */
@@ -162,31 +146,32 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         File directorio = new File(almacenamiento.getAbsolutePath() + "/WumpusApp/");
         directorio.mkdirs();
         File file = new File(directorio, nombre+".txt");
+
         try {
             file.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         try {
             FileOutputStream stream = new FileOutputStream(file);
-            while ( cursor.moveToNext() ){
+            while (cursor.moveToNext()) {
                 String hilera = cursor.getInt(2) + "-" + cursor.getInt(3) + "\n";
                 stream.write( hilera.getBytes() );
             }
             stream.close();
-        }catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println("File not found");
-        }catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("IO exception");
         }
-
     }
 
     /**
      * Recrea un grafo representado como archivo.
      * @param nombre El nombre del archivo asociado al grafo en almacenamiento interno.
      */
-    public void leerArchivoComoGrafo(String nombre){
+    public void leerArchivoComoGrafo(String nombre) {
         File almacenamiento = Environment.getExternalStorageDirectory();
         File directorio = new File(almacenamiento.getAbsolutePath() + "/bluetooth/");
         File file = new File(directorio, nombre+".txt");
@@ -215,15 +200,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 }
             }
 
-            /*
-             * Se hace pues la ultima tupla no se agrego, ya que
-             * no habia un cambio de linea despues de ella
-             */
+            //Se hace pues la ultima tupla no se agrego, ya que no habia un cambio de linea despues de ella.
             stream.close();
             this.insertarGrafo(grafo, nombre);
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println("File not found");
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("IO exception");
         }
     }

@@ -14,7 +14,6 @@ import android.view.View;
 /**
  * Clase que representa el canvas en donde se dibuja el laberinto.
  */
-
 public class DrawingCanvas extends View {
 
     /** Path used to draw lines. */

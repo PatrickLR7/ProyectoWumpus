@@ -1,16 +1,16 @@
 package com.example.carlos.wumpusproject.utils;
 
 /**
- * Created by carlos on 30/10/17.
- */
-
-/**
  * Clase usada para representar pares de numeros, por ejemplo entradas de matriz fila/columna o
  * incluso podrian ser coordenadas latitud/longitud
  */
 public class Pair {
-    private int x; // primera entrada (fila o latitud)
-    private int y; // segunda entrada (columna o longitud)
+
+    /** Primera entrada. */
+    private int x;
+
+    /** Segunda entrada. */
+    private int y;
 
     /**
      * Constructor de la clase
