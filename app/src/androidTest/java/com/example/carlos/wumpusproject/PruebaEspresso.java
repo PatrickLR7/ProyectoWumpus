@@ -214,42 +214,6 @@ public class PruebaEspresso extends ActivityInstrumentationTestCase2<MainActivit
         appCompatButton6.perform(scrollTo(), click());
 
 
-        //Pruebas de Bluetooth
-        ViewInteraction appCompatButton7 = onView(
-                allOf(withId(R.id.compartirBluetooth), withText("Compartir por Bluetooth"), isDisplayed()));
-        appCompatButton7.perform(click()); //Entra a la parte de Bluetooth
-        SystemClock.sleep(500);
-        ViewInteraction appCompatButton8 = onView(
-                allOf(withId(R.id.btnLaberinto), withText("Seleccionar Laberinto Para Enviar"), isDisplayed()));
-        appCompatButton8.perform(click()); //Muestra lista de laberintos para enviar uno
-        SystemClock.sleep(500);
-        ViewInteraction appCompatButton9 = onView(
-                allOf(withId(android.R.id.button2), withText("Cancel")));
-        appCompatButton9.perform(scrollTo(), click()); //Cancela
-        SystemClock.sleep(500);
-        ViewInteraction appCompatButton10 = onView(
-                allOf(withId(R.id.sendBtooth), withText("Enviar"), isDisplayed()));
-        appCompatButton10.perform(click()); //Intenta enviar, pero debe mandar error
-        SystemClock.sleep(500);
-        ViewInteraction appCompatButton11 = onView(
-                allOf(withId(R.id.btnSeleccionar), withText("Seleccionar laberinto recibido"), isDisplayed()));
-        appCompatButton11.perform(click()); //Entra a seleccionar un laberinto recibido
-        SystemClock.sleep(1000);
-        //onView(isRoot()).perform(ViewActions.pressBack()); //Retorna
-        SystemClock.sleep(1000);
-        ViewInteraction appCompatButton12 = onView(
-                allOf(withId(R.id.btnRecibido), withText("Guardar Laberinto Recibido en Biblioteca"), isDisplayed()));
-        appCompatButton12.perform(click()); //Lo guarda
-        SystemClock.sleep(500);
-        ViewInteraction appCompatButton13 = onView(
-                allOf(withId(android.R.id.button1), withText("Aceptar")));
-        appCompatButton13.perform(scrollTo(), click());
-        SystemClock.sleep(500);
-        ViewInteraction appCompatButton14 = onView(
-                allOf(withId(R.id.BTNquit), withText("Salir"), isDisplayed()));
-        appCompatButton14.perform(click()); //Se devuelve
-        SystemClock.sleep(2000);
-
         onView(withId(R.id.emplazar)) //Emplaza el laberinto irregular
                 .perform(click());
         SystemClock.sleep(1000);
