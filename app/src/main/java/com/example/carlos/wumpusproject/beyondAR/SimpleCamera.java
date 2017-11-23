@@ -215,7 +215,7 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
         Config.pozo = false;
         Config.cuevaActual = -1;
         Config.numFlechas = 5;
-        flechasRestantes.setText(Config.numFlechas);
+        flechasRestantes.setText("" + Config.numFlechas);
 
         numCuevaActual();
     }
