@@ -2,37 +2,40 @@ package com.example.carlos.wumpusproject.beyondAR;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.annotation.NonNull;
-
 import com.beyondar.android.world.GeoObject;
 import com.beyondar.android.world.World;
 import com.example.carlos.wumpusproject.R;
 import com.example.carlos.wumpusproject.utils.Config;
 import com.example.carlos.wumpusproject.utils.Grafo;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.Vector;
 
+/**
+ * Clase que crea el entorno del juego.
+ */
 @SuppressLint("SdCardPath")
 public class CustomWorldHelper {
     public static final int LIST_TYPE_EXAMPLE_1 = 1;
-
-    private World sharedWorld; // Representa el ambiente o entorno del juego.
-    private ArrayList<GeoObject> geoObjects; // Lista de objetos que actualmente se muestran en la camara
+    /** Representa el ambiente o entorno del juego. */
+    private World sharedWorld;
+    /** Lista de objetos que actualmente se muestran en la camara. */
+    private ArrayList<GeoObject> geoObjects;
+    /** Grafo que guarda la estructura del laberinto. */
     private Grafo grafo;
-    private List< Vector<Double> > coordCuevas; // Coordenadas de cuevas
+    /** Lista que guarda las coordenadas de las cuevas. */
+    private List<Vector<Double>> coordCuevas;
+    /** Mapea el número de cueva original a nombres de los objetos de BeyondAR. */
+    private HashMap mapeoOriginalANombre;
+    /** Mapea nombres de los objetos de BeyondAR a el número de cueva original. */
+    private HashMap mapeoNombreAOriginal;
 
-    private HashMap mapeoOriginalANombre; //Mapea el número de cueva original a nombres de los objetos de BeyondAR
-    private HashMap mapeoNombreAOriginal; //Mapea nombres de los objetos de BeyondAR a el número de cueva original
-
+    /**
+     * Constructor.
+     */
     public CustomWorldHelper(){
         geoObjects = new ArrayList<>();
-
         mapeoOriginalANombre = new HashMap<>();
         mapeoNombreAOriginal = new HashMap<>();
     }
@@ -42,49 +45,38 @@ public class CustomWorldHelper {
      * @param context: Actividad desde donde se llama.
      * @return el mundo creado
      */
-   public World generateObjects(Context context, Vector<Double> coordenadaInicial) {
+    public World generateObjects(Context context) {
         if (sharedWorld != null) {
             return sharedWorld;
         }
 
         sharedWorld = new World(context);
-
-        // The user can set the default bitmap. This is useful if you are
-        // loading images form Internet and the connection get lost
         sharedWorld.setDefaultImage(R.drawable.wumpuslogogreen);
-
         int n = 1;
         int cInicial;
         for (int i = 0; i < Config.coordenadasCuevas.size(); i++) {
             if (!(Config.coordenadasCuevas.get(i).get(0) == 0 && Config.coordenadasCuevas.get(i).get(1)  == 0)) {
-
                 GeoObject go1 = new GeoObject(i);
                 go1.setGeoPosition(Config.coordenadasCuevas.get(i).get(0), Config.coordenadasCuevas.get(i).get(1));
                 go1.setImageResource(R.drawable.cuevaracamara);
                 go1.setName("" + n);
                 sharedWorld.addBeyondarObject(go1);
                 geoObjects.add(go1);
-                if(Config.coordenadasCuevas.get(i).get(0) == Config.coordenadasIniciales.get(0) && Config.coordenadasCuevas.get(i).get(1) == Config.coordenadasIniciales.get(1)){
+                if (Config.coordenadasCuevas.get(i).get(0) == Config.coordenadasIniciales.get(0) && Config.coordenadasCuevas.get(i).get(1) == Config.coordenadasIniciales.get(1)) {
                     cInicial = i;
                     Config.cuevaInicial = cInicial;
                 }
 
                 mapeoOriginalANombre.put(i, n);
                 mapeoNombreAOriginal.put(n, i);
-
                 n++;
-
             }
-
         }
 
         Config.mapOriginalANombre = mapeoOriginalANombre;
         Config.mapNombreAOriginal = mapeoNombreAOriginal;
-
         Config.listaGeoObj = geoObjects;
 
-        // User position (you can change it using the GPS listeners form Android
-        // API)
         sharedWorld.setGeoPosition(Config.coordenadasIniciales.get(0), Config.coordenadasIniciales.get(1));
         coordCuevas = Config.coordenadasCuevas;
         grafo = Config.laberinto;
@@ -114,12 +106,5 @@ public class CustomWorldHelper {
             geoObjects.add(go1);
             sharedWorld.addBeyondarObject(go1);
         }
-
-
     }
-
-    public ArrayList<GeoObject> obtenerListaGeoObjetos(){
-        return geoObjects;
-    }
-
 }
