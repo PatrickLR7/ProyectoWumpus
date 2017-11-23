@@ -204,115 +204,74 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         toggleNetworkUpdates();
         tamGrafo = laberinto.getDimensionMatriz();
         coordenadasCuevas = new Vector<>();
-
-       // if(latitudeNetwork != 0 && longitudeNetwork != 0) {
-       //     crearMapMarks();
-       // }
-
-
     }
 
+    /**
+     * Agrega una marca al mapa en las coordenadas especificadas.
+     * @param lat Latitud de la marca
+     * @param lon Longitud de la marca
+     */
     public void agregarMarca(double lat, double lon) {
         LatLng temp = new LatLng(lat, lon);
         mMap.addMarker(new MarkerOptions().position(temp).title("Marker in " + lat + ", " + lon + " (Cueva " + contadorMarcas + ")"));
-
-
-
-
         contadorMarcas++;
     }
 
     /**
-     * Define los tipos de las cuevas; es decir, si hay pozos o murcielagos.
-     * Se usaran los siguientes numeros:
-     * 0 -> cueva Libre.
-     * 1 -> cueva con Wumpus.
-     * 2 -> cueva con pozo.
-     * 3 -> cueva con murcielagos.
-     * 4 -> cueva inicial del personaje.
+     * Metodo que genera el personaje y lo ubica en una cueva aleatoria.
      */
-   /** public void generarTiposDeCuevas() {
+    public void generarPersonaje() {
+        boolean personaje = false;
         tiposDeCuevas = new ArrayList<>(tamGrafo);
+        for (int i = 0; i < tamGrafo ; i++) {
+            tiposDeCuevas.add(-1);
+        }
+
         for (int x = 0; x < tamGrafo ; x++) {
-            int tipo = (int) (Math.random() * 3);
-           switch (tipo){
-               case 0: tiposDeCuevas.add(0);
-                    break;
-                case 1: tiposDeCuevas.add(2);
-                    break;
-                default:tiposDeCuevas.add(3);
-                    break;
+            if (laberinto.presenteEnElGrafo(x)) {
+                int tipo = (int) (Math.random() * 5);
+                if (tipo == 4 && !personaje) {
+                    tiposDeCuevas.set(x,4);
+                    personaje = true;
+                    posInicialJugador = x;
+                } else {
+                    tiposDeCuevas.set(x,-1);
+                }
+            } else {
+                tiposDeCuevas.set(x,-1);
+            }
+
+            if (x == tamGrafo-1 && !personaje){
+               x = -1;
             }
         }
-        posInicialJugador = (int) (Math.random() * tamGrafo); // no se puede crear el personaje en nodos inexistentes.
-                                                                //De los 9 nodos que hay solo en 4 se puede crear el personaje en 4 de ellos
-        posInicialWumpus = (int) (Math.random() * tamGrafo);
-        tiposDeCuevas.add(posInicialJugador, 4);
-        tiposDeCuevas.add(posInicialWumpus, 1);
         Config.tiposDeCuevas = tiposDeCuevas;
     }
-    */
 
-   public void generarPersonaje() {
-
-       boolean personaje = false;
-       tiposDeCuevas = new ArrayList<>(tamGrafo);
-       for (int i = 0; i < tamGrafo ; i++) {
-           tiposDeCuevas.add(-1);
-       }
-
-       for (int x = 0; x < tamGrafo ; x++) {
-           if (laberinto.presenteEnElGrafo(x)) {
-               int tipo = (int) (Math.random() * 5);
-               if (tipo == 4 && !personaje) {
-                   //x--;
-                   tiposDeCuevas.set(x,4);
-                   personaje = true;
-                   posInicialJugador = x;
-
-               }else{
-                   tiposDeCuevas.set(x,-1);
-               }
-
-           }else{
-               tiposDeCuevas.set(x,-1);
-           }
-
-           if(x == tamGrafo-1 && personaje == false){
-
-               x = -1;
-           }
-       }
-       Config.tiposDeCuevas = tiposDeCuevas;
-   }
-
+    /**
+     * Metodo que crea emplaza el laberinto en el mapa.
+     */
     public void crearMapMarks() {
-       // tetrahedro();
-        //9.93
-        //-84.05
-        //radio: 5 mts
-        //this.generarTiposDeCuevas();
         generarPersonaje();
         int nodoInicial = 0;
         for (int x = 0; x < tamGrafo; x++) {
             Vector<Double> coordenada = new Vector<>();
             if (x == posInicialJugador) {
-                coordenada.add(Config.latUsuario);//usuario
-                coordenada.add(Config.lonUsuario);//usuario
-               // coordenada.add(9.937921);
-               // coordenada.add(-84.052001);
+                coordenada.add(Config.latUsuario);
+                coordenada.add(Config.lonUsuario);
                 coordenadasCuevas.add(x, coordenada);
                 Config.coordenadasIniciales = coordenada;
                 nodoInicial = x;
                 Config.cuevaInicial = nodoInicial;
                 System.out.println("x: " + x + "lat: " + Config.latUsuario + "lon: " + Config.lonUsuario);
-                agregarMarca(Config.latUsuario,Config.lonUsuario);     //generar marcador
+                agregarMarca(Config.latUsuario,Config.lonUsuario);
             } else {
                 coordenada.add(0.0);
                 coordenada.add(0.0);
                 coordenadasCuevas.add(x, coordenada);
             }
         }
+
         Pair pairInicial = laberinto.obtenerFilaColumna(nodoInicial);
         int filas, columnas;
         for (int nodo = 0; nodo < tamGrafo; nodo++) {
@@ -336,26 +295,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             }
         }
+
         Toast.makeText(MapsActivity.this, "Cuevas emplazadas correctamente!", Toast.LENGTH_SHORT).show();
-       // for (int i = 0; i < tamGrafo ; i++) { // Recorre coordenadasCuevas y hace Marks
-         //   if( (coordenadasCuevas.get(i).get(0) != 0.0 ) && (coordenadasCuevas.get(i).get(1) != 0.0 ) ) { //los nodos no presentes en el grafo tienen coor 0.0
-              //  agregarMarca(coordenadasCuevas.get(i).get(0), coordenadasCuevas.get(i).get(1));
-         //   }
-        //}
         Config.coordenadasCuevas = coordenadasCuevas;
     }
 
-    public void tetrahedro(){
-        for (int nodo = 0; nodo < 3; nodo++) {
-            agregarMarca(9.937977,-84.051858);
-            agregarMarca(9.937942,-84.051847);
-            agregarMarca(9.937898,-84.051889);
-            agregarMarca(9.937914,-84.051800);
-        }
-    }
-
+    /**
+     * Metodo que inicia la camara y lo relacionado AR.
+     */
     public void startAR(View v){
-
         Jugar jugar = new Jugar(getApplicationContext());
         Config.jugar = jugar;
         Config.jugar.asignarTiposCuevas();
