@@ -35,4 +35,5 @@ public class Config {
     public static Boolean sinFlechas = false;
     public static Boolean muerte = false;
     public static Boolean pozo = false;
+    public static int cuevaActual = -1;
 }

@@ -206,10 +206,15 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
 
         textCuevaAct = (TextView) findViewById(R.id.textNumCueva);
 
+
+
+
         Config.wumpus = false;
         Config.sinFlechas = false;
         Config.muerte = false;
         Config.pozo = false;
+        Config.cuevaActual = -1;
+        Config.numFlechas = 5;
 
 
         numCuevaActual();
@@ -362,8 +367,11 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
 
             actualizarCuevasAdyacentes(cuevaActual);
 
-            Config.jugar.mostrarIndicios(cuevaActual);
-
+            if(cuevaActual != Config.cuevaActual) // Si la cueva cambió muestra indicios pero si sigue en la misma cueva ya no muestra más indicios hasta que sea diferente
+            {
+                Config.cuevaActual = cuevaActual;
+                Config.jugar.mostrarIndicios(cuevaActual);
+            }
         }
 
         if(Config.muerte == true){
