@@ -57,7 +57,8 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
     private Button emplazar;
 
     /**
-     * Metodo onCreate.
+     * Método invocado al iniciar una actividad.
+     * @param savedInstanceState: instancia anterior de la actividad que ha sido guardada.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +100,8 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
     }
 
     /**
-     * Metodo onClick
+     * Metodo para manejar los múltiples clicks ejecutados sobre los diferentes botones.
+     * @param v: El objeto clickeado.
      */
     @Override
     public void onClick(View v) {
@@ -229,9 +231,9 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
 
     /**
      * Muestra un mensaje con el archivo seleccionado desde la base de datos.
+     * @param hilera: Nombre del mensaje por desplegar.
      */
     public void mostrarMensajeBiblio(final String hilera){
-        final EditText nombre = new EditText(this);
         AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setTitle("Wumpus")
                 .setMessage("Ha escogido el laberinto: " + hilera)
@@ -306,9 +308,9 @@ public class GraphDrawActivity extends AppCompatActivity implements View.OnClick
     }
 
     /**
-     * Devuelve los elmentos de una lista como un array.
-     *
-     * @return Un array con los elementos de la lista.
+     * Método que permite crear un arreglo de hileras a partir de una lista de hileras.
+     * @param list: La lista de la que se quiere crear el arreglo
+     * @return Un arreglo de hileras.
      */
     public static String[] listAsStringArray(List<String> list){
         String[] array = new String[list.size()];

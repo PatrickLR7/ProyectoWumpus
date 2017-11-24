@@ -45,6 +45,7 @@ import com.beyondar.android.plugin.radar.RadarWorldPlugin;
  */
 public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarObjectListener, OnSeekBarChangeListener, android.location.LocationListener{
 
+    /** Fragmento de BeyondAR, permite la interacción con los objetos del mundo */
     private BeyondarFragmentSupport mBeyondarFragment;
     /** Mundo. */
     private World mWorld;
@@ -53,6 +54,7 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
     /** Muestra la cueva actual del jugador. */
     private TextView textCuevaAct;
 
+    /** Vista del radar y otras utilidades que utiliza */
     private RadarView mRadarView;
     private RadarWorldPlugin mRadarPlugin;
     private SeekBar mSeekBarMaxDistance;
@@ -73,7 +75,10 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
     /** Mapea nombres de los objetos de BeyondAR a el número de cueva original. */
     private HashMap mapeoNombreAOriginal;
 
-    /** Llamado cuando se crea la actividad. */
+    /**
+     * Metodo que se ejecuta al iniciar la actividad.
+     * @param savedInstanceState: Guarda una instancia del estado anterior de la actividad.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -180,7 +185,8 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
         Config.pozo = false;
         Config.cuevaActual = -1;
         Config.numFlechas = 5;
-        flechasRestantes.setText("" + Config.numFlechas);
+        String hilFlechasRestantes = "" + Config.numFlechas;
+        flechasRestantes.setText(hilFlechasRestantes);
         numCuevaActual();
     }
 
@@ -247,28 +253,49 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
         }
     }
 
+    /**
+     *
+     * @param seekBar:
+     * @param progress:
+     * @param fromUser:
+     */
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         if (mRadarPlugin == null)
             return;
         if (seekBar == mSeekBarMaxDistance) {
-            mTextviewMaxDistance.setText("Max distance Value: " + progress);
+            String str = "Max distance Value: " + progress;
+            mTextviewMaxDistance.setText(str);
             mRadarPlugin.setMaxDistance(progress);
         }
     }
 
+    /**
+     *
+     * @param seekBar:
+     */
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {}
 
+    /**
+     *
+     * @param seekBar:
+     */
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {}
 
+    /**
+     *
+     */
     @Override
     protected void onResume(){
         super.onResume();
         BeyondarLocationManager.enable();
     }
 
+    /**
+     *
+     */
     @Override
     protected void onPause(){
         super.onPause();
@@ -276,7 +303,8 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
     }
 
     /**
-     * Utilizado para indicarle al usuario el numero de la cueva en la que se encuentra.
+     *
+     * @return
      */
     public int numCuevaActual(){
         BeyondarObjectList listaObjetos = mWorld.getBeyondarObjectList(0);
@@ -321,8 +349,8 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
     }
 
     /**
-     * Metodo para poner cuevas adyacentes visibles y las demas no
-     * Utiliza la lista de objetos del mundo mWorld
+     *
+     * @param nodo
      */
     public void actualizarCuevasAdyacentes(int nodo){
         BeyondarObjectList listita = mWorld.getBeyondarObjectList(0);
@@ -356,12 +384,26 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
         }
     }
 
+    /**
+     *
+     * @param provider:
+     */
     @Override
     public void onProviderDisabled(String provider) {}
 
+    /**
+     *
+     * @param provider:
+     */
     @Override
     public void onProviderEnabled(String provider) {}
 
+    /**
+     *
+     * @param provider:
+     * @param status:
+     * @param extras:
+     */
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {}
 

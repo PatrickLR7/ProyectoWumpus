@@ -30,7 +30,9 @@ public class DrawingCanvas extends View {
     private Bitmap canvasBitmap;
 
     /**
-     * Constructor
+     * Constructor de la clase.
+     * @param context: Contexto desde el que se hace el llamado a esta clase.
+     * @param attrs: Conjunto de atributos que se le pasan a la vista relacionada.
      */
     public DrawingCanvas(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -54,7 +56,11 @@ public class DrawingCanvas extends View {
     }
 
     /**
-     * Size assigned to the view.
+     * Metodo llamado al intentar ajustar el tamaño del canvas.
+     * @param w:
+     * @param h:
+     * @param oldw:
+     * @param oldh:
      */
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -64,7 +70,8 @@ public class DrawingCanvas extends View {
     }
 
     /**
-     * Metodo que dibuja.
+     * Método invocado al tratar de dibujar la en canvas en la vista.
+     * @param canvas:
      */
     @Override
     protected void onDraw (Canvas canvas) {
@@ -74,7 +81,11 @@ public class DrawingCanvas extends View {
     }
 
     /**
-     * Registers users finger touch actions.
+     * Método que registra el toque de la pantalla con los dedos.
+     * @param event: El tipo de evento detectado, generado de acuerdo a la manera en que se
+     *             tocó la pantalla.
+     * @return true, siempre. Esto se hace así porque el método de la clase padre debe devolver
+     * un boolean, para este proyecto este valor de retorno no tiene utilidad.
      */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -87,14 +98,15 @@ public class DrawingCanvas extends View {
             default:
                 return false;
         }
-    
-        // Repaint
-        //invalidate();
         return true;
     }
 
     /**
-     * Borra una línea en el canvas.
+     * Permite borrar lineas del canvas, pintando sobre ellas con el color del fondo.
+     * @param iX: coordenada X inicial
+     * @param iY: coordenada Y inicial
+     * @param fX: coordenada X final
+     * @param fY: coordenada Y final
      */
     public void borrarLinea(float iX, float iY, float fX, float fY){
         drawPaint.setColor(blackColor);
@@ -103,7 +115,11 @@ public class DrawingCanvas extends View {
     }
 
     /**
-     * Dibuja una linea en el canvas.
+     * Permite dibujar líneas, pintando una camino entre ellas.
+     * @param iX: coordenada X inicial
+     * @param iY: coordenada Y inicial
+     * @param fX: coordenada X final
+     * @param fY: coordenada Y final
      */
     public void dibujarLinea(float iX, float iY, float fX, float fY){
         drawPath.moveTo(iX, iY);
@@ -114,7 +130,8 @@ public class DrawingCanvas extends View {
     }
 
     /**
-     * Actualiza color.
+     * Permite ajustar el color por uno nuevo.
+     * @param newColor: El código hexadecimal que identifica el nuevo color.
      */
     public void setColor(String newColor){
         invalidate();

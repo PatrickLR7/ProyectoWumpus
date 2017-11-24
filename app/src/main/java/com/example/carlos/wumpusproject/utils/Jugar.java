@@ -64,13 +64,13 @@ public class Jugar extends AppCompatActivity {
         for (int i = 0; i < tiposCueva.size() ; i++) {
             if (tablero.presenteEnElGrafo(i)) {
                 int tipo = (int) (Math.random() * 5);
-                if (tipo == 1 && wumpus==false && tiposCueva.get(i) != 4 ) { //Asigna Wumpus a un nodo existente que no tenga 4(Personaje)
+                if (tipo == 1 && !wumpus && tiposCueva.get(i) != 4 ) { //Asigna Wumpus a un nodo existente que no tenga 4(Personaje)
                     tiposCueva.set(i,1);
                     wumpus = true;
                 }
             }
 
-            if (i == tiposCueva.size() - 1 && wumpus == false) { //Si recorrio el vector sin agregar un wumpus entonces se realiza otra vez el ciclo
+            if (i == tiposCueva.size() - 1 && !wumpus) { //Si recorrio el vector sin agregar un wumpus entonces se realiza otra vez el ciclo
                 i = -1;
             }
         }
@@ -127,7 +127,6 @@ public class Jugar extends AppCompatActivity {
                     case 1: //Mensaje diciendo que hay wumpus
                         Toast.makeText(context, "Hay un desagradable olor a wumpus", Toast.LENGTH_LONG).show();
                         break;
-
                     case 2: //Vibra avisando que cerca hay un pozo.
                         if (v.hasVibrator()) { //Verifica que el dispositivo tiene la capacidad de vibrar
                             if (Build.VERSION.SDK_INT >= 26) { //La vibración se maneja distinto según el SDK
@@ -139,7 +138,6 @@ public class Jugar extends AppCompatActivity {
                             Toast.makeText(context, "Se siente una brisa fría", Toast.LENGTH_LONG).show();
                         }
                         break;
-
                     case 3: //Murciélagos con efecto de sonido
                         mp.start();
                         break;
@@ -190,7 +188,5 @@ public class Jugar extends AppCompatActivity {
     /**
      * Metodo para manejar el caso en que el usuario cayó en el pozo.
      */
-    public void pozo() {
-        Config.pozo = true;
-    }
+    public void pozo() {    Config.pozo = true; }
 }

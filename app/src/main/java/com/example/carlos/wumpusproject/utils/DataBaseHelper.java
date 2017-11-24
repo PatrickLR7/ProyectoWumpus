@@ -24,7 +24,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private static final String Destiny = "Destiny";
 
     /**
-     * Constructor.
+     * Constructor de la clase.
+     * @param context: Contexto desde el que es creada esta clase.
      */
     public DataBaseHelper(Context context) {
         super(context, TABLE_NAME, null, 1);
@@ -42,7 +43,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Metodo onUpgrade.
+     * Método llamado para recrear la base de datos.
+     * @param db: instancia de la base de datos asociada a esta aplicacion
+     * @param i:
+     * @param i1:
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
@@ -51,10 +55,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Agrega elementos a la base de datos.
-     * @return true si se finalizó con exito; false en caso conrario.
+     * Metodo que permite la inserción de aristas sobre cierta instancia de un grafo.
+     * @param name: Nombre del grafo por insertar
+     * @param origin: nodo origen
+     * @param destiny: nodo destino
+     * @return true si los datos se agregaron correctamente, false caso contrario.
      */
-    public boolean addData(String name, int origin, int destiny) {
+    private boolean addData(String name, int origin, int destiny) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Name, name);
@@ -70,7 +77,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
      * @return Un cursor que apunta a el conjunto de tuplas asociadas a los nombres que pertenecen
      * a la base de datos.
      */
-    public Cursor getNames() {
+    private Cursor getNames() {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT DISTINCT " + Name + " FROM " + TABLE_NAME;
         return db.rawQuery(query, null);
@@ -81,7 +88,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
      * @param graphName: El nombre del grafo por consultar.
      * @return Un cursor que apunta a la tabla asociado al grafo consultado.
      */
-    public Cursor getTuples(String graphName) {
+    private Cursor getTuples(String graphName) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_NAME +
                 " WHERE " + Name + " = '" + graphName + "'";
@@ -137,15 +144,17 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Escribe el archivo a almacenamiento interno, de forma pública, es decir es visible para
-     * esta aplicacion y para el usuario.
+     * Metodo que permite crear un archivo a partir de los datos asociados a un grafo y lo guarda
+     * en el almacenamiento externo del dispositivo.
+     * @param nombre: Cumple dos roles, el nombre del grafo guardado en la base de datos
+     *              y también el nombre que se le asigna al archivo creado.
      */
     public void grafoComoArchivo(String nombre) {
         Cursor cursor = this.getTuples(nombre);
         File almacenamiento = Environment.getExternalStorageDirectory();
         File directorio = new File(almacenamiento.getAbsolutePath() + "/WumpusApp/");
         directorio.mkdirs();
-        File file = new File(directorio, nombre+".txt");
+        File file = new File(directorio, nombre + ".txt");
 
         try {
             file.createNewFile();
@@ -169,7 +178,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     /**
      * Recrea un grafo representado como archivo.
-     * @param nombre El nombre del archivo asociado al grafo en almacenamiento interno.
+     * @param nombre El nombre del archivo asociado al grafo en almacenamiento externo.
      */
     public void leerArchivoComoGrafo(String nombre) {
         File almacenamiento = Environment.getExternalStorageDirectory();

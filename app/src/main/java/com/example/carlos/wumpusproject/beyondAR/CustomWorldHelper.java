@@ -17,6 +17,7 @@ import java.util.Vector;
  */
 @SuppressLint("SdCardPath")
 public class CustomWorldHelper {
+
     public static final int LIST_TYPE_EXAMPLE_1 = 1;
     /** Representa el ambiente o entorno del juego. */
     private World sharedWorld;
@@ -27,12 +28,12 @@ public class CustomWorldHelper {
     /** Lista que guarda las coordenadas de las cuevas. */
     private List<Vector<Double>> coordCuevas;
     /** Mapea el número de cueva original a nombres de los objetos de BeyondAR. */
-    private HashMap mapeoOriginalANombre;
+    private HashMap<Integer, Integer> mapeoOriginalANombre;
     /** Mapea nombres de los objetos de BeyondAR a el número de cueva original. */
-    private HashMap mapeoNombreAOriginal;
+    private HashMap<Integer, Integer> mapeoNombreAOriginal;
 
     /**
-     * Constructor.
+     * Class Constructor.
      */
     public CustomWorldHelper(){
         geoObjects = new ArrayList<>();
@@ -62,7 +63,7 @@ public class CustomWorldHelper {
                 go1.setName("" + n);
                 sharedWorld.addBeyondarObject(go1);
                 geoObjects.add(go1);
-                if (Config.coordenadasCuevas.get(i).get(0) == Config.coordenadasIniciales.get(0) && Config.coordenadasCuevas.get(i).get(1) == Config.coordenadasIniciales.get(1)) {
+                if (Config.coordenadasCuevas.get(i).get(0).equals(Config.coordenadasIniciales.get(0)) && Config.coordenadasCuevas.get(i).get(1).equals(Config.coordenadasIniciales.get(1)) ) {
                     cInicial = i;
                     Config.cuevaInicial = cInicial;
                 }
@@ -82,29 +83,5 @@ public class CustomWorldHelper {
         grafo = Config.laberinto;
 
         return sharedWorld;
-    }
-
-    /**
-     * Refresca la camara cada vez que el usuario cambia de una cueva a otra, para mostrar rotulos
-     * sobre las nuevas cuevas adyacentes y borrar los rotulos viejo.
-     * @param nodo: nodo actual
-     */
-    public void updateObjects(int nodo){
-        for (int i = 0; i < geoObjects.size(); i++) { // Removes previous objects
-            sharedWorld.remove( geoObjects.get(i) );
-        }
-        geoObjects.clear();
-
-        List<Integer> adyacentes = grafo.obtenerVecinos(nodo);
-        for (int i = 0; i < adyacentes.size(); i++) {
-            int nodoVecino = adyacentes.get(i);
-            GeoObject go1 = new GeoObject(nodoVecino);
-            Vector<Double> coordenada = coordCuevas.get(nodoVecino);
-            go1.setGeoPosition(coordenada.get(0), coordenada.get(1));
-            go1.setImageResource(R.drawable.rotulo_direccion);
-            go1.setName("Cave " + i);
-            geoObjects.add(go1);
-            sharedWorld.addBeyondarObject(go1);
-        }
     }
 }

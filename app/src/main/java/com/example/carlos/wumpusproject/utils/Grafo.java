@@ -35,7 +35,10 @@ public class Grafo {
     }
 
     /**
-     * Se agrega un camino entre los nodos especificados.
+     * Metodo para agregar aristas en la matriz. Dado que el grafo es no dirigido, la arista
+     * se agrega en ambos sentidos.
+     * @param nodoX: Nodo origen
+     * @param nodoY: Nodo destino
      */
     public void addArista(int nodoX, int nodoY) {
         if (!matriz[nodoX][nodoY]) {
@@ -49,28 +52,35 @@ public class Grafo {
     }
 
     /**
-     * Se borra un camino entre los nodos especificados.
+     * Borra la arista de la clase grafo. Borra dos aristas ya que el grafo es no dirigido.
+     * @param nodoX: Primer nodo
+     * @param nodoY Segundo nodo
      */
     public void deleteArista(Integer nodoX, Integer nodoY) {
         if (matriz[nodoX][nodoY]) {
             matriz[nodoX][nodoY] = false;
             matriz[nodoY][nodoX] = false;
             if (this.presenteEnElGrafo(nodoX))
-                nodos.remove(nodoX);
+                nodos.remove(nodoX); // Borra nodo solo si no esta involucrado en otra arista del grafo
             if (this.presenteEnElGrafo(nodoY))
                 nodos.remove(nodoY);
         }
     }
 
     /**
-     * Metodo para saber si hay una arista entre dos nodos
+     * Permite saber si existe una arista entre dos nodos dados
+     * @param nodoX: Primer nodo
+     * @param nodoY: Segundo nodo
+     * @return true si la arista existe, false caso contrario.
      */
     public boolean hayArista(int nodoX, int nodoY){
         return matriz[nodoX][nodoY];
     }
 
     /**
-     * Se obtienen los nodos adyacentes al nodo especificado por parametro.
+     * Permite obtener los vecinos de un nodo determinado
+     * @param Nodo: El nodo que se quiere consultar
+     * @return Una lista ordenada con los nodos adyacentes al nodo consultado.
      */
     public List<Integer> obtenerVecinos(int Nodo) {
         List<Integer> lista = new LinkedList<>();
@@ -83,7 +93,9 @@ public class Grafo {
     }
 
     /**
-     * Obtiene la cantidad de nodos presentes en el grafo
+     * Permite conocer la cantidad de nodos presentes en el grafo. Es decir aquellos que
+     * participan en al menos una arista.
+     * @return Número de nodos.
      */
     public int getNumeroNodos(){
         return nodos.size();
