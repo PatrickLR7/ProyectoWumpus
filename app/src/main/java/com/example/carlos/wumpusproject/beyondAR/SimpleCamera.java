@@ -254,10 +254,10 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
     }
 
     /**
-     *
-     * @param seekBar:
-     * @param progress:
-     * @param fromUser:
+     * Utilizado para cambiar la distancia máxima del radar mediante un seekBar (no se utiliza en la versión final del juego).
+     * @param seekBar: Barra para cambiar la distancia máxima.
+     * @param progress: Distancia máxima seleccionada en la barra.
+     * @param fromUser: Indica si el cambio en la barra (seekbar) fue inicializado por el usuario.
      */
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -271,21 +271,21 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
     }
 
     /**
-     *
-     * @param seekBar:
+     * Activado cuando el usuario toca el seekBar para cambiar la distancia máxima
+     * @param seekBar: La barra en la cual se cambia la distancia.
      */
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {}
 
     /**
-     *
-     * @param seekBar:
+     * Activado cuando el usuario deja de tocar el seekBar.
+     * @param seekBar: La barra en la cual se cambia la distancia.
      */
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {}
 
     /**
-     *
+     * Cuando la aplicación continúa ejecutandose, habilida los servicios de BeyondarLocationManager.
      */
     @Override
     protected void onResume(){
@@ -294,7 +294,7 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
     }
 
     /**
-     *
+     * Cuando la aplicación se pausa, desactiva el BeyondarLocationManager.
      */
     @Override
     protected void onPause(){
@@ -303,8 +303,8 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
     }
 
     /**
-     *
-     * @return
+     * Actualiza el número de la cueva en la que se encuentra el usuario actualmente.
+     * @return Retorna el número de cueva actual.
      */
     public int numCuevaActual(){
         BeyondarObjectList listaObjetos = mWorld.getBeyondarObjectList(0);
@@ -349,8 +349,9 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
     }
 
     /**
-     *
-     * @param nodo
+     * Revisa las cuevas adyacentes a la cueva actual y las pone como visibles.
+     * El resto de las cuevas las coloca invisibles.
+     * @param nodo Recibe el número de cueva actual.
      */
     public void actualizarCuevasAdyacentes(int nodo){
         BeyondarObjectList listita = mWorld.getBeyondarObjectList(0);
@@ -374,7 +375,7 @@ public class SimpleCamera extends AppCompatActivity implements OnClickBeyondarOb
     }
 
     /**
-     * Metodo que revisa cambios en la ubicacion del usuario.
+     * Metodo que revisa cambios en la ubicacion del usuario. Ejecuta al método que actualiza el número de cueva actual.
      * @param location La nueva ubicacion
      */
     @Override
