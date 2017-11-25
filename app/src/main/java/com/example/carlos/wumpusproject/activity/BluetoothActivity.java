@@ -88,9 +88,9 @@ public class BluetoothActivity extends AppCompatActivity {
 
     /**
      * Muestra un mensaje cuando se acepta el permiso o cuando no es aceptado.
-     * @param requestCode:
-     * @param permissions:
-     * @param grantResults:
+     * @param requestCode: Código requerido
+     * @param permissions: Permisos solicitados
+     * @param grantResults: Resultados de solicitud.
      */
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
@@ -109,7 +109,7 @@ public class BluetoothActivity extends AppCompatActivity {
 
     /**
      * Utilizado para salir del activity de bluetooth.
-     * @param V:
+     * @param V: Vista actual
      */
     public void exit(View V) {
         Toast.makeText(getApplicationContext(),"Saliendo de Bluetooth",Toast.LENGTH_LONG).show();
@@ -118,6 +118,7 @@ public class BluetoothActivity extends AppCompatActivity {
 
     /**
      * Método que se ejecuta cuando se envía un archivo por bluetooth (se activa con el boton enviar del layout).
+     * @param v: Vista actual.
      */
     public void sendViaBluetooth(View v) {
         if (!dataPath.equals(null)) {
@@ -142,7 +143,7 @@ public class BluetoothActivity extends AppCompatActivity {
 
     /**
      * Abre el almacenamiento del smartphone para seleccionar un archivo.
-     * @param v:
+     * @param v: Vista actual.
      */
     public void getFile(View v) {
         Intent mediaIntent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -152,8 +153,8 @@ public class BluetoothActivity extends AppCompatActivity {
 
     /**
      * Obtiene la ruta de un archivo seleccionado.
-     * @param context:
-     * @param uri:
+     * @param context: Contexto actual.
+     * @param uri: URI sobre el que se realiza la búsqueda.
      * @return
      */
     public static String getPath(final Context context, final Uri uri) {
@@ -223,9 +224,9 @@ public class BluetoothActivity extends AppCompatActivity {
 
     /**
      * Método que se encarga de manejar los códigos de respuesta del activity.
-     * @param requestCode:
-     * @param resultCode:
-     * @param data:
+     * @param requestCode: Código de solicitud.
+     * @param resultCode: Código de resultado.
+     * @param data: Datos.
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -279,7 +280,7 @@ public class BluetoothActivity extends AppCompatActivity {
 
     /**
      * Permite elegir un laberinto de la biblioteca para enviar.
-     * @param view:
+     * @param view: Vista actual.
      */
     public void elegirLaberinto(View view){
         List<String> nombresGrafos = dbManager.obtenerNombresDeGrafos();
@@ -301,7 +302,7 @@ public class BluetoothActivity extends AppCompatActivity {
 
     /**
      * Muestra un mensaje con el archivo seleccionado desde la base de datos (laberinto de la biblioteca).
-     * @param hilera:
+     * @param hilera: Mensaje por desplegar.
      */
     public void msjBiblioYGenerarArchivo(final String hilera){
         final EditText nombre = new EditText(this);
@@ -311,19 +312,10 @@ public class BluetoothActivity extends AppCompatActivity {
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         // generar archivo para enviar
-                        /*
-                        grafo = dbManager.obtenerGrafoDeLibreria(hilera);
-                        definirTiposDeCuevas();
-                        guardarConfiguracion();
-                        */
                         boolean encontrado = false;
                         String nombre = hilera;
                         for (int i = 0; i < archCreados.size(); i++) {
-                            if (nombre.equals(archCreados.get(i))) {
-                                encontrado = true;
-                            } else {
-                                encontrado = false;
-                            }
+                            encontrado = nombre.equals(archCreados.get(i));
                         }
                         if (!encontrado) {
                             dbManager.grafoComoArchivo(hilera);
@@ -344,7 +336,7 @@ public class BluetoothActivity extends AppCompatActivity {
 
     /**
      * Guarda un laberinto recibido por bluetooth en la biblioteca.
-     * @param view:
+     * @param view: Vista actual.
      */
     public void guardarEnBiblioteca(View view){
         String nom;
