@@ -44,8 +44,8 @@ public class GrafosRegulares extends AppCompatActivity implements View.OnClickLi
     }
 
     /**
-     * Metodo llamado al clickear sobre un poliedro regular, este lo construye y lo guarda en la clase
-     * encargada de la configuracion.
+     * Método que maneja la interacción con los botones mostrados.
+     * @param v: La vista sobre la que se encuentran los botones.
      */
     @Override
     public void onClick(View v) {

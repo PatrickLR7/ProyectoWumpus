@@ -18,7 +18,8 @@ public class AnimacionFlecha extends AppCompatActivity {
     int counter = 0;
 
     /**
-     * Metodo que crea el layout.
+     * Método encargado de iniciar la actividad.
+     * @param savedInstanceState: Instancia antigua guardada acerca de esta actividad.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

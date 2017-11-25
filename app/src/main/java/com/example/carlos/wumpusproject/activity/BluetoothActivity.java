@@ -31,7 +31,6 @@ import java.util.List;
 /**
  * Clase que controla el intercambio de archivos mdiante bluetooth
  */
-
 public class BluetoothActivity extends AppCompatActivity {
 
     /** Botones para el layout. */
@@ -56,7 +55,8 @@ public class BluetoothActivity extends AppCompatActivity {
     String pathRecibido = "";
 
     /**
-     * Metodo que crea el layout.
+     * Método encargado de iniciar la actividad.
+     * @param savedInstanceState: Instancia antigua guardada acerca de esta actividad.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) { /* Inicializa todas las variables requeridas. */
@@ -88,6 +88,9 @@ public class BluetoothActivity extends AppCompatActivity {
 
     /**
      * Muestra un mensaje cuando se acepta el permiso o cuando no es aceptado.
+     * @param requestCode:
+     * @param permissions:
+     * @param grantResults:
      */
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
@@ -106,6 +109,7 @@ public class BluetoothActivity extends AppCompatActivity {
 
     /**
      * Utilizado para salir del activity de bluetooth.
+     * @param V:
      */
     public void exit(View V) {
         Toast.makeText(getApplicationContext(),"Saliendo de Bluetooth",Toast.LENGTH_LONG).show();
@@ -138,6 +142,7 @@ public class BluetoothActivity extends AppCompatActivity {
 
     /**
      * Abre el almacenamiento del smartphone para seleccionar un archivo.
+     * @param v:
      */
     public void getFile(View v) {
         Intent mediaIntent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -147,6 +152,9 @@ public class BluetoothActivity extends AppCompatActivity {
 
     /**
      * Obtiene la ruta de un archivo seleccionado.
+     * @param context:
+     * @param uri:
+     * @return
      */
     public static String getPath(final Context context, final Uri uri) {
         final boolean isKitKatOrAbove = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
@@ -205,6 +213,7 @@ public class BluetoothActivity extends AppCompatActivity {
     }
 
     /**
+     * Verifica si un determinado URI es almacenamiento externo.
      * @param uri El Uri a revisar.
      * @return Si la autoridad del Uri es "ExternalStorageProvider".
      */
@@ -214,6 +223,9 @@ public class BluetoothActivity extends AppCompatActivity {
 
     /**
      * Método que se encarga de manejar los códigos de respuesta del activity.
+     * @param requestCode:
+     * @param resultCode:
+     * @param data:
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -225,9 +237,6 @@ public class BluetoothActivity extends AppCompatActivity {
             File file = new File(path);
 
              i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
-            //i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(getFileStreamPath(h)));
-            //i.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(BluetoothActivity.this,
-            //BuildConfig.APPLICATION_ID + ".provider", file));
 
             PackageManager pm = getPackageManager();
             List<ResolveInfo> list = pm.queryIntentActivities(i, 0);
@@ -270,6 +279,7 @@ public class BluetoothActivity extends AppCompatActivity {
 
     /**
      * Permite elegir un laberinto de la biblioteca para enviar.
+     * @param view:
      */
     public void elegirLaberinto(View view){
         List<String> nombresGrafos = dbManager.obtenerNombresDeGrafos();
@@ -280,7 +290,8 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 msjBiblioYGenerarArchivo(vectorNombres[i]);
-                dataPath.setText("Ha elegido el laberinto: " + vectorNombres[i]);
+                String texto = "Ha elegido el laberinto: " + vectorNombres[i];
+                dataPath.setText(texto);
             }
         });
         builder.setNegativeButton("Cancel", null); // No tiene OnClickListener
@@ -333,6 +344,7 @@ public class BluetoothActivity extends AppCompatActivity {
 
     /**
      * Guarda un laberinto recibido por bluetooth en la biblioteca.
+     * @param view:
      */
     public void guardarEnBiblioteca(View view){
         String nom;

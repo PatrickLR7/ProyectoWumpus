@@ -21,7 +21,8 @@ public class GameOverArrows extends AppCompatActivity implements View.OnClickLis
     private Button menu;
 
     /**
-     * Metodo que crea el layout.
+     * Método encargado de iniciar la actividad.
+     * @param savedInstanceState: Instancia antigua guardada acerca de esta actividad.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class GameOverArrows extends AppCompatActivity implements View.OnClickLis
 
     /**
      * Metodo que controla cuando se hace click en un boton.
+     * @param view: La vista sobre la que se ubican los botones.
      */
     @Override
     public void onClick(View view) {
@@ -56,6 +58,7 @@ public class GameOverArrows extends AppCompatActivity implements View.OnClickLis
 
     /**
      * Metodo que crea un cambio en la configuración.
+     * @param newConfig: La nueva configuración deseada.
      */
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
