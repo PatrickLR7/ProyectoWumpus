@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Clase que controla el intercambio de archivos mdiante bluetooth
+ * Clase que controla el intercambio de archivos mediante bluetooth
  */
 public class BluetoothActivity extends AppCompatActivity {
 

@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Vector;
 
 /**
- * Clase de la activity maps.
+ * Clase que controla el emplazamiento utilizando mapa de Google.
  */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -60,6 +60,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /**
      * Metodo que crea el layout.
+     * @param savedInstanceState: Guarda una instancia del estado anterior de la actividad.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +88,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /**
      * Muestra un mensaje cuando se acepta el permiso o cuando no es aceptado.
+     *  @param requestCode: Código requerido
+     * @param permissions: Permisos solicitados
+     * @param grantResults: Resultados de solicitud.
      */
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
@@ -158,7 +162,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * Metodo que verifica los cambios de coordenadas.
      */
     private final LocationListener locationListenerNetwork = new LocationListener() {
-        /** Cambio en la ubicación. */
+        /** Metodo que se activa cuando se detecta un cambio de ubicación
+         * @param location Objeto Location que contiene las coordenadas del usuario*
+         */
         public void onLocationChanged(Location location) {
             if (location.getLongitude() != 0 && location.getLatitude() != 0 && primera) {
                 primera = false;
@@ -187,13 +193,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     };
 
     /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
+     *Metodo que se activa cuando el mapa está listo para usarse
+     * @param googleMap Instancia de Google Map
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -249,7 +250,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     /**
-     * Metodo que crea emplaza el laberinto en el mapa.
+     * Metodo que emplaza el laberinto en el mapa.
      */
     public void crearMapMarks() {
         generarPersonaje();
@@ -302,6 +303,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /**
      * Metodo que inicia la camara y lo relacionado AR.
+     * @param v: Objeto vista
      */
     public void startAR(View v){
         Jugar jugar = new Jugar(getApplicationContext());
